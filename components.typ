@@ -266,17 +266,17 @@
 
 
 #let frontmatter-banner(title) = [
-  #v(-1.5cm)
+  #v(-0.1cm)
   
   #block(
     width: 100%,
-    fill: rgb("#6aa198"),
+    fill: rgb("#ffffff"),
     inset: 8pt,
    
   )[
     #align(center)[
       #text(
-        fill: white,
+        fill: black,
         weight: "bold",
         size: 18pt,
       )[
@@ -285,12 +285,9 @@
     ]
   ]
 
-  #v(-0.3cm)
+  #v( -0.6cm)
 
-  #line(
-    length: 100%,
-    stroke: 1pt + rgb("#036b6254")
-  )
+  
   
 
   #v(0.4cm)
@@ -745,38 +742,41 @@
 ]
 
 
-
-
-#let acronym-badge(short) = box(
-  width: 3cm,
-  inset: (x: 0pt, y: 2pt),
-)[
-  #text(
-    size: 10pt,
-    weight: "bold",
-    fill: rgb("#245E68"),
-  )[
-    #short
-  ]
-]
+// =====================================================
+// Academic Acronyms Table
+// =====================================================
 
 #let acronym-row(short, meaning) = [
   #grid(
-    columns: (3.4cm, 1fr),
-    column-gutter: 0.8cm,
-    inset: (x: 0pt, y: 1pt),
-    align: horizon,
+    columns: (3.2cm, 1fr),
+    column-gutter: 0.9cm,
+    inset: (x: 0pt, y: 5pt),
+    align: top,
     [
-      #acronym-badge(short)
+      #text(
+        font: "Times New Roman",
+        size: 11pt,
+        weight: "bold",
+        fill: black,
+      )[
+        #short
+      ]
     ],
     [
-      #text(size: 10.5pt, fill: rgb("#253044"))[
+      #text(
+        font: "Times New Roman",
+        size: 11pt,
+        fill: black,
+      )[
         #meaning
       ]
     ],
   )
 
-  #line(length: 100%, stroke: 0.35pt + rgb("#D7E8EC"))
+  #line(
+    length: 100%,
+    stroke: 0.35pt + rgb("#BFBFBF"),
+  )
 ]
 
 #let acronym-table(items) = block(
@@ -786,78 +786,174 @@
   #block(
     width: 100%,
     inset: (x: 0pt, y: 6pt),
-    stroke: (bottom: 0.8pt + rgb("#8BBCC5")),
+    stroke: (
+      top: 0.6pt + black,
+      bottom: 0.6pt + black,
+    ),
   )[
     #grid(
-      columns: (3.4cm, 1fr),
-      column-gutter: 0.8cm,
+      columns: (3.2cm, 1fr),
+      column-gutter: 0.9cm,
+      align: top,
       [
-        #text(size: 9pt, weight: "bold", fill: rgb("#245E68"))[Acronyme]
+        #text(
+          font: "Times New Roman",
+          size: 11pt,
+          weight: "bold",
+          fill: black,
+        )[Acronyme]
       ],
       [
-        #text(size: 9pt, weight: "bold", fill: rgb("#245E68"))[Signification]
+        #text(
+          font: "Times New Roman",
+          size: 11pt,
+          weight: "bold",
+          fill: black,
+        )[Signification]
       ],
     )
   ]
 
   #v(2pt)
 
-  #for item in items {
-    acronym-row(item.short, item.meaning)
-  }
+  #for item in items [
+    #acronym-row(item.short, item.meaning)
+  ]
 ]
+
+
+
+// #let acronym-badge(short) = box(
+//   width: 3cm,
+//   inset: (x: 0pt, y: 2pt),
+// )[
+//   #text(
+//     size: 10pt,
+//     weight: "bold",
+//     fill: rgb("#245E68"),
+//   )[
+//     #short
+//   ]
+// ]
+
+// #let acronym-row(short, meaning) = [
+//   #grid(
+//     columns: (3.4cm, 1fr),
+//     column-gutter: 0.8cm,
+//     inset: (x: 0pt, y: 1pt),
+//     align: horizon,
+//     [
+//       #acronym-badge(short)
+//     ],
+//     [
+//       #text(size: 10.5pt, fill: rgb("#253044"))[
+//         #meaning
+//       ]
+//     ],
+//   )
+
+//   #line(length: 100%, stroke: 0.35pt + rgb("#D7E8EC"))
+// ]
+
+// #let acronym-table(items) = block(
+//   width: 100%,
+//   inset: (x: 0pt, y: 0pt),
+// )[
+//   #block(
+//     width: 100%,
+//     inset: (x: 0pt, y: 6pt),
+//     stroke: (bottom: 0.8pt + rgb("#8BBCC5")),
+//   )[
+//     #grid(
+//       columns: (3.4cm, 1fr),
+//       column-gutter: 0.8cm,
+//       [
+//         #text(size: 9pt, weight: "bold", fill: rgb("#245E68"))[Acronyme]
+//       ],
+//       [
+//         #text(size: 9pt, weight: "bold", fill: rgb("#245E68"))[Signification]
+//       ],
+//     )
+//   ]
+
+//   #v(2pt)
+
+//   #for item in items {
+//     acronym-row(item.short, item.meaning)
+//   }
+// ]
 
 #let outline-chapter(title) = [
   #show heading.where(level: 1): it => []
   #heading(level: 1, outlined: true)[#title]
 ]
 
-#let keyword-chip(label) = box(
-  inset: (x: 4pt, y: 4pt),
-  fill: rgb("#FFFFFF"),
-  stroke: 0.7pt + rgb("#B7D8DF"),
-  radius: 99pt,
+// #let keyword-chip(label) = box(
+//   inset: (x: 4pt, y: 4pt),
+//   fill: rgb("#FFFFFF"),
+//   stroke: 0.7pt + rgb("#B7D8DF"),
+//   radius: 99pt,
+// )[
+//   #text(
+//     size: 9.5pt,
+//     weight: "medium",
+//     fill: rgb("#245E68"),
+//   )[
+//     #label
+//   ]
+// ]
+
+// #let keywords-panel(keywords) = block(
+//   width: 100%,
+//   inset: 14pt,
+//   fill: rgb("#F3FAFA"),
+//   stroke: 0.8pt + rgb("#B7D8DF"),
+//   radius: 8pt,
+// )[
+//   #grid(
+//     columns: (auto, 1fr),
+//     column-gutter: 10pt,
+//     align: horizon,
+//     [
+//       #box(
+//         inset: (x: 7pt, y: 5pt),
+//         fill: rgb("#696b6b"),
+//         radius: 4pt,
+//       )[
+//         #text(size: 9pt, weight: "bold", fill: white)[MOTS-CLÉS]
+//       ]
+//     ],
+//     [
+//       #text(size: 10pt, fill: rgb("#52606D"))[
+//         Concepts principaux du projet et accès rapide à la liste des acronymes.
+//       ]
+//     ],
+//   )
+
+//   #v(1pt)
+
+
+
+#let academic-keywords(keywords) = block(
+  width: 100%,
+  inset: (top: 8pt, bottom: 8pt),
 )[
   #text(
-    size: 9.5pt,
-    weight: "medium",
-    fill: rgb("#245E68"),
+    font: "Times New Roman",
+    size: 11pt,
   )[
-    #label
+    #text(weight: "bold")[Mots-clés : ]
+    #for (i, keyword) in keywords.enumerate() [
+      #keyword#if i < keywords.len() - 1 [; ]
+    ]
   ]
+  
 ]
 
-#let keywords-panel(keywords) = block(
-  width: 100%,
-  inset: 14pt,
-  fill: rgb("#F3FAFA"),
-  stroke: 0.8pt + rgb("#B7D8DF"),
-  radius: 8pt,
-)[
-  #grid(
-    columns: (auto, 1fr),
-    column-gutter: 10pt,
-    align: horizon,
-    [
-      #box(
-        inset: (x: 7pt, y: 5pt),
-        fill: rgb("#339988"),
-        radius: 4pt,
-      )[
-        #text(size: 9pt, weight: "bold", fill: white)[MOTS-CLÉS]
-      ]
-    ],
-    [
-      #text(size: 10pt, fill: rgb("#52606D"))[
-        Concepts principaux du projet et accès rapide à la liste des acronymes.
-      ]
-    ],
-  )
+  
 
-  #v(1pt)
 
-  #for keyword in keywords [
-    #link(<acronyms>)[#keyword-chip(keyword)]
-    #h(5pt)
-  ]
-]
+
+
+
+

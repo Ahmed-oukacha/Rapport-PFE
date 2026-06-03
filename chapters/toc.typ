@@ -9,15 +9,15 @@
     #rect(
       width: 1cm,
       height: 120%,
-      fill: rgb("#70b2ca46"),
+      fill: rgb("#70b2ca15"),
     )
   ]
 ]
 
-#set page(header: [])
 
 #toc-side-bar
 
 #frontmatter-banner("Table des matières")
 
 #outline(title: none)
+#pagebreak()

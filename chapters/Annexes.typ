@@ -12,7 +12,7 @@
   #rect(
     width: 1cm,
     height: 120%,
-    fill: rgb("#70b2ca46"),
+    fill: rgb("#70b2ca15"),
   )
 ]
 

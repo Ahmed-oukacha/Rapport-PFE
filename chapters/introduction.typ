@@ -132,3 +132,4 @@ Ce mémoire est structuré en cinq chapitres :
 
 *Conclusion.* Synthétise les contributions, discute les limitations et propose des perspectives d'évolution.
 ]
+
