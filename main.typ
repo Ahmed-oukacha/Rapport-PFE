@@ -243,7 +243,7 @@ vertical-spacing-4: 20pt,
       #text(
         size: 9pt,
         weight: "bold",
-        fill: rgb("#719bf5")
+        fill: rgb(94, 177, 163)
       )[
         ADAS-R2T
       ]
