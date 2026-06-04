@@ -203,10 +203,10 @@ vertical-spacing-4: 20pt,
   #v(0.8em)
 
   #text(
-    font: heading-font,
+    // font: heading-font,
     weight: "semibold",
     size: 14pt,
-    fill: rgb("#64748B"),
+    fill: rgb("#000000"),
   )[
     #counter(heading).display() #h(0.25em) #it.body
   ]
@@ -390,6 +390,7 @@ vertical-spacing-4: 20pt,
 
 
 #include "chapters/introduction.typ"
+#include "chapters/contex_projet.typ"
 
 #include "chapters/state_of_art.typ"
 

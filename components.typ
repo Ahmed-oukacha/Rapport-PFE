@@ -1,5 +1,5 @@
 #import "@preview/colorful-boxes:1.4.1": colorbox
-
+#import "@preview/cetz:0.5.2"
 #let report-header = context [
   #grid(
     columns: (1fr, auto),
@@ -311,7 +311,7 @@
     #rect(
       width: 1cm,
       height: 120%,
-      fill: rgb("#DCEBE8"),
+      fill: rgb("#70b2ca15"),
     )
   ]
 
@@ -326,7 +326,7 @@
   )[
     #block(
       width: 5cm,
-      fill: rgb("#58acb9"),
+      fill: rgb("#58acb97a"),
       inset: 6pt,
     )[
       #align(center)[
@@ -957,3 +957,721 @@
 
 
 
+#let capgemini-entity-direction-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.75cm, {
+        import cetz.draw: *
+
+        let bg = rgb("#d6ecfc85")
+        let top-blue = rgb("#0D5CB8")
+        let dark-blue = rgb("#06122F")
+        let mid-blue = rgb("#30448E")
+        let line-color = rgb("#1B2A44")
+
+        // Background bands
+        rect(
+          (0, 4.1),
+          (22, 5.8),
+          fill: bg,
+          stroke: none,
+          radius: 0.18,
+        )
+
+        rect(
+          (0, 1.15),
+          (22, 2.85),
+          fill: bg,
+          stroke: none,
+          radius: 0.18,
+        )
+
+        
+
+     
+
+        // Connector lines
+        line(
+          (11, 4.25),
+          (11, 3.0),
+          stroke: line-color + 0.8pt,
+        )
+
+        line(
+          (4.7, 3.0),
+          (17.3, 3.0),
+          stroke: line-color + 0.8pt,
+        )
+
+        for x in (4.7, 7.85, 11, 14.15, 17.3) {
+          line(
+            (x, 3.0),
+            (x, 2.75),
+            stroke: line-color + 0.8pt,
+          )
+        }
+
+        // Helper function for rounded boxes
+        let org-box(x, y, w, h, body, fill-color: dark-blue, size: 16pt) = {
+          rect(
+            (x - w / 1.8, y - h / 1.8),
+            (x + w / 1.8, y + h / 1.8),
+            fill: fill-color,
+            stroke: none,
+            radius: 0.15,
+          )
+
+          content((x, y), anchor: "center", [
+            #align(center)[
+              #text(
+                size: 8pt,
+                fill: white,
+              )[
+                #body
+              ]
+            ]
+          ])
+        }
+
+        // Top entity box
+        org-box(
+          11,
+          4.95,
+          2.45,
+          1.25,
+          [
+            Capgemini \
+            Engineering
+          ],
+          fill-color: top-blue,
+          size: 16pt,
+        )
+
+        // Direction boxes
+        org-box(
+          4.7,
+          2.0,
+          2.45,
+          1.15,
+          [MG2],
+          fill-color: dark-blue,
+          size: 15pt,
+        )
+
+        org-box(
+          7.85,
+          2.0,
+          2.45,
+          1.15,
+          [i-Factories],
+          fill-color: dark-blue,
+          size: 15pt,
+        )
+
+        org-box(
+          11,
+          2.0,
+          2.45,
+          1.15,
+          [
+            MG2\
+            Engineering
+          ],
+          fill-color: dark-blue,
+          size: 15pt,
+        )
+
+        org-box(
+          14.15,
+          2.0,
+          2.45,
+          1.15,
+          [AIS],
+          fill-color: rgb("#1372f086"),
+          size: 15pt,
+        )
+
+        org-box(
+          17.3,
+          2.0,
+          2.45,
+          1.15,
+          [PowerParts],
+          fill-color: dark-blue,
+          size: 15pt,
+        )
+      })
+    ]
+  ],
+  caption: [Organisation de Capgemini Engineering],
+)
+
+#let ais-organization-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.62cm, {
+        import cetz.draw: *
+
+        let bg = rgb("#d6ecfc85")
+        let dark-blue = rgb("#06122F")
+        let mid-blue = rgb("#1372f086")
+        let main-blue = rgb("#0057B8")
+        let line-color = rgb("#1B2A44")
+        let teal = rgb("#000000")
+        let orange = rgb("#000000")
+
+        // =========================
+        // Background bands
+        // =========================
+        rect((0, 9.0), (26, 11.2), fill: bg, stroke: none, radius: 0.18)
+        rect((0, 6.0), (26, 8.2), fill: bg, stroke: none, radius: 0.18)
+        rect((0, 3.0), (26, 5.2), fill: bg, stroke: none, radius: 0.18)
+        rect((0, 0.0), (26, 2.2), fill: bg, stroke: none, radius: 0.18)
+
+        // =========================
+        // Helper function for boxes
+        // =========================
+        let org-box(
+          x,
+          y,
+          w,
+          h,
+          body,
+          fill-color: dark-blue,
+          size: 8.5pt,
+          text-width: 2.45cm,
+        ) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: fill-color,
+            stroke: none,
+            radius: 0.16,
+          )
+
+          content((x, y), anchor: "center", [
+            #box(width: text-width)[
+              #align(center)[
+                #set par(leading: 0.35em)
+                #text(
+                  size: size,
+                  fill: white,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        // =========================
+        // Direction: AIS
+        // =========================
+        org-box(
+          11.25,
+          10.1,
+          3.4,
+          1.45,
+          [AIS],
+          fill-color: main-blue,
+          size: 11pt,
+          text-width: 2.3cm,
+        )
+
+        // =========================
+        // Departments
+        // =========================
+        org-box(
+          3.9,
+          7.1,
+          4.25,
+          1.75,
+          [
+            Mechatronics \
+            connected \
+            systems
+          ],
+          fill-color: dark-blue,
+          size: 8.4pt,
+          text-width: 2.55cm,
+        )
+
+        org-box(
+          8.8,
+          7.1,
+          4.25,
+          1.75,
+          [
+            Mechatronics \
+            product \
+            engineering
+          ],
+          fill-color: dark-blue,
+          size: 8.4pt,
+          text-width: 2.55cm,
+        )
+
+        org-box(
+          13.7,
+          7.1,
+          4.25,
+          1.75,
+          [
+            Modeling & \
+            Simulation
+          ],
+          fill-color: dark-blue,
+          size: 8.8pt,
+          text-width: 2.45cm,
+        )
+
+        org-box(
+          18.6,
+          7.1,
+          4.25,
+          1.75,
+          [
+            EE \
+            Architecture \
+            & Safety
+          ],
+          fill-color: mid-blue,
+          size: 8.4pt,
+          text-width: 2.55cm,
+        )
+
+        // =========================
+        // Team
+        // =========================
+        org-box(
+          18.6,
+          4.1,
+          3.7,
+          1.55,
+          [SDA],
+          fill-color: mid-blue,
+          size: 10pt,
+          text-width: 2.2cm,
+        )
+
+        // =========================
+        // Subteams
+        // =========================
+        org-box(
+          10,
+          1.1,
+          4.6,
+          1.75,
+          [
+            MBSE, RBSE, \
+            & System \
+            Engineers
+          ],
+          fill-color: mid-blue,
+          size: 8pt,
+          text-width: 2.75cm,
+        )
+
+        org-box(
+          15.2,
+          1.1,
+          3.8,
+          1.75,
+          [
+            NVH \
+            Engineers
+          ],
+          fill-color: mid-blue,
+          size: 8.8pt,
+          text-width: 2.25cm,
+        )
+
+        org-box(
+          20.3,
+          1.1,
+          4.1,
+          1.75,
+          [
+            Data \
+            Analysts / \
+            Developers
+          ],
+          fill-color: mid-blue,
+          size: 8pt,
+          text-width: 2.45cm,
+        )
+
+        // =========================
+        // Connectors: AIS -> Departments
+        // =========================
+        line(
+          (11.25, 9.38),
+          (11.25, 8.45),
+          stroke: line-color + 0.75pt,
+        )
+
+        line(
+          (3.9, 8.45),
+          (18.6, 8.45),
+          stroke: line-color + 0.75pt,
+        )
+
+        for x in (3.9, 8.8, 13.7, 18.6) {
+          line(
+            (x, 8.45),
+            (x, 7.98),
+            stroke: line-color + 0.75pt,
+          )
+        }
+
+        // =========================
+        // Connector: EE Architecture & Safety -> SDA
+        // =========================
+        line(
+          (18.6, 6.22),
+          (18.6, 4.88),
+          stroke: teal + 0.85pt,
+        )
+
+        // =========================
+        // Connectors: SDA -> Subteams
+        // =========================
+        line(
+          (18.6, 3.32),
+          (18.6, 2.45),
+          stroke: orange + 0.85pt,
+        )
+
+        line(
+          (11.8, 2.45),
+          (20.1, 2.45),
+          stroke: orange + 0.85pt,
+        )
+
+        for x in (11.8, 16.2, 20.1) {
+          line(
+            (x, 2.45),
+            (x, 1.98),
+            stroke: orange + 0.85pt,
+          )
+        }
+      })
+    ]
+  ],
+  caption: [Organisation de la direction AIS],
+)
+
+
+
+// #import "@preview/cetz:0.5.2"
+
+// #let sda-definition-diagram() = figure(
+//   block(width: 100%)[
+//     #align(center)[
+//       #cetz.canvas(length: 0.72cm, {
+//         import cetz.draw: *
+
+//         let cyan = rgb("#76CBE8")
+//         let black = rgb("#000000")
+
+//         // Style des lignes pointillées
+//         let dashed-stroke = (
+//           paint: cyan,
+//           thickness: 1.1pt,
+//           dash: "dashed",
+//         )
+
+//         // Fonction pour les blocs de texte
+//         let text-block(x, y, title, body) = {
+//           content((x, y), anchor: "north-west", [
+//             #box(width: 4.1cm)[
+//               #set par(leading: 0.55em)
+//               #text(size: 10.5pt, fill: black)[
+//                 #underline[#text(weight: "bold")[#title]]
+
+//                 #v(4pt)
+
+//                 #body
+//               ]
+//             ]
+//           ])
+//         }
+
+//         // =========================
+//         // Lettres SDA
+//         // =========================
+//         content((5.0, 8.8), anchor: "center", [
+//           #text(size: 20pt, fill: black)[S]
+//         ])
+
+//         content((7.6, 8.8), anchor: "center", [
+//           #text(size: 20pt, fill: black)[D]
+//         ])
+
+//         content((10.0, 8.8), anchor: "center", [
+//           #text(size: 20pt, fill: black)[A]
+//         ])
+
+//         // =========================
+//         // Lignes pointillées et flèches
+//         // =========================
+
+//         // Système
+//         line(
+//           (0.8, 8.45),
+//           (4.5, 8.45),
+//           stroke: dashed-stroke,
+//         )
+
+//         line(
+//           (0.8, 8.45),
+//           (0.8, 4.0),
+//           stroke: dashed-stroke,
+//           mark: (end: ">"),
+//         )
+
+//         // Conception
+//         line(
+//           (7.6, 8.0),
+//           (7.6, 3.8),
+//           stroke: dashed-stroke,
+//           mark: (end: ">"),
+//         )
+
+//         // Analyse
+//         line(
+//           (10.4, 8.3),
+//           (15.1, 8.3),
+//           stroke: dashed-stroke,
+//         )
+
+//         line(
+//           (15.1, 8.3),
+//           (15.1, 4.0),
+//           stroke: dashed-stroke,
+//           mark: (end: ">"),
+//         )
+
+//         // =========================
+//         // Blocs de texte
+//         // =========================
+
+//         text-block(
+//           -2,
+//           3.3,
+//           [Système],
+//           [
+//             - Un système est un  ensemble
+//             d’éléments en  interaction ou
+//             interconnectés, agissant selon
+//             un ensemble de règles afin de
+//             former un tout unifié.
+//           ],
+//         )
+
+//         text-block(
+//           5.2,
+//           3.3,
+//           [Conception],
+//           [
+//             - Construire le système à partir
+//             de zéro et utiliser de nouvelles
+//             idées pour répondre au besoin
+//             du client.
+//             - Créer et mettre à jour
+//             l’architecture du système.
+//           ],
+//         )
+
+//         text-block(
+//           12.8,
+//           3.3,
+//           [Analyse],
+//           [
+//             - Vérifier la conformité des
+//             exigences avec les standards.
+
+//             - Analyser les exigences
+//             d’entrée et identifier les
+//             évolutions nécessaires.
+
+//             - Étudier l’impact des
+//             évolutions sur l’architecture
+//             et les exigences existantes.
+//           ],
+//         )
+//       })
+//     ]
+//   ],
+//   caption: [Signification de l’approche SDA],
+// )
+// 
+#let sda-definition-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.72cm, {
+        import cetz.draw: *
+
+        let cyan = rgb("#76CBE8")
+        let black = rgb("#000000")
+
+        // Style des lignes pointillées
+        let dashed-stroke = (
+          paint: cyan,
+          thickness: 1.1pt,
+          dash: (4pt, 4pt),
+        )
+
+        // Fonction pour les blocs de texte
+        let text-block(x, y, title, body, width: 4.3cm) = {
+          content((x, y), anchor: "north-west", [
+            #box(width: width)[
+              #set text(
+                font: "Times New Roman",
+                size: 9.3pt,
+                fill: black,
+                hyphenate: false,
+              )
+
+              #set par(
+                justify: false,
+                leading: 0.65em,
+              )
+              #align(center)[
+              #underline[
+                #text(weight: "bold")[#title]
+              ]]
+
+              #v(5pt)
+
+              #body
+            ]
+          ])
+        }
+
+        // =========================
+        // Lettres SDA
+        // =========================
+        content((5.0, 8.8), anchor: "center", [
+          #text(size: 20pt, fill: rgb(94, 177, 163))[S]
+        ])
+
+        content((7.6, 8.8), anchor: "center", [
+          #text(size: 20pt, fill: rgb(94, 177, 163))[D]
+        ])
+
+        content((10.0, 8.8), anchor: "center", [
+          #text(size: 20pt, fill: rgb(94, 177, 163))[A]
+        ])
+
+        // =========================
+        // Lignes pointillées et flèches
+        // =========================
+
+        // Système
+        line(
+          (0.8, 8.45),
+          (4.5, 8.45),
+          stroke: dashed-stroke,
+        )
+
+        line(
+          (0.8, 8.45),
+          (0.8, 4.0),
+          stroke: dashed-stroke,
+          mark: (end: ">"),
+        )
+
+        // Conception
+        line(
+          (7.6, 8.0),
+          (7.6, 3.8),
+          stroke: dashed-stroke,
+          mark: (end: ">"),
+        )
+
+        // Analyse
+        line(
+          (10.4, 8.3),
+          (15.1, 8.3),
+          stroke: dashed-stroke,
+        )
+
+        line(
+          (15.1, 8.3),
+          (15.1, 4.0),
+          stroke: dashed-stroke,
+          mark: (end: ">"),
+        )
+
+        // =========================
+        // Blocs de texte organisés
+        // =========================
+
+        text-block(
+          -2.5,
+          3.3,
+          [Système],
+          [
+            • Un système est un ensemble
+            d’éléments en interaction ou
+            interconnectés.
+
+            #v(4pt)
+
+            • Ces éléments agissent selon
+            un ensemble de règles afin de
+            former un tout unifié.
+          ],
+          width: 4.6cm,
+        )
+
+        text-block(
+          4.8,
+          3.3,
+          [Conception],
+          [
+            • Construire le système à partir
+            de zéro.
+
+            #v(4pt)
+
+            • Utiliser de nouvelles idées
+            pour répondre au besoin du
+            client.
+
+            #v(4pt)
+
+            • Créer et mettre à jour
+            l’architecture du système.
+          ],
+          width: 4.8cm,
+        )
+
+        text-block(
+          12,
+          3.3,
+          [Analyse],
+          [
+            • Vérifier la conformité des
+            exigences avec les standards.
+
+            #v(4pt)
+
+            • Analyser les exigences
+            d’entrée et identifier les
+            évolutions nécessaires.
+
+            #v(4pt)
+
+            • Étudier l’impact des
+            évolutions sur l’architecture
+            et les exigences existantes.
+          ],
+          width: 5.0cm,
+        )
+      })
+    ]
+  ],
+  caption: [Signification de l’approche SDA],
+)

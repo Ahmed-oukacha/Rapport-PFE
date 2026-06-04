@@ -90,7 +90,7 @@
 
 
 #set par(first-line-indent: 1em)
-#set par(spacing: 0.8em)
+#set par(spacing: 1.2em)
 #set par(
   justify: true,
   leading: 0.9em,
