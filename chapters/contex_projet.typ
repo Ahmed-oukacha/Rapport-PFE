@@ -354,7 +354,7 @@ La réalisation de ce projet s’est déroulée selon une planification bien pr�
 respecter les délais prédéfinis pour le stage. Pour schématiser la planification du projet,
 nous avons divisé ce dernier en petites tâches liées aux *MVP* pendant la période de stage selon la succession illustrée dans le diagramme suivant 
 #v(0.05cm)
-#project-planning-gantt-modern() <fig:planning-projet>.
+#project-planning-gantt-modern() <fig:planning-projet>
 ]
 
 

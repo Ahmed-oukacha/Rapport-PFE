@@ -401,7 +401,7 @@
     #rect(
       width: 1cm,
       height: 120%,
-      fill: rgb("#e3dceb"),
+      fill: rgb("#70b2ca15"),
     )
   ]
 
@@ -416,7 +416,7 @@
   )[
     #block(
       width: 5cm,
-      fill: rgb("#784ba0"),
+      fill: rgb("#58acb97a"),
       inset: 6pt,
     )[
       #align(center)[
@@ -437,7 +437,7 @@
     #text(
       size: 28pt,
       weight: "bold",
-      fill: rgb("#304a77"),
+      fill: rgb("#000000"),
     )[
       #title
     ]
