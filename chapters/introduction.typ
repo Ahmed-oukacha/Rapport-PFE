@@ -155,7 +155,6 @@
   font: "Times New Roman",
   size: 12pt,
 )
-#set par(first-line-indent: 0.5em)
 #set par(spacing: 1.5em)
 
 #set par(

@@ -46,7 +46,6 @@
 
 
 
-#set par(first-line-indent: 1em)
 #set par(spacing: 0.8em)
 #set par(
   justify: true,

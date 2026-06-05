@@ -40,7 +40,7 @@ La figure @fig:historique-capgemini présente l’évolution historique de Capge
     #v(0.5cm)
 #figure(
   image(
-    "../img/historique-capgemini.png",
+    "../img/hst_1.png",
     width: 100%,
   ),
   caption: [historique de Capgemini Engineering],
@@ -129,49 +129,183 @@ Ce positionnement nous a permis de travailler dans un environnement fortement or
 #sda-definition-diagram()
 #v(0.5cm)
 
-== Choix de l'approche : IA Agentique
-#v(-0.1cm)
+== Présentation du projet ADAS-R2T
+=== Problématique 
+#adas-limitations-cards()
+Le processus actuel de génération des cas de test ADAS présente plusieurs limitations structurelles qui motivent cette recherche :
 
-Une question fondamentale s'est posée dès le début du projet : faut-il utiliser l'IA Générative (GenAI) classique ou l'IA Agentique pour résoudre ce problème ?
+- *Génération manuelle.* Les cas de test sont aujourd'hui rédigés manuellement par les ingénieurs de validation, à partir de leur lecture et interprétation des exigences fonctionnelles. Ce processus est chronophage, sujet aux erreurs d'interprétation et difficilement reproductible.
 
-Pour trancher, nous avons appliqué une *matrice de décision à cinq questions* issue de la littérature :
+- *Couverture incomplète.* La conception manuelle tend à privilégier les scénarios nominaux au détriment des cas limites (_boundary_), des scénarios négatifs et des situations
+
+ rares, ce sont précisément ces cas qui révèlent les défauts les plus critiques dans les systèmes de sécurité.
+
+- *Absence de traçabilité structurée.* Le lien entre une exigence source et les cas de test qui la couvrent n'est pas toujours formalisé, rendant difficile l'analyse de couverture et la maintenance des suites de tests.
+
+- *Temps de cycle élevé.* Le cycle complet — de la réception des exigences à la livraison des cas de test validés — peut s'étendre sur plusieurs semaines, retardant la mise sur le marché des fonctions ADAS.
+
+- *Pas d'exploitation des données de conduite.* Les vidéos de conduite réelle, riches en scénarios de terrain, ne sont pas exploitées pour enrichir la conception des tests.
+
+La problématique centrale de ce travail peut ainsi se formuler :
+#v(0.4cm)
+#info-box("Problématique")[
+  Comment automatiser la génération de cas de test ADAS à partir d'exigences fonctionnelles en langage naturel, tout en garantissant une couverture complète, une traçabilité rigoureuse et une qualité conforme aux standards de l'industrie automobile ?
+]
+
 
 #v(0.157cm)
+=== Objectifs du projet
 
-#figure(
-  table(
-    columns: (auto, 1fr, auto),
-    inset: 8pt,
-    stroke: 0.5pt + rgb("#D1D5DB"),
-    fill: (x, y) => if y == 0 { rgb(94, 177, 163) } else if calc.odd(y) { rgb("#F8FAFC") } else { white },
-    align: (center, left, center),
-    table.header(
-      text(fill: white, weight: "bold")[Critère],
-      text(fill: white, weight: "bold")[Analyse du projet],
-      text(fill: white, weight: "bold")[Résultat],
-    ),
-    [*Sortie*], [Le projet demande un résultat exécuté (fichier Excel structuré, KPIs de couverture), pas seulement du texte généré.], [Agentique],
-    [*Trajectoire*], [Le flux est dynamique et cyclique : générer → évaluer → corriger → régénérer. Les étapes ne sont pas linéaires.], [Agentique],
-    [*Erreur*], [Le système doit s'auto-corriger : si la couverture est insuffisante, il relance la génération ciblée sans intervention humaine.], [Agentique],
-    [*Interaction*], [L'humain définit l'objectif (les exigences) et le système conduit le processus complet de bout en bout.], [Agentique],
-    [*État*], [Le système modifie l'environnement : il lit des fichiers, exécute des analyses, génère des fichiers de sortie.], [Agentique],
+Pour répondre à cette problématique, le projet ADAS-R2T (_Requirements to Tests_) poursuit les objectifs suivants :
+
+- *Automatiser la chaîne complète* de transformation des exigences en cas de test : de l'ingestion du fichier Excel source jusqu'à la génération du fichier Excel de sortie contenant les cas de test structurés.
+
+- *Garantir une couverture exhaustive* en analysant chaque exigence selon cinq dimensions complémentaires (transitions d'état, contraintes temporelles, messages HMI, calculs, cas génériques) et en générant systématiquement quatre catégories de tests : nominal, boundary, negative et rare.
+
+- *Assurer la traçabilité* entre chaque cas de test généré et l'exigence source, avec un identifiant unique et un lien explicite.
+
+- *Intégrer l'analyse vidéo* pour enrichir les cas de test avec des scénarios extraits de vidéos de conduite réelle, apportant un réalisme que la seule lecture des exigences ne peut fournir.
+
+- *Concevoir un système vendor-agnostic* capable de fonctionner avec différents fournisseurs des modèles de langage (OpenAI, Ollama, Gemini ...) sans modification du code.
+=== Expression des besoins
+Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaboration avec l'equipe encadrante :
+#set text(
+  font: "Times New Roman",
+  size: 11pt,
+)
+
+#let requirements-table(title, columns, rows, caption-text) = [
+  #v(0.4cm)
+
+  #text(
+    size: 13pt,
+    weight: "bold",
+    fill: rgb("#1c474f"),
+  )[
+    #title
+  ]
+
+  #v(0.25cm)
+  #figure(
+    table(
+    columns: columns,
+    inset: 7pt,
+    stroke: 0.45pt + rgb("#BFC7D1"),
+    fill: (x, y) => {
+      if y == 0 {
+        rgb(116, 145, 149)
+      } else if calc.odd(y) {
+        rgb("#F6FAFB")
+      } else {
+        white
+      }
+    },
+    align: (x, y) => {
+      if x == 0 { center } else { left }
+    },
+
+    ..rows
+  
   ),
-  caption: [Application de la matrice de décision GenAI vs Agentique au projet ADAS-R2T.],
-) <tab:decision-matrix>
-#v(0.5cm)
-Le résultat est unanime : #text("5 critères sur 5", weight: "bold",fill: rgb(94, 177, 163)) orientent vers l'IA Agentique. Le système ne se contente pas de générer du contenu — il planifie, exécute, évalue et corrige de manière autonome.
+  caption: caption-text ,
+    
+  )
+  
+]
 
-== Organisation du mémoire
+// ===============================
+// Besoins Fonctionnels
+// ===============================
 
-Ce mémoire est structuré en cinq chapitres :
+#requirements-table(
+  [- Besoins fonctionnels],
+  
+  (1.6cm, 1fr),
+  (
+    table.header(
+      
+      text(fill: white, weight: "bold")[ID],
+      text(fill: white, weight: "bold")[Description du besoin fonctionnel],
+    ),
 
-*Chapitre 2 — État de l'art.* Présente les fondements théoriques nécessaires : l'évolution de l'IA générative vers l'IA agentique, les patrons architecturaux des systèmes multi-agents, les frameworks d'orchestration (LangGraph) et les travaux existants en génération automatique de tests.
+    [*BF01*],
+    [Le système doit accepter un fichier Excel contenant des exigences fonctionnelles ADAS et générer un fichier Excel de cas de test.],
 
-*Chapitre 3 — Architecture du système.* Détaille l'architecture complète du pipeline ADAS-R2T : les 18 nœuds, les quatre stages, les mécanismes de parallélisation, le routage conditionnel et la boucle d'évaluation-correction.
+    [*BF02*],
+    [Le système doit accepter une vidéo de conduite et extraire des scénarios de test avec raisonnement causal : cause, effet et conséquence.],
 
-*Chapitre 4 — Implémentation.* Décrit les choix techniques, la couche LLM vendor-agnostic, le framework مِصْبَاح pour l'ingénierie des prompts, l'intégration de l'analyse vidéo et le déploiement via FastAPI.
+    [*BF03*],
+    [Le système doit supporter trois modes d’entrée : Excel seul, vidéo seule, et Excel + vidéo.],
 
-*Chapitre 5 — Évaluation.* Présente les résultats quantitatifs et qualitatifs, l'évolution des métriques de qualité au fil des itérations et les limites identifiées.
+    [*BF04*],
+    [Le système doit permettre à l’utilisateur de revoir les résultats avant le téléchargement : approbation, rejet avec feedback ou suppression.],
 
-*Conclusion.* Synthétise les contributions, discute les limitations et propose des perspectives d'évolution.
+    [*BF05*],
+    [Le système doit régénérer uniquement les cas de test rejetés sans relancer tout le pipeline.],
+
+    [*BF06*],
+    [Le système doit afficher la progression en temps réel pendant la génération à travers un mécanisme de streaming SSE.],
+
+    [*BF07*],
+    [Le système doit maintenir un historique des versions et des révisions : v1, v2, v3, etc.],
+
+    [*BF08*],
+    [Le système doit évaluer automatiquement 100 % des cas de test générés afin de détecter les contradictions, les éléments hors périmètre et les doublons.],
+
+    [*BF09*],
+    [Le système doit apprendre des feedbacks utilisateurs à travers une mémoire à long terme, incluant des règles partagées et des préférences personnelles.],
+
+    [*BF10*],
+    [Le système doit supporter plusieurs utilisateurs simultanément avec isolation des données.]
+  ),
+  [Liste des besoins fonctionnels]
+)
+
+#v(0.6cm)
+
+// ===============================
+// Besoins Non Fonctionnels
+// ===============================
+#set page(header: report-header, footer: report-footer)
+
+#requirements-table(
+  [- Besoins non fonctionnels],
+  (1.6cm, 3.2cm, 1fr),
+  (
+    table.header(
+      text(fill: white, weight: "bold")[ID],
+      text(fill: white, weight: "bold")[Catégorie],
+      text(fill: white, weight: "bold")[Description du besoin non fonctionnel],
+    ),
+
+    [*BNF01*],
+    [Performance],
+    [La génération doit s’effectuer en moins de 120 secondes pour 10 exigences.],
+
+    [*BNF02*],
+    [Scalabilité],
+    [L’architecture doit supporter l’ajout de nouvelles fonctions ADAS sans modification majeure.],
+
+    [*BNF03*],
+    [Disponibilité],
+    [Le système doit reprendre après un crash sans perte de données grâce à la persistance des checkpoints.],
+
+    [*BNF04*],
+    [Sécurité],
+    [Les checkpoints doivent être chiffrés. L’authentification par clé API est obligatoire.],
+
+    [*BNF05*],
+    [Maintenabilité],
+    [Le code doit être modulaire, avec un fichier par nœud, documenté et accompagné d’un logging structuré.],
+
+    [*BNF06*],
+    [Portabilité],
+    [Le système doit être déployable via Docker sur tout environnement, cloud ou on-premise.],
+
+    [*BNF07*],
+    [Interopérabilité],
+    [Le système doit communiquer via une API REST avec le backend BFF et le frontend.]
+  ),
+  [Liste des besoins non fonctionnels]
+)
 ]

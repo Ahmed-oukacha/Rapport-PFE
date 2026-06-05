@@ -53,11 +53,11 @@
   block(
     width: 100%,
     inset: (x: 12pt, y: 10pt),
-    fill: rgb("#F6FBFA"),
-    stroke: (left: 2.5pt + rgb("#5EB1A3")),
+    fill: rgb("#eaeeef78"),
+    stroke: (left: 2.5pt + rgb(116, 145, 149)),
     radius: 2pt,
   )[
-    #text(size: 11pt, weight: "bold", fill: rgb("#306C77"))[
+    #text(size: 11pt, weight: "bold", fill: rgb("#5c7376"))[
       #title
     ]
 
@@ -804,12 +804,13 @@
         )[Acronyme]
       ],
       [
+        #align(center)[
         #text(
           font: "Times New Roman",
           size: 11pt,
           weight: "bold",
           fill: black,
-        )[Signification]
+        )[Signification]]
       ],
     )
   ]
@@ -963,9 +964,9 @@
       #cetz.canvas(length: 0.75cm, {
         import cetz.draw: *
 
-        let bg = rgb("#d6ecfc85")
-        let top-blue = rgb("#0D5CB8")
-        let dark-blue = rgb("#06122F")
+        let bg = rgb(243, 245, 246)
+        let top-blue = rgb(153, 217, 244)
+        let dark-blue = rgb(116, 145, 149)
         let mid-blue = rgb("#30448E")
         let line-color = rgb("#1B2A44")
 
@@ -1112,10 +1113,10 @@
       #cetz.canvas(length: 0.62cm, {
         import cetz.draw: *
 
-        let bg = rgb("#d6ecfc85")
-        let dark-blue = rgb("#06122F")
+        let bg = rgb(243, 245, 246)
+        let dark-blue = rgb(116, 145, 149)
         let mid-blue = rgb("#1372f086")
-        let main-blue = rgb("#0057B8")
+        let main-blue = rgb(153, 217, 244)
         let line-color = rgb("#1B2A44")
         let teal = rgb("#000000")
         let orange = rgb("#000000")
@@ -1553,15 +1554,15 @@
         // Lettres SDA
         // =========================
         content((5.0, 8.8), anchor: "center", [
-          #text(size: 20pt, fill: rgb(94, 177, 163))[S]
+          #text(size: 20pt, fill: rgb(116, 145, 149))[S]
         ])
 
         content((7.6, 8.8), anchor: "center", [
-          #text(size: 20pt, fill: rgb(94, 177, 163))[D]
+          #text(size: 20pt, fill: rgb(116, 145, 149))[D]
         ])
 
         content((10.0, 8.8), anchor: "center", [
-          #text(size: 20pt, fill: rgb(94, 177, 163))[A]
+          #text(size: 20pt, fill: rgb(116, 145, 149))[A]
         ])
 
         // =========================
@@ -1674,4 +1675,138 @@
     ]
   ],
   caption: [Signification de l’approche SDA],
+)
+
+
+
+
+
+#let adas-limitations-cards() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.84cm, {
+        import cetz.draw: *
+
+        let card-bg = rgb("#f3f5f6")
+        let cyan = rgb(116, 145, 149)
+        let black = rgb("#000000")
+        let text-dark = rgb("#263238")
+
+        // =========================
+        // Fonction carte
+        // =========================
+        let limitation-card(x, number, title, body) = {
+          let y = 0
+          let w = 6
+          let h = 6.0
+
+          // Fond de la carte
+          rect(
+            (x, y),
+            (x + w, y + h),
+            fill: card-bg,
+            stroke: none,
+            radius: 0.03,
+          )
+
+          // Barre verticale turquoise
+          rect(
+            (x, y),
+            (x + 0.2, y + h),
+            fill: cyan,
+            stroke: none,
+          )
+
+          // Cercle du numéro
+          circle(
+            (x + 0.9, y + h - 0.8),
+            radius: 0.55,
+            fill: white,
+            stroke: black + 0.7pt,
+          )
+
+          // Numéro
+          content((x + 0.9, y + h - 0.8), anchor: "center", [
+            #text(
+              size: 30pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #number
+            ]
+          ])
+
+          // Titre
+          content((x + 0.55, y + h - 2.0), anchor: "north-west", [
+            #box(width: 4.2cm)[
+              #text(
+                font: "Times New Roman",
+                size: 13pt,
+                weight: "bold",
+                fill: black,
+              )[
+                #title
+              ]
+            ]
+          ])
+
+          // Description
+          content((x + 0.7, y + h - 3.05), anchor: "north-west", [
+            #box(width: 4.1cm)[
+              #set par(
+                justify: false,
+                leading: 0.75em,
+              )
+
+              #text(
+                font: "Times New Roman",
+                size: 11.5pt,
+                fill: text-dark,
+              )[
+                #body
+              ]
+            ]
+          ])
+        }
+
+        // =========================
+        // Cartes
+        // =========================
+
+        limitation-card(
+          -2.2,
+          [1],
+          [Génération manuelle],
+          [
+            Les cas de test sont créés
+            manuellement à partir des
+            exigences fonctionnelles.
+          ],
+        )
+
+        limitation-card(
+          4.75,
+          [2],
+          [Couverture limitée],
+          [
+            Les scénarios rares et critiques
+            sont souvent oubliés lors de la
+            conception manuelle.
+          ],
+        )
+
+        limitation-card(
+          11.5,
+          [3],
+          [Time-to-Market long],
+          [
+            Les cycles de validation longs
+            retardent la mise sur le marché
+            des fonctions ADAS.
+          ],
+        )
+      })
+    ]
+  ],
+  caption: [Limites du processus actuel de génération des tests ADAS],
 )
