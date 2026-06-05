@@ -180,7 +180,7 @@ Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaborat
   #text(
     size: 13pt,
     weight: "bold",
-    fill: rgb("#1c474f"),
+    fill: rgb("#000000"),
   )[
     #title
   ]
@@ -266,7 +266,6 @@ Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaborat
 // ===============================
 // Besoins Non Fonctionnels
 // ===============================
-#set page(header: report-header, footer: report-footer)
 
 #requirements-table(
   [- Besoins non fonctionnels],
@@ -308,4 +307,41 @@ Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaborat
   ),
   [Liste des besoins non fonctionnels]
 )
+#text(
+    weight: "semibold",
+    size: 14pt,
+    fill: rgb("#000000"),
+  )[
+    === Méthodologie de Travail
+  ]
+  Pour la gestion de ce projet, nous avons suivi la méthodologie Agile Scrum pour di
+verses raisons. En effet, cette méthode assure une meilleure collaboration et communica tion avec les différents collaborateurs du projet. La méthodologie *Agile Scrum*
+se distingue par le travail en équipe, les réunions quotidiennes et le suivi continu du
+projet, ce qui re vient par la facilité de la gestion des changements fréquents. Cette
+méthode assure une livraison de produit de qualité, et conforme aux besoins et aux
+attentes désirés. Dans notre cas, le projet est réalisé en binôme. Donc, nous essayons
+d’adapter cette méthode à nos besoins. Ainsi, nous utilisons l’ensemble des bonnes
+pratiques suivantes :
+
+- L’extraction des fonctionnalités à développer après l’étude de besoin, Le découpage du projet en un ensemble des *sprints* et *MVPs*.
+- Le découpage de chaque sprint en un ensemble de tâches.
+- Une discussion quotidienne avec l’encadrant pour le suivi de l’avancement.
+- Une réunion hebdomadaire chaque mardi pour touts les stagaires de l’équipe pour faire le point sur l’avancement de chaque projet, les difficultés rencontrées et les tâches à réaliser.
+- Une réunion hebdomadaire chaque vendredi où nous essayons de répondre à ces
+trois questions :
+#set par(first-line-indent: 0.7cm)
+
+  -- Quelles sont les tâches effectuées ?
+
+  -- Quelles sont les difficultés rencontrées ?
+
+  -- Quelles sont les tâches futures à réaliser ?
+
+- Une réunion mensuelle où nous essayons de montrer l’importance de notre projet
+et l’efficacité de nos solutions.
+#set par(first-line-indent: 0cm)
+=== Approche de recherche
 ]
+
+
+
