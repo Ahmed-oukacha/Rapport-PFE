@@ -1810,3 +1810,284 @@
   ],
   caption: [Limites du processus actuel de génération des tests ADAS],
 )
+
+
+
+
+
+
+
+#let project-planning-gantt-modern() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.8cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let navy = rgb(116, 145, 149)
+        let border = rgb("#374151")
+        let header-blue = rgb(153, 217, 244)
+        let task-orange = rgb("#FFC247")
+        let green = rgb("#72C95F")
+        let yellow = rgb("#FFF000")
+        let gray = rgb("#A8A8A8")
+        let white = rgb("#FFFFFF")
+        let dark = rgb("#1F2937")
+        let text-blue = rgb("#26324D")
+        let pink = rgb("#FF00B8")
+
+
+
+        // let bg = rgb(243, 245, 246)
+        // let dark-blue = rgb(116, 145, 149)
+        // let mid-blue = rgb("#1372f086")
+        // let main-blue = rgb(153, 217, 244)
+        // let line-color = rgb("#1B2A44")
+        // let teal = rgb("#000000")
+        // let orange = rgb("#000000")
+
+        // =========================
+        // Dimensions
+        // =========================
+        let left-w = 3.8
+        let month-w = 2.25
+        let months-count = 7
+        let chart-w = left-w + months-count * month-w
+        let chart-h = 9.4
+
+        let header-y = 7.7
+        let row-h = 1.05
+
+        // Month positions
+        // Feb = 0, Mar = 1, Apr = 2, May = 3, Jun = 4, Jul = 5, Aug = 6
+        let mx(i) = left-w + i * month-w
+
+        // =========================
+        // Outer background
+        // =========================
+        rect(
+          (-0.45, -0.75),
+          (chart-w + 0.45, chart-h + 0.45),
+          fill: navy,
+          stroke: none,
+          radius: 0.18,
+        )
+
+        // =========================
+        // Main white board
+        // =========================
+        rect(
+          (0, 0),
+          (chart-w, chart-h),
+          fill: white,
+          stroke: none,
+          radius: 0.35,
+        )
+
+        // =========================
+        // Grid
+        // =========================
+
+        // Vertical line after task column
+        line((left-w, 0), (left-w, chart-h), stroke: border + 0.55pt)
+
+        // Month vertical lines
+        for i in range(0, months-count + 1) {
+          let x = left-w + i * month-w
+          line((x, 0), (x, chart-h), stroke: border + 0.45pt)
+        }
+
+        // Horizontal lines
+        for y in (7.7, 6.65, 5.6, 4.55, 3.5, 2.45, 1.4) {
+          line((0, y), (chart-w, y), stroke: border + 0.45pt)
+        }
+
+        // =========================
+        // Header badges
+        // =========================
+        let badge(x, y, w, h, label, color) = {
+          rect(
+            (x, y),
+            (x + w, y + h),
+            fill: color,
+            stroke: none,
+            radius: 0.18,
+          )
+
+          content((x + w / 2, y + h / 2), anchor: "center", [
+            #text(size: 11.5pt, weight: "bold", fill: white)[#label]
+          ])
+        }
+
+        badge(0.65, 8.85, 2.5, 0.85, [TaCsk], task-orange)
+
+        // Quarter-like headers adapted to Feb-Aug
+        badge(mx(0) + 0.35, 8.85, 3.1, 0.85, [Phase 1], header-blue)
+        badge(mx(2) + 0.35, 8.85, 3.1, 0.85, [Phase 2], header-blue)
+        badge(mx(4) + 0.35, 8.85, 3.1, 0.85, [Phase 3], header-blue)
+
+        // =========================
+        // Month labels
+        // =========================
+        let month-labels = ([Feb], [Mar], [Apr], [May], [Jun], [Jul], [Aug])
+
+        for i in range(0, months-count) {
+          let x = mx(i) + month-w / 2
+          content((x, 8.25), anchor: "center", [
+            #text(size: 8pt, weight: "bold", fill: rgb("#4B5563"))[
+              #month-labels.at(i)
+            ]
+          ])
+        }
+
+        // =========================
+        // Row labels
+        // =========================
+        let row-label(y, label) = {
+          content((left-w / 2, y), anchor: "center", [
+            #text(size: 9.5pt, weight: "bold", fill: text-blue)[#label]
+          ])
+        }
+
+        row-label(7.15, [Planning])
+        row-label(6.10, [MVP 1])
+        row-label(5.05, [MVP 2])
+        row-label(4.00, [MVP 3])
+        row-label(2.95, [MVP 4])
+        row-label(1.90, [MVP 5])
+        row-label(0.85, [Interface])
+
+        // =========================
+        // Helper for bars
+        // =========================
+        let gantt-bar(x1, x2, y, color, label, label-size: 5.9pt, label-fill: dark) = {
+          rect(
+            (x1, y - 0.28),
+            (x2, y + 0.28),
+            fill: color,
+            stroke: none,
+            radius: 0.13,
+          )
+
+          content(((x1 + x2) / 2, y), anchor: "center", [
+            #box(width: ((x2 - x1) * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.35em)
+                #text(size: label-size, weight: "bold", fill: label-fill)[
+                  #label
+                ]
+              ]
+            ]
+          ])
+        }
+
+       
+
+        // =========================
+        // Bars
+        // =========================
+
+        // Planning / Design: Feb -> Mar
+        gantt-bar(
+          mx(0) + 0.45,
+          mx(1) + 1.55,
+          7.15,
+          green,
+          [Design],
+          label-size: 5.4pt,
+        )
+
+        // MVP 1: Mar -> Apr
+        gantt-bar(
+          mx(1) + 0.55,
+          mx(2) + 1.75,
+          6.10,
+          green,
+          [MVP 1 – Requirements to Test Cases],
+          label-size: 6.2pt,
+        )
+
+        // MVP 2: Apr -> Jun
+        gantt-bar(
+          mx(2) + 0.7,
+          mx(4) + 0.95,
+          5.05,
+          green,
+          [MVP 2 – Video Input Layer],
+          label-size: 5.4pt,
+        )
+
+        // MVP 3: Jun -> Jul
+        gantt-bar(
+          mx(4) + 0.70,
+          mx(5) + 1.85,
+          4.00,
+          yellow,
+          [MVP 3 – Human-in-the-Loop],
+          label-size: 5.2pt,
+        )
+
+        // MVP 4: Jul
+        gantt-bar(
+          mx(5) + 0.45,
+          mx(5) + 3.75,
+          2.95,
+          yellow,
+          [MVP 4 - chatbot],
+          label-size: 5.8pt,
+        )
+
+        // MVP 5: Jul -> Aug
+        gantt-bar(
+          mx(5) + 1.95,
+          mx(6) + 1.65,
+          1.90,
+          gray,
+          [MVP 5],
+          label-size: 5.8pt,
+        )
+
+        // Interface: Mar -> Jul
+        gantt-bar(
+          mx(1) + 0.05,
+          mx(5) + 0.85,
+          0.85,
+          yellow,
+          [Développement de l’interface utilisateur],
+          label-size: 5.2pt,
+        )
+
+        // =========================
+        // Legend
+        // =========================
+        rect(
+          (2.3, -0.45),
+          (chart-w - 2.3, 0.05),
+          fill: navy,
+          stroke: none,
+          radius: 0.08,
+        )
+
+        rect((3.0, -0.32), (3.35, -0.10), fill: green, stroke: none, radius: 0.04)
+        content((3.55, -0.20), anchor: "west", [
+          #text(size: 5.7pt, fill: white)[Terminé]
+        ])
+
+        rect((5.0, -0.32), (5.35, -0.10), fill: yellow, stroke: none, radius: 0.04)
+        content((5.55, -0.20), anchor: "west", [
+          #text(size: 5.7pt, fill: white)[En cours]
+        ])
+
+        rect((7.2, -0.32), (7.55, -0.10), fill: gray, stroke: none, radius: 0.04)
+        content((7.75, -0.20), anchor: "west", [
+          #text(size: 5.7pt, fill: white)[Non démarré]
+        ])
+
+       
+      })
+    ]
+  ],
+  caption: [Planification globale du projet],
+)

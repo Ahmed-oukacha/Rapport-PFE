@@ -287,7 +287,7 @@ Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaborat
 
     [*BNF03*],
     [Disponibilité],
-    [Le système doit reprendre après un crash sans perte de données grâce à la persistance des checkpoints.],
+    [Le système doit reprendre après un crash sans perte de données.],
 
     [*BNF04*],
     [Sécurité],
@@ -295,15 +295,15 @@ Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaborat
 
     [*BNF05*],
     [Maintenabilité],
-    [Le code doit être modulaire, avec un fichier par nœud, documenté et accompagné d’un logging structuré.],
+    [Le code doit être modulaire, documenté et un logging structuré.],
 
     [*BNF06*],
     [Portabilité],
-    [Le système doit être déployable via Docker sur tout environnement, cloud ou on-premise.],
+    [Le système doit être déployable sur tout environnement.],
 
     [*BNF07*],
     [Interopérabilité],
-    [Le système doit communiquer via une API REST avec le backend BFF et le frontend.]
+    [Le système doit communiquer via une API REST .]
   ),
   [Liste des besoins non fonctionnels]
 )
@@ -341,7 +341,22 @@ trois questions :
 et l’efficacité de nos solutions.
 #set par(first-line-indent: 0cm)
 === Approche de recherche
+
+
+La méthodologie de recherche en sciences de la conception *(DSR)* a été adoptée pour ce projet car elle est utilisée lorsque l'objectif est de développer une solution pratique à un problème concret en concevant, construisant et évaluant itérativement un artefact. Contrairement aux approches qui se concentrent uniquement sur la description ou l'explication d'un phénomène, la DSR vise à créer une solution fonctionnelle, utilisable et évaluable. Dans ce projet, l'artefact est un flux de travail basé sur LangGraph, conçu pour générer des tests ADAS de manière structurée et évolutive.
+
+ La *DSR* a été mise en œuvre par cycles successifs de développement et d'évaluation. Le premier cycle a permis de construire une version initiale du flux de travail et de définir ses composants essentiels, tels que les entrées, la logique de traitement et la structure d'état. Lors du deuxième cycle, la solution a été affinée par l'ajout de mécanismes de validation améliorés, le renforcement de la logique de génération et l'amélioration de la qualité des sorties. Cette approche itérative est conforme aux principes fondamentaux de la DSR, qui repose sur le modèle « *Construire-Évaluer-Améliorer* ».
+
+La conception de la solution s'est appuyée sur les connaissances existantes, tant en ce qui concerne les principes de construction de systèmes à base de graphes et de systèmes à états dans LangGraph qu'en ce qui concerne les exigences d'un projet de génération de tests ADAS.
+// Ainsi, DSR a permis de relier les exigences de la réalité pratique aux fondements théoriques et techniques, puis de transformer le tout en un système pouvant être évalué et amélioré.
+=== Planification du projet
+La réalisation de ce projet s’est déroulée selon une planification bien précise afin de
+respecter les délais prédéfinis pour le stage. Pour schématiser la planification du projet,
+nous avons divisé ce dernier en petites tâches liées aux *MVP* pendant la période de stage selon la succession illustrée dans le diagramme suivant 
+#v(0.05cm)
+#project-planning-gantt-modern() <fig:planning-projet>.
 ]
+
 
 
 
