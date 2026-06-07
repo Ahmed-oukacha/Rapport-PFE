@@ -26,12 +26,7 @@
     font:"Serif",
   )[
     === Historique et positionnement
-    Capgemini et Altran ont annoncé, le 24 juin 2019, un accord portant sur l’acquisition
-de la société Altran par Capgemini. Le 1er avril 2020, l’OPA amicale de Capgemini
-sur Altran a été finalisée. Dominique Cerutti, directeur général d’Altran, a confirmé
-que cette acquisition allait créer un leader mondial de l’industrie intelligente au service
-de la transformation numérique des entreprises. En avril 2021, Altran est devenue
-*Capgemini Engineering*.
+    La transformation structurelle qui a façonné l'identité actuelle de l'entreprise remonte au 24 juin 2019, date à laquelle Capgemini et Altran ont annoncé un accord historique prévoyant l'acquisition d'Altran par Capgemini. Quelques mois plus tard, cette opération a abouti à un succès retentissant : le 1er avril 2020, l'introduction en bourse à l'amiable (OPA) a eu lieu. Dominique Cerutti, PDG d'Altran, a alors insisté sur le fait que cette alliance n'était pas une simple fusion, mais la naissance d'un géant mondial, leader du secteur de l'« Industrie Intelligente » et moteur de la transformation numérique des entreprises. Incarnant cette ambition commune, avril 2021 a marqué un tournant décisif : Altran a abandonné son ancien nom pour devenir Capgemini Engineering.
 #v(0.5cm)
 La figure @fig:historique-capgemini présente l’évolution historique de Capgemini Engineering au Maroc:
     ]
@@ -58,51 +53,12 @@ La figure @fig:historique-capgemini présente l’évolution historique de Capge
     size: 12pt,
     font:"Serif",
   )[
-Les offres du groupe suivent l’ensemble du cycle de RD : conception, développement,
-test, innovation et prototypage, et accompagne également l’industrialisation, le service
-après-vente et la production. Elle est caractérisée avec son fort et unique savoir-faire en
-matière d’innovation, Capgemini Engineering répond aux besoins de ses clients dans 6
-catégories d’activités :
-#set page(header: report-header, footer: report-footer)
+Les services du groupe couvrent l'intégralité du cycle de recherche et développement (R&D), englobant non seulement la conception, le développement et les tests, mais aussi l'innovation et le prototypage, ainsi que la fabrication, la production et les services après-vente. Grâce à cette combinaison unique d'expertise et de compétences innovantes, Capgemini Engineering propose des solutions sur mesure qui répondent aux besoins de ses clients dans six domaines d'activité clés :
 
-*— Consulting* : Accompagne les clients du Groupe dans la transformation de leurs
-opérations, les conseille dans la définition de leurs stratégies en matière d’innovation et de leurs services et produits futurs.
-
-*— Digital* : Accompagne les clients dans leur transformation digitale par le biais de
-la capitalisation sur sa connaissance de leurs produits et processus industriels, et
-sur l’expertise de ses ingénieurs spécialisés dans les métiers du numérique.
-
-*— Engineering* : aide les clients du Groupe dans le développement de nouveaux
-produits et système tout en réduisant leurs délais de mise sur le marché et leurs
-coûts, et les accompagne dans l’amélioration de leurs processus industriels et leurs
-systèmes de production.
-
-*— World Class Centers* : propose les solutions et les services dans des domaines
-de pointe en s’appuyant sur sept centres d’expertise mondiaux regroupant les
-investissements et actifs du Groupe correspondant.
-
-*— Industrialized Global Shore* : permet aux clients de bénéficier d’une expertise
-globale et de réunir la compétitivité et les normes de qualité les plus élevés. Cette
-solution industrielle de prestations de services d’ingénierie et de RD du Groupe
-repose sur 5 centres d’ingénierie mondiaux, situés Near- et offshore.
-
-*— Cambridge Consultants* : spécialisé dans le développement de produits innovants, accompagné par des équipes scientifiques de haut niveau, et s’appuyant
-sur des laboratoires dédiés aux États-Unis et Royaume-Uni.
+Conseil : Nous mettons notre expertise à profit pour accompagner nos partenaires dans le développement de leurs processus opérationnels et l'élaboration de stratégies ambitieuses et innovantes qui façonneront leurs futurs produits et services. Solutions numériques : Nous accélérons la transformation numérique de nos clients en nous appuyant sur notre connaissance approfondie de leurs produits et chaînes industrielles, et sur l'expertise de nos ingénieurs spécialisés dans les technologies numériques de pointe. Ingénierie appliquée : Notre rôle consiste à permettre à nos clients d'innover et de développer de nouveaux produits et systèmes, de réduire les coûts et les délais de mise sur le marché, tout en améliorant l'efficacité des lignes de production et des processus industriels. Centres d'excellence mondiaux : Nous proposons des solutions et des services dans les domaines de haute technologie, en nous appuyant sur sept centres d'expertise mondiaux qui consolident les investissements et les actifs stratégiques du Groupe. Infrastructures industrielles mondiales : Nous permettons à nos clients de bénéficier d'un réseau mondial d'expertise qui allie des prix compétitifs aux plus hauts standards de qualité. Ce système de services d'ingénierie, de recherche et de développement repose sur cinq grands centres d'ingénierie répartis entre les régions nearshore et offshore. Cambridge Consultants : Notre branche spécialisée dans l'ingénierie et le développement de produits innovants uniques, où travaillent des équipes scientifiques et d'élite de haut niveau, appuyées par des laboratoires de pointe aux États-Unis et au Royaume-Uni.
 === Domaine d'activité de Capgemini Engineering 
-Grâce à une maîtrise avancée des technologies digitales et logicielles, l’entreprise joue
-un rôle clé dans la transformation des industries vers l’Intelligent Industry. Avec plus de
-55 000 ingénieurs et scientifiques répartis dans plus de 50 pays, Capgemini Engineering
-intervient dans des secteurs variés tels que :
+L'entreprise s'appuie sur son expertise pointue en technologies numériques et solutions logicielles pour jouer un rôle clé dans le développement de l'« Industrie Intelligente ». Forte d'une force d'ingénierie et scientifique de plus de 55 000 experts répartis dans 50 pays, Capgemini Engineering est présente dans de nombreux secteurs stratégiques grâce à des partenariats avec des géants de l'industrie : Automobile : Notre activité se concentre sur l'accompagnement des principaux constructeurs et développeurs mondiaux, notamment des groupes comme Stellantis et Volkswagen (VW), ainsi que le leader des technologies automobiles Bosch. Aéronautique : Nous contribuons au développement de solutions aéronautiques en collaboration avec des acteurs majeurs tels qu'Airbus, Safran et Dassault Aviation. Ferroviaire : Nous relevons les défis des transports modernes à travers des projets d'envergure avec Alstom (y compris la division Bombardier récemment intégrée) et la SNCF. Sciences de la vie et santé : Nous sommes fortement présents auprès des leaders des industries pharmaceutiques et biotechnologiques tels que Sanofi et GSK.
 
-*— Secteur automobile* : elle travaille principalement STELLANTIS (Ex. PSA),
-Le constructeur automobile WW et BOSCH.
-
-*— Secteur aéronautique* : SAFRAN, AIRBUS, DASSAULT AVIATION.
-
-*— Secteur ferroviaire* : ALSTOM, SNCF, BOMBARDIER.
-
-*— Secteur Sciences de la vie* : SANOFI, GSK.
-#set page(header: report-header, footer: report-footer)
 
 === Organisation de Capgemini Engineering au Maroc
 
@@ -132,41 +88,16 @@ Ce positionnement nous a permis de travailler dans un environnement fortement or
 == Présentation du projet ADAS-R2T
 === Problématique 
 #adas-limitations-cards()
-Le processus actuel de génération des cas de test ADAS présente plusieurs limitations structurelles qui motivent cette recherche :
-
-- *Génération manuelle.* Les cas de test sont aujourd'hui rédigés manuellement par les ingénieurs de validation, à partir de leur lecture et interprétation des exigences fonctionnelles. Ce processus est chronophage, sujet aux erreurs d'interprétation et difficilement reproductible.
-
-- *Couverture incomplète.* La conception manuelle tend à privilégier les scénarios nominaux au détriment des cas limites (_boundary_), des scénarios négatifs et des situations
-
- rares, ce sont précisément ces cas qui révèlent les défauts les plus critiques dans les systèmes de sécurité.
-
-- *Absence de traçabilité structurée.* Le lien entre une exigence source et les cas de test qui la couvrent n'est pas toujours formalisé, rendant difficile l'analyse de couverture et la maintenance des suites de tests.
-
-- *Temps de cycle élevé.* Le cycle complet — de la réception des exigences à la livraison des cas de test validés — peut s'étendre sur plusieurs semaines, retardant la mise sur le marché des fonctions ADAS.
-
-- *Pas d'exploitation des données de conduite.* Les vidéos de conduite réelle, riches en scénarios de terrain, ne sont pas exploitées pour enrichir la conception des tests.
-
-La problématique centrale de ce travail peut ainsi se formuler :
+L'approche actuelle de conception et de développement des tests ADAS présente plusieurs obstacles structurels qui ont rendu cette recherche indispensable. Les principaux défauts peuvent être résumés comme suit : Charge de traitement manuel : La formulation des cas de test repose entièrement sur le travail manuel des ingénieurs de vérification, basé sur leur interprétation subjective des exigences fonctionnelles. Cette approche est non seulement chronophage, mais elle est aussi source d'erreurs d'interprétation et rend difficile la réplication des tests avec la même précision. Lacunes de couverture fonctionnelle : Tant que la conception est gérée manuellement, l'accent est naturellement mis sur les scénarios nominaux et idéaux, au détriment des cas limites, des scénarios défavorables et des conditions rares et complexes. Paradoxalement, c'est précisément dans ces environnements négligés que se cachent les erreurs les plus graves, celles qui ont le plus grand impact sur la sécurité des passagers. Absence de traçabilité systématique : Le système ne dispose pas d'un lien structurel clair et documenté entre l'exigence fonctionnelle initiale et les cas de test qui en découlent. Cette fragmentation rend l'évaluation de la couverture ou la mise à jour des ensembles de tests suite à une modification technique complexe et aléatoire. Lenteur du rythme de production et des flux de travail : L’ensemble du processus, de la réception des exigences à l’approbation de la version finale de test, prend plusieurs semaines, engendrant des goulots d’étranglement opérationnels qui retardent le déploiement sur le marché des fonctionnalités ADAS. Données de conduite réelles inutilisées : Bien que les entreprises possèdent des milliers d’heures d’enregistrements vidéo issus de véritables expériences de conduite sur route, cette mine de données en situation réelle reste inexploitée, ne permettant pas d’améliorer la qualité et la portée des tests. Compte tenu de ces facteurs, la problématique centrale de ce travail peut se résumer à la question suivante :
 #v(0.4cm)
 #info-box("Problématique")[
-  Comment automatiser la génération de cas de test ADAS à partir d'exigences fonctionnelles en langage naturel, tout en garantissant une couverture complète, une traçabilité rigoureuse et une qualité conforme aux standards de l'industrie automobile ?
+  Comment concevoir un processus automatisé capable de traduire les exigences fonctionnelles des systèmes ADAS, rédigées en langage naturel, en cas de test précis, sans compromettre l'exhaustivité, tout en garantissant un suivi rigoureux et des normes de qualité conformes aux exigences de l'industrie automobile ? Autrement dit, et plus fondamentalement : comment faire confiance à l'intelligence artificielle générative pour automatiser l'inspection des systèmes critiques pour la sécurité et assurer la surveillance des cas rares et limites, sans que ce système ne devienne une « boîte noire » opaque, dépourvue de tout contrôle humain ?
 ]
 
 
 #v(0.157cm)
 === Objectifs du projet
-
-Pour répondre à cette problématique, le projet ADAS-R2T (_Requirements to Tests_) poursuit les objectifs suivants :
-
-- *Automatiser la chaîne complète* de transformation des exigences en cas de test : de l'ingestion du fichier Excel source jusqu'à la génération du fichier Excel de sortie contenant les cas de test structurés.
-
-- *Garantir une couverture exhaustive* en analysant chaque exigence selon cinq dimensions complémentaires (transitions d'état, contraintes temporelles, messages HMI, calculs, cas génériques) et en générant systématiquement quatre catégories de tests : nominal, boundary, negative et rare.
-
-- *Assurer la traçabilité* entre chaque cas de test généré et l'exigence source, avec un identifiant unique et un lien explicite.
-
-- *Intégrer l'analyse vidéo* pour enrichir les cas de test avec des scénarios extraits de vidéos de conduite réelle, apportant un réalisme que la seule lecture des exigences ne peut fournir.
-
-- *Concevoir un système vendor-agnostic* capable de fonctionner avec différents fournisseurs des modèles de langage (OpenAI, Ollama, Gemini ...) sans modification du code.
+À cette fin, la feuille de route du projet ADAS-R2T a été conçue pour se concentrer sur la réalisation des objectifs stratégiques suivants : Flux de travail entièrement automatisé (de bout en bout) : Nous visons à construire un cycle de traitement intégré qui démarre automatiquement dès l’importation du fichier d’exigences source (Excel) et se poursuit sans interruption jusqu’à la génération et l’extraction, dans le même format, du fichier de résultats structurés contenant les cas de test finaux. Couverture complète et multidimensionnelle : La plateforme ne se limitera pas à une analyse superficielle, mais est conçue pour décomposer chaque condition fonctionnelle selon cinq dimensions techniques (telles que les transitions d’état, les contraintes temporelles et les messages IHM). Cette approche garantit une génération structurée couvrant quatre catégories de tests : de routine, de pointe, inversés et rares. Traçabilité rigoureuse : Nous visons à établir un lien structurel indissociable entre chaque cas de test et sa source originale dans le cahier des charges en attribuant des identifiants uniques (identifiants uniques) permettant un audit inversé à tout moment. Inspection intelligente par analyse vidéo : L’un de nos principaux objectifs est de s’affranchir de la rigidité du texte en intégrant des scénarios extraits d’enregistrements de conduite réels. Cela confère aux tests un réalisme que les exigences théoriques seules ne peuvent atteindre. Conception d'une architecture flexible et indépendante des fournisseurs : nous avons conçu le système avec une architecture logicielle flexible qui lui permet de s'intégrer et de fonctionner de manière transparente avec divers fournisseurs de modèles de langage (tels que OpenAI, Gemini, ou même des modèles locaux via Ollama) sans qu'il soit nécessaire de réécrire ou de modifier le code source.
 === Expression des besoins
 Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaboration avec l'equipe encadrante :
 #set text(
@@ -314,21 +245,7 @@ Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaborat
   )[
     === Méthodologie de Travail
   ]
-  Pour la gestion de ce projet, nous avons suivi la méthodologie Agile Scrum pour di
-verses raisons. En effet, cette méthode assure une meilleure collaboration et communica tion avec les différents collaborateurs du projet. La méthodologie *Agile Scrum*
-se distingue par le travail en équipe, les réunions quotidiennes et le suivi continu du
-projet, ce qui re vient par la facilité de la gestion des changements fréquents. Cette
-méthode assure une livraison de produit de qualité, et conforme aux besoins et aux
-attentes désirés. Dans notre cas, le projet est réalisé en binôme. Donc, nous essayons
-d’adapter cette méthode à nos besoins. Ainsi, nous utilisons l’ensemble des bonnes
-pratiques suivantes :
-
-- L’extraction des fonctionnalités à développer après l’étude de besoin, Le découpage du projet en un ensemble des *sprints* et *MVPs*.
-- Le découpage de chaque sprint en un ensemble de tâches.
-- Une discussion quotidienne avec l’encadrant pour le suivi de l’avancement.
-- Une réunion hebdomadaire chaque mardi pour touts les stagaires de l’équipe pour faire le point sur l’avancement de chaque projet, les difficultés rencontrées et les tâches à réaliser.
-- Une réunion hebdomadaire chaque vendredi où nous essayons de répondre à ces
-trois questions :
+  Concernant la gestion de projet, nous avons opté pour la méthodologie Agile Scrum en raison de sa grande flexibilité, qui facilite la communication et simplifie la coordination quotidienne. Bien que cette méthodologie ait été initialement conçue pour des équipes plus importantes, nous l'avons adaptée avec succès à notre fonctionnement en duo (Binôme). Cette approche nous a permis de nous adapter rapidement aux évolutions techniques et de mener à bien les tâches sans tomber dans l'imprévisibilité, garantissant ainsi la livraison d'un produit de qualité conforme aux attentes. Pour concrétiser cette vision, nous avons adopté un ensemble de bonnes pratiques : Définition des fonctionnalités et structuration du projet : Nous avons commencé par définir les fonctionnalités requises à partir d'une analyse des besoins techniques, puis nous avons divisé le projet en périodes spécifiques (sprints) et en livrables minimums (MVP). Décomposition des tâches : Chaque sprint a été décomposé en tâches plus petites et détaillées, précisément réparties pour faciliter le suivi quotidien. Communication quotidienne avec le superviseur : Nous avons veillé à avoir une brève discussion quotidienne avec le superviseur pour le tenir informé de l'avancement du travail et nous assurer que nous étions sur la bonne voie. Réunion hebdomadaire prolongée (tous les mardis) : Nous organisons une réunion régulière avec tous les stagiaires de l’équipe. Cette réunion permet d’échanger des points de vue, de faire le point sur l’avancement de chaque projet, d’aborder les difficultés techniques courantes et de définir les prochaines étapes. Séance d’auto-évaluation (tous les vendredis) : Nous tenons une réunion de clôture pour la semaine, consacrée aux trois questions essentielles de la méthodologie Scrum :
 #set par(first-line-indent: 0.7cm)
 
   -- Quelles sont les tâches effectuées ?
@@ -343,16 +260,10 @@ et l’efficacité de nos solutions.
 === Approche de recherche
 
 
-La méthodologie de recherche en sciences de la conception *(DSR)* a été adoptée pour ce projet car elle est utilisée lorsque l'objectif est de développer une solution pratique à un problème concret en concevant, construisant et évaluant itérativement un artefact. Contrairement aux approches qui se concentrent uniquement sur la description ou l'explication d'un phénomène, la DSR vise à créer une solution fonctionnelle, utilisable et évaluable. Dans ce projet, l'artefact est un flux de travail basé sur LangGraph, conçu pour générer des tests ADAS de manière structurée et évolutive.
-
- La *DSR* a été mise en œuvre par cycles successifs de développement et d'évaluation. Le premier cycle a permis de construire une version initiale du flux de travail et de définir ses composants essentiels, tels que les entrées, la logique de traitement et la structure d'état. Lors du deuxième cycle, la solution a été affinée par l'ajout de mécanismes de validation améliorés, le renforcement de la logique de génération et l'amélioration de la qualité des sorties. Cette approche itérative est conforme aux principes fondamentaux de la DSR, qui repose sur le modèle « *Construire-Évaluer-Améliorer* ».
-
-La conception de la solution s'est appuyée sur les connaissances existantes, tant en ce qui concerne les principes de construction de systèmes à base de graphes et de systèmes à états dans LangGraph qu'en ce qui concerne les exigences d'un projet de génération de tests ADAS.
+Pour inscrire ce travail dans une perspective scientifique, nous avons identifié la méthodologie de la Recherche en Sciences de la Conception (RSC) comme le cadre et le guide idéal pour notre projet. Ce choix découle de la nature même de cette méthodologie : elle constitue l’option la plus appropriée lorsque l’objectif est de créer des solutions pratiques à des problèmes réels et complexes, grâce à un processus itératif alternant conception, construction et évaluation continue de l’impact technique ou logiciel (artefact). Contrairement aux approches traditionnelles qui se contentent d’observer ou d’interpréter des phénomènes, la RSC se concentre sur la conception d’outils fonctionnels utilisables et mesurables sur le terrain. C’est précisément ce qui s’applique à notre projet, où l’impact logiciel représente ici un flux de travail dynamique (Workflow) que nous avons construit à partir de LangGraph afin de générer des tests ADAS de manière structurée et évolutive. La méthodologie DSR a été mise en œuvre dans notre projet à travers deux cycles successifs de développement et d'évaluation : le premier cycle, axé sur l'établissement du noyau de base du flux de travail, a consisté à définir les composants essentiels du système, à ajuster les mécanismes de réception des données d'entrée, à concevoir la logique de traitement et à définir la structure d'état qui régit le graphe. Le second cycle, consacré au raffinement et à l'amélioration, a porté sur le renforcement des mécanismes d'auto-vérification et d'autocontrôle au sein du graphe, ainsi que sur le renforcement de la logique de génération afin d'améliorer la qualité et la fiabilité des résultats finaux. Cette progression itérative illustre parfaitement la philosophie DSR, fondée sur la triade « Construire, Évaluer, Améliorer en continu ». Enfin, la conception de cette solution n'était pas accidentelle, mais plutôt basée sur une double base de connaissances : un aspect technique lié à la physique de la construction de systèmes basés sur des graphes et de sorties régies par des états (Stateful Systems) dans l'environnement LangGraph, et un aspect industriel conforme aux exigences strictes et précises des tests de systèmes ADAS dans le secteur automobile.
 // Ainsi, DSR a permis de relier les exigences de la réalité pratique aux fondements théoriques et techniques, puis de transformer le tout en un système pouvant être évalué et amélioré.
 === Planification du projet
-La réalisation de ce projet s’est déroulée selon une planification bien précise afin de
-respecter les délais prédéfinis pour le stage. Pour schématiser la planification du projet,
-nous avons divisé ce dernier en petites tâches liées aux *MVP* pendant la période de stage selon la succession illustrée dans le diagramme suivant 
+Afin de garantir le respect du calendrier de formation et une gestion efficace du temps, le projet a fait l'objet d'une planification par phases rigoureuse. Nous avons décomposé la feuille de route en tâches et sous-thèmes plus petits, directement liés à chaque version des livrables initiaux (MVP). Le diagramme suivant résume la séquence chronologique et les interrelations structurelles de ces tâches tout au long du projet :
 #v(0.05cm)
 #project-planning-gantt-modern() <fig:planning-projet>
 ]
