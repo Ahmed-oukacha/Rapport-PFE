@@ -163,85 +163,18 @@
 )
 
 #text[
-L’industrie automobile connaît aujourd’hui une transformation profonde, portée par
-l’intégration croissante de systèmes intelligents dans les véhicules. Parmi ces systèmes,
-les systèmes avancés d’aide à la conduite, connus sous l’acronyme *ADAS* (*Advanced
-Driver Assistance Systems*), occupent une place centrale dans l’amélioration de la
-sécurité routière, du confort de conduite et de l’assistance au conducteur.
+L'industrie automobile traverse actuellement une période charnière, marquée par la transformation des véhicules en plateformes mobiles intelligentes. Au cœur de cette révolution se trouvent les systèmes avancés d'aide à la conduite (ADAS), piliers indispensables pour redéfinir la sécurité routière et offrir une expérience de conduite plus confortable et plus sûre. Ces systèmes englobent un large éventail de technologies essentielles, du régulateur de vitesse adaptatif (ACC) et du freinage d'urgence automatique (AEB) à l'assistance au maintien de voie (LKA), à l'alerte de collision frontale (FCW) et à la reconnaissance des panneaux de signalisation (TSR). Malgré leurs fonctions variées, leur objectif est unique : analyser l'environnement du véhicule, le relief de la route et intervenir en temps opportun pour protéger le conducteur. Cependant, cette intelligence représente un défi d'ingénierie : la complexité fonctionnelle de ces systèmes croît rapidement. Chaque fonction ADAS est régie par un cahier des charges technique rigoureux qui définit précisément les conditions d'activation, les seuils de réponse, les changements d'état, les messages d'avertissement et les contraintes temporelles. Ceci souligne l'importance cruciale de la phase de validation dans le cycle de développement du véhicule. Sans elle, la sécurité et la fiabilité de ces fonctions critiques ne peuvent être garanties. En réalité, l'élaboration de plans et de scénarios de test est la pierre angulaire des équipes de vérification. C'est une tâche exigeante qui requiert une analyse minutieuse de chaque exigence fonctionnelle afin de surveiller les scénarios normaux, les situations critiques et les conditions rares. Cependant, ce processus reste largement manuel dans de nombreux environnements industriels, ce qui le rend chronophage, dépendant de l'expertise individuelle des ingénieurs et sujet aux erreurs d'interprétation ou à une couverture incomplète des exigences. C'est pourquoi les technologies d'intelligence artificielle, et plus particulièrement les grands modèles de langage (LLM), représentent une option prometteuse pour le développement et l'automatisation des processus de test, grâce à leur grande capacité d'analyse du langage naturel et d'extraction de données structurées. Mais dans un secteur aussi sensible que l'automobile, la simple « génération de texte » ne suffit pas ; nous avons absolument besoin d'un environnement de travail qui garantisse un suivi, une correction et une traçabilité rigoureux des résultats. Dans cette optique, notre projet de fin d'études, conçu au sein de Capgemini Engineering, vise à construire et développer une plateforme intelligente que nous avons nommée ADAS-R2T (Exigences vers Tests). La plateforme vise à assister les ingénieurs ADAS en convertissant automatiquement les exigences de leurs projets en plans et tests structurés et interconnectés. Notre solution repose sur une approche d'IA multi-agents, où le travail est réparti entre un réseau d'agents numériques spécialisés. Chaque agent logiciel prend en charge une tâche spécifique, de l'analyse des exigences et l'extraction d'indicateurs à la formulation des plans de test, l'évaluation des taux de couverture et l'amélioration des résultats. Cette approche dépasse la génération aveugle traditionnelle et s'inscrit dans le domaine de la planification et de l'auto-surveillance. Sur le plan structurel, ces modèles de langage sont intégrés au framework LangGraph pour gérer le dialogue et la coordination entre les agents. Forts de cette dynamique technologique, nous avons veillé à intégrer le principe de « l'humain dans la boucle » afin que la décision finale revienne à l'expert humain. L'objectif n'est pas de remplacer l'ingénieur, mais de lui fournir un outil intelligent qui lui permette de gagner du temps et assure un suivi précis entre l'état initial et l'état final du test. Techniquement, la plateforme repose sur une architecture logicielle flexible et évolutive, s'appuyant sur les services backend FastAPI et fonctionnant dans des conteneurs Docker pour faciliter son déploiement en milieu industriel. Elle est optimisée par un système de surveillance et d'analyse continue des performances. La valeur ajoutée de ce travail réside dans la création d'un parcours intelligent intégré pour l'automatisation des tests ADAS, l'augmentation de la couverture fonctionnelle et la garantie d'un suivi complet des exigences, tout en préservant le rôle de la supervision humaine à l'ère de l'intelligence artificielle. Cette recherche est divisée en cinq chapitres principaux : 
 
-Ces systèmes regroupent plusieurs fonctionnalités critiques, telles que le régulateur de
-vitesse adaptatif (*ACC*), le freinage automatique d’urgence (*AEB*), l’aide au maintien
-de voie (*LKA*), l’avertissement de collision frontale (*FCW*) ou encore la reconnaissance
-des panneaux de signalisation (*TSR*). Leur objectif est d’analyser l’environnement du
-véhicule, d’interpréter les situations de conduite et d’assister le conducteur à travers des
-actions ou des alertes adaptées.
 
-Cependant, la complexité fonctionnelle de ces systèmes ne cesse de croître. Chaque
-fonction ADAS repose sur un ensemble d’exigences techniques décrivant les conditions
-d’activation, les seuils de déclenchement, les transitions d’état, les messages destinés au
-conducteur, ainsi que les contraintes temporelles associées. La validation de ces exigences
-constitue ainsi une étape essentielle dans le cycle de développement automobile, car elle
-permet de garantir la conformité, la fiabilité et la sécurité des fonctions développées.
+- Chapitre 1 : Contexte général du projet, problématique, objectifs et méthodologie.
 
-Dans ce contexte, la génération des plans de test et des cas de test représente une activité
-fondamentale pour les équipes de validation. Cette activité nécessite une analyse détaillée
-des exigences fonctionnelles afin d’identifier les scénarios nominaux, les cas limites, les
-situations négatives et les scénarios rares. Néanmoins, ce processus demeure encore
-largement manuel dans plusieurs contextes industriels. Il demande un temps considérable,
-dépend fortement de l’expertise des ingénieurs et peut être sujet à des erreurs
-d’interprétation, à des oublis ou à une couverture incomplète.
+- Chapitre 2 : Contexte de l'étude et dernières avancées scientifiques dans les domaines des systèmes ADAS, de l'intelligence artificielle générative et des systèmes multi-agents. 
 
-Face à ces limites, l’intégration des technologies d’intelligence artificielle ouvre de
-nouvelles perspectives pour l’automatisation et l’optimisation des processus de validation.
-Les grands modèles de langage, ou *LLM* (*Large Language Models*), permettent
-d’analyser des exigences exprimées en langage naturel, d’en extraire les informations
-pertinentes et de générer du contenu structuré. Toutefois, dans un domaine critique comme
-l’automobile, une simple génération textuelle ne suffit pas. Il est nécessaire de mettre en
-place un système capable de contrôler, vérifier, corriger et tracer les résultats produits.
+- Chapitre 3 : Architecture structurelle de la plateforme ADAS-R2T et mécanismes de coordination entre ses agents. 
 
-C’est dans cette perspective que s’inscrit ce projet de fin d’études, réalisé au sein de
-*Capgemini Engineering*. L’objectif principal est de concevoir et de développer une
-plateforme intelligente nommée *ADAS-R2T* (*Requirements to Tests*), capable d’assister
-les ingénieurs ADAS dans la transformation automatique des exigences fonctionnelles en
-plans de test et en cas de test structurés, cohérents et traçables.
+- Chapitre 4 : Aborde les aspects pratiques, les outils de développement et les options logicielles. 
 
-La solution proposée repose sur une approche d’*IA agentique*, dans laquelle plusieurs
-agents spécialisés collaborent afin de prendre en charge les différentes étapes du processus.
-Ces agents interviennent notamment dans l’analyse des exigences, l’extraction des
-informations clés, la génération des plans de test, la production des cas de test, l’évaluation
-de la couverture et l’amélioration des résultats. Cette approche permet de dépasser les
-limites d’une génération classique, en introduisant une logique de planification, de contrôle
-et de correction.
-
-L’architecture du système s’appuie sur des grands modèles de langage et utilise le
-framework *LangGraph* pour orchestrer les interactions entre les agents. Une approche
-*Human-in-the-Loop* est également intégrée afin de maintenir l’expert humain au centre du
-processus de validation. Ainsi, l’objectif n’est pas de remplacer l’ingénieur, mais de lui
-fournir un outil intelligent capable d’accélérer son travail, d’améliorer la qualité des livrables
-et de renforcer la traçabilité entre les exigences sources et les cas de test générés.
-
-Sur le plan technique, la plateforme est conçue selon une architecture modulaire et
-extensible. Elle intègre des services applicatifs développés avec *FastAPI*, un déploiement
-basé sur *Docker*, ainsi que des mécanismes de supervision permettant de suivre l’état et
-les performances du système. Cette conception vise à faciliter l’intégration de la solution
-dans un environnement industriel et à garantir son évolutivité.
-
-Les contributions principales de ce travail résident dans la mise en place d’un pipeline
-intelligent permettant d’automatiser la génération de tests ADAS, l’amélioration de la
-couverture fonctionnelle, la traçabilité entre les exigences et les tests, ainsi que
-l’intégration d’une supervision humaine dans un processus assisté par intelligence
-artificielle.
-
-Le présent mémoire est structuré comme suit. Le premier chapitre présente le contexte
-général du projet, l’organisme d’accueil, l’environnement de travail, la problématique, les
-objectifs et la méthodologie adoptée. Le deuxième chapitre est consacré à l’état de l’art,
-en introduisant les notions relatives aux systèmes ADAS, aux grands modèles de langage,
-à l’IA générative, à l’IA agentique et aux systèmes multi-agents. Le troisième chapitre
-décrit l’architecture proposée pour la plateforme ADAS-R2T, ainsi que les différents agents
-et mécanismes d’orchestration. Le quatrième chapitre présente l’implémentation technique
-de la solution, les outils utilisés et les choix de développement. Enfin, le cinquième chapitre
-est dédié à l’évaluation des résultats obtenus, à l’analyse des performances du système et
-aux perspectives d’amélioration.
+- Chapitre 5 : Analyse les résultats obtenus, évalue les performances du système et ouvre des perspectives de développement futur.
 ]
 
 #pagebreak()

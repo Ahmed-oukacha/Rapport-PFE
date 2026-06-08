@@ -1826,14 +1826,14 @@
         // =========================
         // Colors
         // =========================
-        let navy = rgb(116, 145, 149)
+        let navy = rgb("#4f696b")
         let border = rgb("#374151")
-        let header-blue = rgb(153, 217, 244)
-        let task-orange = rgb("#FFC247")
+        let header-blue = rgb(125, 176, 243)
+        let task-orange = rgb(123, 156, 160)
         let green = rgb("#72C95F")
-        let yellow = rgb("#FFF000")
-        let gray = rgb("#A8A8A8")
-        let white = rgb("#FFFFFF")
+        let yellow = rgb("#72C95F")
+        let gray = rgb("#72C95F")
+        let white = rgb(246, 250, 251)
         let dark = rgb("#1F2937")
         let text-blue = rgb("#26324D")
         let pink = rgb("#FF00B8")
@@ -1868,11 +1868,11 @@
         // Outer background
         // =========================
         rect(
-          (-0.45, -0.75),
-          (chart-w + 0.45, chart-h + 0.45),
+          (-0.4, -0.4),
+          (chart-w + 0.4, chart-h + 0.4),
           fill: navy,
           stroke: none,
-          radius: 0.18,
+          radius: 0.3,
         )
 
         // =========================
@@ -1921,7 +1921,7 @@
           ])
         }
 
-        badge(0.65, 8.85, 2.5, 0.85, [TaCsk], task-orange)
+        badge(0.65, 8.85, 2.5, 0.85, [Task], task-orange)
 
         // Quarter-like headers adapted to Feb-Aug
         badge(mx(0) + 0.35, 8.85, 3.1, 0.85, [Phase 1], header-blue)
@@ -1968,7 +1968,7 @@
             (x2, y + 0.28),
             fill: color,
             stroke: none,
-            radius: 0.13,
+            radius: 0.18,
           )
 
           content(((x1 + x2) / 2, y), anchor: "center", [
@@ -2045,7 +2045,7 @@
           mx(6) + 1.65,
           1.90,
           gray,
-          [MVP 5],
+          [MVP 5 - Memoire],
           label-size: 5.8pt,
         )
 
@@ -2062,28 +2062,19 @@
         // =========================
         // Legend
         // =========================
-        rect(
-          (2.3, -0.45),
-          (chart-w - 2.3, 0.05),
-          fill: navy,
-          stroke: none,
-          radius: 0.08,
-        )
+        // rect(
+        //   (2.3, -0.45),
+        //   (chart-w - 2.3, 0.05),
+        //   fill: navy,
+        //   stroke: none,
+        //   radius: 0.08,
+        // )
 
-        rect((3.0, -0.32), (3.35, -0.10), fill: green, stroke: none, radius: 0.04)
-        content((3.55, -0.20), anchor: "west", [
-          #text(size: 5.7pt, fill: white)[Terminé]
-        ])
+       
 
-        rect((5.0, -0.32), (5.35, -0.10), fill: yellow, stroke: none, radius: 0.04)
-        content((5.55, -0.20), anchor: "west", [
-          #text(size: 5.7pt, fill: white)[En cours]
-        ])
+        
 
-        rect((7.2, -0.32), (7.55, -0.10), fill: gray, stroke: none, radius: 0.04)
-        content((7.75, -0.20), anchor: "west", [
-          #text(size: 5.7pt, fill: white)[Non démarré]
-        ])
+       
 
        
       })
@@ -2386,5 +2377,194 @@
       })
     ]
   ],
-  caption: [Architecture globale du pipeline ADAS-R2T],
+  caption: [Architecture globale du pipeline ADAS-R2T],)
+
+
+#let genai-vs-agentic-radar() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.85cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Couleurs
+        // =========================
+        let cyan = rgb("#11B8D0")
+        let cyan-fill = rgb("#DDF7FA")
+        let orange = rgb("#F26A1B")
+        let orange-fill = rgb("#FFE8D8")
+        let grid = rgb("#E5E7EB")
+        let dark = rgb("#4B5563")
+        let black = rgb("#111827")
+
+        // =========================
+        // Paramètres radar
+        // =========================
+        let r = 4.0
+        let center = (0, 0)
+
+        let angles = (
+          90deg,
+          18deg,
+          -54deg,
+          -126deg,
+          -198deg,
+        )
+
+        let point(angle, value) = {
+          let rr = r * value / 10
+          (rr * calc.cos(angle), rr * calc.sin(angle))
+        }
+
+        // Données
+        let genai = (
+          point(angles.at(0), 3),
+          point(angles.at(1), 4),
+          point(angles.at(2), 3),
+          point(angles.at(3), 9),
+          point(angles.at(4), 3),
+        )
+
+        let agentic = (
+          point(angles.at(0), 9),
+          point(angles.at(1), 8),
+          point(angles.at(2), 8),
+          point(angles.at(3), 3),
+          point(angles.at(4), 8),
+        )
+
+        // =========================
+        // Légende
+        // =========================
+        rect((-3.5, 5.0), (-2.8, 5.25), fill: cyan-fill, stroke: cyan + 1pt)
+        content((-2.65, 5.13), anchor: "west", [
+          #text(size: 8.5pt, fill: dark)[GenAI traditionnelle]
+        ])
+
+        rect((0.7, 5.0), (1.4, 5.25), fill: orange-fill, stroke: orange + 1pt)
+        content((1.55, 5.13), anchor: "west", [
+          #text(size: 8.5pt, fill: dark)[IA agentique]
+        ])
+
+        // =========================
+        // Grille radar
+        // =========================
+        for level in (2, 4, 6, 8, 10) {
+          let p0 = point(angles.at(0), level)
+          let p1 = point(angles.at(1), level)
+          let p2 = point(angles.at(2), level)
+          let p3 = point(angles.at(3), level)
+          let p4 = point(angles.at(4), level)
+
+          line(
+            p0, p1, p2, p3, p4, p0,
+            stroke: grid + 0.6pt,
+          )
+        }
+
+        // Axes
+        for angle in angles {
+          line(
+            center,
+            point(angle, 10),
+            stroke: grid + 0.7pt,
+          )
+        }
+
+        // Valeurs numériques
+        for level in (2, 4, 6, 8, 10) {
+          content((0.15, r * level / 10), anchor: "west", [
+            #text(size: 7pt, fill: dark)[#str(level)]
+          ])
+        }
+
+        // =========================
+        // Courbe GenAI traditionnelle
+        // =========================
+        line(
+          genai.at(0),
+          genai.at(1),
+          genai.at(2),
+          genai.at(3),
+          genai.at(4),
+          genai.at(0),
+          stroke: cyan + 1.4pt,
+        )
+
+        // Courbe IA agentique
+        line(
+          agentic.at(0),
+          agentic.at(1),
+          agentic.at(2),
+          agentic.at(3),
+          agentic.at(4),
+          agentic.at(0),
+          stroke: orange + 1.4pt,
+        )
+
+        // Points GenAI
+        for p in genai {
+          circle(
+            p,
+            radius: 0.09,
+            fill: white,
+            stroke: cyan + 1pt,
+          )
+        }
+
+        // Points IA agentique
+        for p in agentic {
+          circle(
+            p,
+            radius: 0.09,
+            fill: orange,
+            stroke: white + 0.5pt,
+          )
+        }
+
+        // =========================
+        // Labels
+        // =========================
+        content(point(angles.at(0), 11.5), anchor: "center", [
+          #text(size: 8.5pt, weight: "bold", fill: dark)[Autonomie]
+        ])
+
+        content(point(angles.at(1), 11.8), anchor: "west", [
+          #box(width: 2.8cm)[
+            #text(size: 8.5pt, weight: "bold", fill: dark)[
+              Complexité \
+              technique
+            ]
+          ]
+        ])
+
+        content(point(angles.at(2), 11.5), anchor: "north-west", [
+          #text(size: 8.5pt, weight: "bold", fill: dark)[Coût]
+        ])
+
+        content(point(angles.at(3), 11.7), anchor: "north-east", [
+          #box(width: 2.7cm)[
+            #align(right)[
+              #text(size: 8.5pt, weight: "bold", fill: dark)[
+                Contrôle \
+                humain
+              ]
+            ]
+          ]
+        ])
+
+        content(point(angles.at(4), 11.8), anchor: "east", [
+          #box(width: 2.9cm)[
+            #align(right)[
+              #text(size: 8.5pt, weight: "bold", fill: dark)[
+                Résilience \
+                face aux erreurs
+              ]
+            ]
+          ]
+        ])
+      })
+    ]
+  ],
+  caption: [Comparaison des attributs structurels entre GenAI traditionnelle et IA agentique],
 )

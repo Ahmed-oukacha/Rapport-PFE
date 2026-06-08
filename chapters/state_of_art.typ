@@ -24,7 +24,7 @@
   "État de l'art",
   subtitle: "Fondements théoriques, patrons architecturaux et technologies",
 )
-
+#v(-1cm)
 == De l'IA Générative à l'IA Agentique
 
 === L'IA Générative : capacité de création
@@ -32,6 +32,7 @@
 L'IA Générative représente un changement de paradigme par rapport à l'IA traditionnelle. Là où les modèles classiques se limitaient à la classification ou la régression — identifier si une image contient un chat —, les modèles génératifs apprennent la _distribution sous-jacente_ des données et peuvent créer du contenu entièrement nouveau : texte, images, code, audio.
 
 Les grands modèles de langage (LLM) comme GPT-4, Claude ou Gemini incarnent cette révolution. Ils sont capables de rédiger des documents, résumer des textes, traduire et générer du code. Cependant, leur mode de fonctionnement reste fondamentalement _réactif_ : le modèle attend un prompt, produit une réponse, et s'arrête. Il ne prend jamais l'initiative, ne surveille pas les résultats et ne corrige pas ses erreurs.
+#genai-vs-agentic-radar()
 
 === L'IA Agentique : capacité d'exécution
 
