@@ -2091,3 +2091,300 @@
   ],
   caption: [Planification globale du projet],
 )
+
+
+
+
+#let architecture-pipeline-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.50cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let purple = rgb("#B77CCB")
+        let blue = rgb("#4A6FDB")
+        let green = rgb("#00B050")
+        let gray = rgb("#8C8C8C")
+        let light-gray = rgb("#F8F8F8")
+        let black = rgb("#000000")
+        let warning = rgb("#F2C94C")
+
+        // =========================
+        // Helper functions
+        // =========================
+        let box-node(x, y, w, h, title, subtitle: none, stroke-color: purple, title-size: 9pt, sub-size: 8pt) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: stroke-color + 1.2pt,
+            radius: 0.20,
+          )
+
+          content((x, y + if subtitle == none { 0 } else { 0.18 }), anchor: "center", [
+            #box(width: (w * 0.43cm))[
+              #align(center)[
+                #set par(leading: 0.55em)
+                #text(size: title-size, fill: black)[#title]
+
+                #if subtitle != none [
+                  #v(3pt)
+                  #text(size: sub-size, fill: green)[#subtitle]
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let simple-node(x, y, w, h, label, stroke-color: gray) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: stroke-color + 0.7pt,
+            radius: 0.22,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(size: 8pt, fill: gray)[#label]
+          ])
+        }
+
+        let arrow(a, b, color: black) = {
+          line(
+            a,
+            b,
+            stroke: color + 0.6pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let poly-arrow(points, color: black) = {
+          line(
+            ..points,
+            stroke: color + 0.6pt,
+            mark: (end: ">"),
+          )
+        }
+
+        // =========================
+        // Top contextual data area
+        // =========================
+        rect(
+          (0.2, 12.3),
+          (28.5, 15.4),
+          fill: none,
+          stroke: (paint: rgb("#666666"), thickness: 1.2pt, dash: (5pt, 3pt)),
+          radius: 0.0,
+        )
+
+        content((0.35, 12.65), anchor: "west", [
+          #text(size: 8pt, fill: gray)[Contextual data]
+        ])
+
+        simple-node(5.6, 14.3, 3.6, 1.15, [Data Pipelines])
+        simple-node(14.2, 14.3, 3.6, 1.15, [Embedding])
+        box-node(20.8, 14.3, 3.6, 1.15, [Database], stroke-color: rgb("#DDBAE8"), title-size: 8pt)
+
+        // contextual arrows
+        poly-arrow(((1.45, 12.85), (1.45, 14.3), (3.8, 14.3)), color: gray)
+        arrow((7.4, 14.3), (12.4, 14.3), color: gray)
+        arrow((16.0, 14.3), (19.0, 14.3), color: gray)
+
+        // warning TBC
+        content((25.5, 14.15), anchor: "center", [
+          #text(size: 22pt, fill: warning)[⚠]
+        ])
+        content((26.3, 14.15), anchor: "west", [
+          #text(size: 13pt, fill: black)[TBC]
+        ])
+
+        // Database to tools
+        arrow((20.8, 13.72), (20.8, 12.0), color: gray)
+
+        // =========================
+        // Main orchestration
+        // =========================
+        box-node(
+          14.2,
+          8.0,
+          3.6,
+          3.6,
+          [
+            Orchestration \
+            pipeline traitement
+          ],
+          subtitle: [LangGraph],
+          stroke-color: purple,
+          title-size: 11pt,
+          sub-size: 8pt,
+        )
+
+        // Context / Prompt engineering
+        box-node(
+          5.6,
+          9.8,
+          3.6,
+          1.1,
+          [
+            Context / Prompt \
+            engineering
+          ],
+          stroke-color: purple,
+          title-size: 8pt,
+        )
+
+        // App hosting
+        box-node(
+          5.6,
+          3.8,
+          3.6,
+          1.5,
+          [
+            App Hosting - Api / UI
+          ],
+          subtitle: [
+            fast api / slowapi \
+            JWT
+          ],
+          stroke-color: blue,
+          title-size: 8pt,
+          sub-size: 7.5pt,
+        )
+
+        // Query / Output
+        content((0.35, 6.8), anchor: "west", [
+          #text(size: 9pt)[Query]
+        ])
+        content((0.25, 3.9), anchor: "west", [
+          #text(size: 9pt)[Output]
+        ])
+
+        poly-arrow(((1.6, 6.8), (4.7, 6.8), (4.7, 4.55)), color: black)
+        arrow((4.65, 3.9), (1.55, 3.9), color: black)
+
+        // App to orchestration
+        poly-arrow(((6.5, 4.55), (6.5, 7.85), (12.4, 7.85)), color: black)
+
+        // Orchestration to prompt
+        poly-arrow(((13.5, 9.75), (13.5, 10.0), (7.4, 10.0)), color: black)
+
+        // =========================
+        // Right side service blocks
+        // =========================
+
+        box-node(
+          20.8,
+          11.2,
+          3.6,
+          1.2,
+          [Tools],
+          subtitle: [API / langchain tool],
+          stroke-color: purple,
+          title-size: 8pt,
+          sub-size: 7.5pt,
+        )
+
+        box-node(
+          20.8,
+          9.8,
+          3.6,
+          1.2,
+          [mémoire],
+          subtitle: [postgres db / mem0ai],
+          stroke-color: purple,
+          title-size: 8pt,
+          sub-size: 7.5pt,
+        )
+
+        box-node(
+          20.8,
+          8.2,
+          3.6,
+          1.45,
+          [llm Cache],
+          subtitle: [Redis],
+          stroke-color: blue,
+          title-size: 8pt,
+          sub-size: 7.5pt,
+        )
+
+        box-node(
+          20.8,
+          6.2,
+          3.6,
+          1.55,
+          [Logging / LLMops],
+          subtitle: [
+            Langfuse / structlog \
+            Prometheus / Grafana
+          ],
+          stroke-color: blue,
+          title-size: 8pt,
+          sub-size: 7.2pt,
+        )
+
+        box-node(
+          20.8,
+          4.0,
+          3.6,
+          1.35,
+          [Validation],
+          subtitle: [en cours],
+          stroke-color: blue,
+          title-size: 8pt,
+          sub-size: 7.5pt,
+        )
+
+        // LLM APIs and Hosting
+        box-node(
+          28.5,
+          7.1,
+          6.3,
+          2.7,
+          [
+            LLM APIs and Hosting \
+            \
+            API model          Local model
+          ],
+          subtitle: [gpt / gemini / ollama / tenacity],
+          stroke-color: purple,
+          title-size: 8pt,
+          sub-size: 8pt,
+        )
+
+        // =========================
+        // Arrows from orchestration
+        // =========================
+
+        // To Tools
+        poly-arrow(((15.0, 9.75), (15.0, 11.2), (19.0, 11.2)), color: black)
+
+        // To mémoire
+        poly-arrow(((15.0, 9.0), (15.0, 9.8), (19.0, 9.8)), color: black)
+
+        // To cache
+        arrow((16.0, 8.2), (19.0, 8.2), color: black)
+
+        // To logging
+        arrow((16.0, 6.7), (19.0, 6.7), color: black)
+
+        // To validation
+        poly-arrow(((14.2, 6.2), (14.2, 4.0), (19.0, 4.0)), color: black)
+
+        // Cache to LLM
+        arrow((22.6, 8.2), (25.35, 8.2), color: black)
+
+        // LLM to logging
+        arrow((25.35, 6.7), (22.6, 6.7), color: black)
+
+        // Validation to LLM
+        poly-arrow(((22.6, 4.0), (28.9, 4.0), (28.9, 5.75)), color: black)
+      })
+    ]
+  ],
+  caption: [Architecture globale du pipeline ADAS-R2T],
+)

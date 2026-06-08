@@ -111,7 +111,6 @@ Pour notre projet, nous avons opté pour une approche hybride : un *flux de trav
 ) <tab:patterns>
 
 == LangGraph : framework d'orchestration
-
 === Pourquoi LangGraph
 
 LangGraph est un framework Python développé par LangChain Inc., conçu spécifiquement pour construire des applications multi-agents avec état. Il se distingue des approches purement agentiques (comme AutoGPT) par sa philosophie de _contrôle explicite_ : le développeur définit le graphe d'exécution, les transitions conditionnelles et les points de synchronisation, tout en laissant les LLM prendre les décisions sémantiques au sein de chaque nœud.
