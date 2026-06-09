@@ -39,7 +39,6 @@ Les grands modèles de langage, tels que *GPT-4, Claude ou Gemini*, représenten
 Ils ne disposent donc pas, par défaut, d’une capacité d’initiative autonome. Ils ne surveillent pas continuellement les résultats obtenus, ne planifient pas spontanément une suite d’actions et ne corrigent pas leurs erreurs sans nouvelle intervention humaine. Cette limite explique l’émergence progressive des agents intelligents, qui cherchent à dépasser le simple modèle conversationnel pour aller vers des systèmes capables d’observer, décider et agir de manière plus autonome.
 
 === L'IA Agentique 
-#capgemini-history-timeline-clean()
 L'IA Agentique représente l'étape suivante : le passage de la _création de contenu_ à l'_exécution d'objectifs_. Un agent IA ne reçoit pas une liste de tâches séquentielles — il reçoit un objectif de haut niveau et conduit autonomement le processus pour l'atteindre.
 
 Cette transition repose sur quatre piliers fondamentaux :
