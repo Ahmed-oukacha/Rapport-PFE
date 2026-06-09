@@ -326,14 +326,14 @@
   )[
     #block(
       width: 5cm,
-      fill: rgb("#58acb97a"),
+      fill: rgb("#ffffff7a"),
       inset: 6pt,
     )[
       #align(center)[
         #text(
           size: 16pt,
           weight: "bold",
-          fill: white,
+          fill: black,
         )[
           CHAPITRE #number
         ]
@@ -416,14 +416,14 @@
   )[
     #block(
       width: 5cm,
-      fill: rgb("#58acb97a"),
+      fill: rgb("#ffffff7a"),
       inset: 6pt,
     )[
       #align(center)[
         #text(
           size: 16pt,
           weight: "bold",
-          fill: white,
+          fill: black,
         )[
           CHAPITRE #number
         ]
@@ -492,7 +492,7 @@
     #rect(
       width: 1cm,
       height: 120%,
-      fill: rgb("#ebdcdc"),
+      fill: rgb("#70b2ca15"),
     )
   ]
 
@@ -507,14 +507,14 @@
   )[
     #block(
       width: 5cm,
-      fill: rgb("#a04b4bd0"),
+      fill: rgb("#ffffff7a"),
       inset: 6pt,
     )[
       #align(center)[
         #text(
           size: 16pt,
           weight: "bold",
-          fill: white,
+          fill: black,
         )[
           CHAPITRE #number
         ]
@@ -528,7 +528,7 @@
     #text(
       size: 28pt,
       weight: "bold",
-      fill: rgb("#55222c"),
+      fill: rgb("#000000"),
     )[
       #title
     ]
@@ -582,7 +582,7 @@
     #rect(
       width: 1cm,
       height: 120%,
-      fill: rgb("#ebeccc"),
+      fill: rgb("#70b2ca15"),
     )
   ]
 
@@ -597,14 +597,14 @@
   )[
     #block(
       width: 5cm,
-      fill: rgb("#a09d4bd0"),
+      fill: rgb("#ffffff7a"),
       inset: 6pt,
     )[
       #align(center)[
         #text(
           size: 16pt,
           weight: "bold",
-          fill: white,
+          fill: black,
         )[
           CHAPITRE #number
         ]
@@ -618,7 +618,7 @@
     #text(
       size: 28pt,
       weight: "bold",
-      fill: rgb("#3f3f1a"),
+      fill: rgb("#000000"),
     )[
       #title
     ]
@@ -672,7 +672,7 @@
     #rect(
       width: 1cm,
       height: 120%,
-      fill: rgb("#d9ece0"),
+      fill: rgb("#70b2ca15"),
     )
   ]
 
@@ -687,14 +687,14 @@
   )[
     #block(
       width: 5cm,
-      fill: rgb("#4fa04bd0"),
+      fill: rgb("#ffffff7a"),
       inset: 6pt,
     )[
       #align(center)[
         #text(
           size: 16pt,
           weight: "bold",
-          fill: white,
+          fill: black,
         )[
           CHAPITRE #number
         ]
@@ -708,7 +708,7 @@
     #text(
       size: 28pt,
       weight: "bold",
-      fill: rgb("#1a3f28"),
+      fill: rgb("#000000"),
     )[
       #title
     ]
@@ -2391,8 +2391,8 @@
         // =========================
         let cyan = rgb("#11B8D0")
         let cyan-fill = rgb("#DDF7FA")
-        let orange = rgb("#F26A1B")
-        let orange-fill = rgb("#FFE8D8")
+        let orange = rgb(116, 145, 149)
+        let orange-fill = rgb("#78a8b4")
         let grid = rgb("#E5E7EB")
         let dark = rgb("#4B5563")
         let black = rgb("#111827")
@@ -2568,3 +2568,1325 @@
   ],
   caption: [Comparaison des attributs structurels entre GenAI traditionnelle et IA agentique],
 )
+
+
+
+
+
+
+#let agentic-patterns-selection() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.58cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let row-bg = rgb("#DFEBDD")
+        let accent = rgb("#00B050")
+        let retained = rgb("#9AD92E")
+        let gray = rgb("#6B7280")
+        let dark = rgb("#000000")
+        let line-gray = rgb("#707070")
+        let box-stroke = rgb("#777777")
+
+        // =========================
+        // Helpers
+        // =========================
+        let retained-button(x, y) = {
+          rect(
+            (x, y),
+            (x + 2.0, y + 0.7),
+            fill: retained,
+            stroke: none,
+            radius: 0.12,
+          )
+
+          content((x + 1.0, y + 0.35), anchor: "center", [
+            #text(size: 10pt, weight: "bold", fill: white)[Retenu]
+          ])
+        }
+
+        let llm-box(x, y, label: none, w: 0.95, h: 0.55) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: none,
+            stroke: (paint: box-stroke, thickness: 0.45pt, dash: (3pt, 2pt)),
+            radius: 0.08,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(size: 7pt, fill: gray)[Llm]
+          ])
+
+          if label != none {
+            content((x, y + 0.48), anchor: "center", [
+              #text(size: 5pt, fill: gray)[#label]
+            ])
+          }
+        }
+
+        let arrow(a, b) = {
+          line(
+            a,
+            b,
+            stroke: line-gray + 0.45pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let row(y, title, subtitle, draw-pattern) = {
+          // row background
+          rect(
+            (0, y),
+            (20.4, y + 1.8),
+            fill: row-bg,
+            stroke: none,
+          )
+
+          // left green line
+          line(
+            (-0.2, y),
+            (-0.2, y + 1.8),
+            stroke: accent + 1pt,
+          )
+
+          // Title and subtitle
+          content((0.25, y + 1.28), anchor: "west", [
+            #text(size: 14pt, weight: "bold", fill: dark)[#title]
+          ])
+
+          content((0.25, y + 0.72), anchor: "west", [
+            #text(size: 11pt, fill: gray)[#subtitle]
+          ])
+
+          // Pattern
+          draw-pattern(y)
+
+          // Button
+          retained-button(17.55, y + 0.55)
+        }
+
+        // =========================
+        // Pattern 1: Prompt Chaining
+        // =========================
+        let prompt-chaining(y) = {
+          content((9.9, y + 1.55), anchor: "center", [
+            #text(size: 5.5pt, fill: gray)[LLM call]
+          ])
+
+          content((9.0, y + 0.8), anchor: "center", [
+            #text(size: 5.5pt, fill: gray)[In]
+          ])
+
+          arrow((9.25, y + 0.8), (9.75, y + 0.8))
+          llm-box(10.45, y + 0.8)
+          arrow((10.95, y + 0.8), (11.55, y + 0.8))
+          llm-box(12.20, y + 0.8)
+          arrow((12.70, y + 0.8), (13.30, y + 0.8))
+
+          content((13.55, y + 0.8), anchor: "west", [
+            #text(size: 5.5pt, fill: gray)[Out]
+          ])
+        }
+
+        // =========================
+        // Pattern 2: Routing
+        // =========================
+        let routing(y) = {
+          content((9.25, y + 0.8), anchor: "center", [
+            #text(size: 5.5pt, fill: gray)[In]
+          ])
+
+          arrow((9.55, y + 0.8), (10.05, y + 0.8))
+          llm-box(10.55, y + 0.8, label: [Router])
+
+          arrow((11.05, y + 0.9), (11.65, y + 1.35))
+          arrow((11.05, y + 0.7), (11.65, y + 0.25))
+
+          llm-box(12.30, y + 1.35)
+          llm-box(12.30, y + 0.25)
+
+          arrow((12.80, y + 1.35), (13.25, y + 1.35))
+          arrow((12.80, y + 0.25), (13.25, y + 0.25))
+
+          content((13.45, y + 1.35), anchor: "west", [
+            #text(size: 5.5pt, fill: gray)[Out]
+          ])
+          content((13.45, y + 0.25), anchor: "west", [
+            #text(size: 5.5pt, fill: gray)[Out]
+          ])
+        }
+
+        // =========================
+        // Pattern 3: Parallelization
+        // =========================
+        let parallelization(y) = {
+          content((9.10, y + 0.85), anchor: "center", [
+            #text(size: 5.5pt, fill: gray)[In]
+          ])
+
+          arrow((9.45, y + 0.85), (10.35, y + 1.35))
+          arrow((9.45, y + 0.85), (10.35, y + 0.30))
+
+          llm-box(11.0, y + 1.35)
+          llm-box(11.0, y + 0.30)
+
+          arrow((11.50, y + 1.35), (12.05, y + 1.35))
+          arrow((11.50, y + 0.30), (12.05, y + 0.30))
+
+          content((12.25, y + 1.35), anchor: "west", [
+            #text(size: 5.5pt, fill: gray)[Out]
+          ])
+          content((12.25, y + 0.30), anchor: "west", [
+            #text(size: 5.5pt, fill: gray)[Out]
+          ])
+        }
+
+        // =========================
+        // Pattern 4: Orchestrator-Workers
+        // =========================
+        let orchestrator-workers(y) = {
+          content((9.10, y + 0.8), anchor: "center", [
+            #text(size: 5.5pt, fill: gray)[In]
+          ])
+
+          arrow((9.45, y + 0.8), (10.05, y + 0.8))
+          llm-box(10.65, y + 0.8, label: [Orchestrator])
+
+          content((12.50, y + 1.55), anchor: "center", [
+            #text(size: 5pt, fill: gray)[Workers]
+          ])
+
+          arrow((11.15, y + 0.95), (12.10, y + 1.35))
+          arrow((11.15, y + 0.80), (12.10, y + 0.80))
+          arrow((11.15, y + 0.65), (12.10, y + 0.25))
+
+          llm-box(12.75, y + 1.35)
+          llm-box(12.75, y + 0.80)
+          llm-box(12.75, y + 0.25)
+
+          arrow((13.25, y + 0.80), (14.10, y + 0.80))
+          llm-box(14.75, y + 0.80, label: [Synthesizer])
+          arrow((15.25, y + 0.80), (15.90, y + 0.80))
+
+          content((16.15, y + 0.80), anchor: "west", [
+            #text(size: 5.5pt, fill: gray)[Out]
+          ])
+        }
+
+        // =========================
+        // Pattern 5: Evaluator-Optimizer
+        // =========================
+        let evaluator-optimizer(y) = {
+          content((9.05, y + 0.80), anchor: "center", [
+            #text(size: 5.5pt, fill: gray)[In]
+          ])
+
+          arrow((9.40, y + 0.80), (10.15, y + 0.80))
+          llm-box(10.85, y + 0.80, label: [Generator])
+          arrow((11.35, y + 0.80), (12.05, y + 0.80))
+          llm-box(12.75, y + 0.80, label: [Evaluator])
+          arrow((13.25, y + 0.80), (13.95, y + 0.80))
+
+          content((14.15, y + 0.80), anchor: "west", [
+            #text(size: 5.5pt, fill: gray)[Out]
+          ])
+
+          // feedback loop
+          line(
+            (12.70, y + 0.25),
+            (12.20, y - 0.12),
+            (11.10, y - 0.12),
+            (10.85, y + 0.25),
+            stroke: line-gray + 0.45pt,
+            mark: (end: ">"),
+          )
+        }
+
+        // =========================
+        // Rows
+        // =========================
+        row(8.0, [Prompt Chaining], [Séquence linéaire A→B→C], prompt-chaining)
+        row(5.8, [Routing], [Classification → spécialiste], routing)
+        row(3.6, [Parallelization], [Traitement simultané], parallelization)
+        row(1.4, [Orchestrator-Workers], [Chef de projet + planificateur], orchestrator-workers)
+        row(-0.8, [Evaluator-Optimizer], [Boucle rétroaction], evaluator-optimizer)
+      })
+    ]
+  ],
+  caption: [Patrons d’architecture agentique retenus pour la conception du système],
+)
+
+
+
+#let agentic-workflows-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#222222")
+        let gray = rgb("#666666")
+        let light-gray = rgb("#777777")
+
+        // =========================
+        // Helpers
+        // =========================
+        let arrow(a, b) = {
+          line(
+            a,
+            b,
+            stroke: gray + 0.55pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let dashed-arrow(a, b) = {
+          line(
+            a,
+            b,
+            stroke: (paint: gray, thickness: 0.5pt, dash: (3pt, 2pt)),
+            mark: (end: ">"),
+          )
+        }
+
+        let llm-box(x, y, label: none, w: 1.0, h: 0.62) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: (paint: light-gray, thickness: 0.5pt, dash: (3pt, 2pt)),
+            radius: 0.10,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(size: 6.5pt, fill: gray)[LLM]
+          ])
+
+          if label != none {
+            content((x, y + 0.55), anchor: "center", [
+              #text(size: 5.5pt, fill: gray)[#label]
+            ])
+          }
+        }
+
+        let title(x, y, body, size: 18pt) = {
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Courier New",
+              size: size,
+              weight: "bold",
+              fill: black,
+            )[
+              #body
+            ]
+          ])
+        }
+
+        let small-label(x, y, body) = {
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Courier New",
+              size: 5.7pt,
+              fill: black,
+            )[
+              #body
+            ]
+          ])
+        }
+
+        // =========================
+        // Main title
+        // =========================
+        title(8.5, 10.6, [Workflows], size: 20pt)
+
+        // Vertical dashed separator
+        line(
+          (8.5, 0.2),
+          (8.5, 10.1),
+          stroke: (paint: gray, thickness: 0.55pt, dash: (3pt, 2pt)),
+        )
+
+        // =====================================================
+        // LEFT SIDE — Prompt Chaining
+        // =====================================================
+        title(3.0, 7.55, [Prompt Chaining], size: 16pt)
+
+        small-label(2.7, 6.95, [LLM call])
+
+        small-label(0.85, 6.55, [In])
+        arrow((1.15, 6.55), (1.75, 6.55))
+        llm-box(2.25, 6.55)
+        arrow((2.75, 6.55), (3.45, 6.55))
+        llm-box(3.95, 6.55)
+        arrow((4.45, 6.55), (5.15, 6.55))
+        small-label(5.45, 6.55, [Out])
+
+        // =====================================================
+        // LEFT SIDE — Parallelization
+        // =====================================================
+        title(3.0, 5.25, [Parallelization], size: 16pt)
+
+        small-label(1.65, 4.15, [In])
+
+        arrow((2.0, 4.15), (2.85, 4.95))
+        arrow((2.0, 4.15), (2.85, 3.35))
+
+        llm-box(3.55, 4.95)
+        llm-box(3.55, 3.35)
+
+        arrow((4.05, 4.95), (4.75, 4.95))
+        arrow((4.05, 3.35), (4.75, 3.35))
+
+        small-label(5.10, 4.95, [Out])
+        small-label(5.10, 3.35, [Out])
+
+        // =====================================================
+        // RIGHT SIDE — Orchestrator Worker
+        // =====================================================
+        title(12.6, 8.95, [Orchestrator–Worker], size: 16pt)
+
+        small-label(10.0, 7.85, [In])
+        arrow((10.35, 7.85), (10.95, 7.85))
+
+        llm-box(11.50, 7.85, label: [Orchestrator])
+
+        small-label(13.30, 8.55, [Workers])
+
+        dashed-arrow((12.0, 8.05), (13.0, 8.55))
+        dashed-arrow((12.0, 7.65), (13.0, 7.15))
+
+        llm-box(13.6, 8.55)
+        llm-box(13.6, 7.15)
+
+        dashed-arrow((14.10, 8.00), (15.0, 7.85))
+
+        llm-box(15.55, 7.85, label: [Synthesizer])
+
+        arrow((16.05, 7.85), (16.65, 7.85))
+        small-label(17.0, 7.85, [Out])
+
+        // =====================================================
+        // RIGHT SIDE — Evaluator Optimizer
+        // =====================================================
+        title(12.6, 5.85, [Evaluator–optimizer], size: 16pt)
+
+        small-label(10.1, 4.95, [In])
+        arrow((10.45, 4.95), (11.05, 4.95))
+
+        llm-box(11.65, 4.95, label: [Generator])
+        arrow((12.15, 4.95), (12.85, 4.95))
+
+        llm-box(13.45, 4.95, label: [Evaluator])
+        arrow((13.95, 4.95), (14.75, 4.95))
+
+        small-label(15.05, 4.95, [Out])
+
+        // feedback loop
+        line(
+          (13.45, 4.45),
+          (13.15, 4.0),
+          (12.10, 4.0),
+          (11.65, 4.45),
+          stroke: gray + 0.55pt,
+          mark: (end: ">"),
+        )
+
+        // =====================================================
+        // RIGHT SIDE — Routing
+        // =====================================================
+        title(12.6, 2.95, [Routing], size: 16pt)
+
+        small-label(10.05, 1.85, [In])
+        arrow((10.40, 1.85), (11.05, 1.85))
+
+        llm-box(11.65, 1.85, label: [Router])
+
+        arrow((12.15, 2.00), (13.05, 2.55))
+        arrow((12.15, 1.65), (13.05, 1.05))
+
+        llm-box(13.70, 2.55)
+        llm-box(13.70, 1.05)
+
+        arrow((14.20, 2.55), (14.95, 2.55))
+        arrow((14.20, 1.05), (14.95, 1.05))
+
+        small-label(15.25, 2.55, [Out])
+        small-label(15.25, 1.05, [Out])
+      })
+    ]
+  ],
+  caption: [Principaux workflows utilisés dans les architectures agentiques],
+)
+
+
+#import "@preview/cetz:0.5.2"
+
+#let adas-functional-chain-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.66cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let blue = rgb("#1F77B4")
+        let teal = rgb("#00A6A6")
+        let green = rgb("#70B77E")
+        let orange = rgb("#F59E0B")
+        let purple = rgb("#7C3AED")
+        let red = rgb("#DC2626")
+        let gray = rgb("#6B7280")
+        let light = rgb("#F3FAFA")
+        let black = rgb("#111827")
+        let white = rgb("#FFFFFF")
+
+        // =========================
+        // Helpers
+        // =========================
+        let block-node(x, y, w, h, title, subtitle, color) = {
+          // Main box
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: color + 1.15pt,
+            radius: 0.18,
+          )
+
+          // Header plus grand
+          rect(
+            (x - w / 2, y + h / 2 - 0.68),
+            (x + w / 2, y + h / 2),
+            fill: color,
+            stroke: none,
+            radius: 0.18,
+          )
+
+          // Title plus grand
+          content((x, y + h / 2 - 0.34), anchor: "center", [
+            #box(width: (w * 0.60cm))[
+              #align(center)[
+                #text(
+                  size: 8.8pt,
+                  weight: "bold",
+                  fill: white,
+                  hyphenate: false,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          // Subtitle
+          content((x, y - 0.35), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(
+                  leading: 0.43em,
+                  justify: false,
+                )
+
+                #text(
+                  size: 6.5pt,
+                  fill: black,
+                  hyphenate: false,
+                )[
+                  #subtitle
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let arrow(a, b, color: gray) = {
+          line(
+            a,
+            b,
+            stroke: color + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let small-chip(x, y, label, color) = {
+          rect(
+            (x - 0.82, y - 0.24),
+            (x + 0.82, y + 0.24),
+            fill: color.lighten(75%),
+            stroke: color + 0.45pt,
+            radius: 0.12,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 6.2pt,
+              weight: "bold",
+              fill: color,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        // =========================
+        // Title
+        // =========================
+        content((12.2, 7.65), anchor: "center", [
+          #text(size: 14pt, weight: "bold", fill: black)[
+            Chaîne fonctionnelle générale d’un système ADAS
+          ]
+        ])
+
+        // =========================
+        // Main chain nodes
+        // =========================
+        let y = 5.25
+        let w = 3.25
+        let h = 2.15
+
+        block-node(
+          1.8,
+          y,
+          w,
+          h,
+          [Environnement],
+          [
+            Route \
+            Obstacles \
+            Véhicules \
+            Piétons
+          ],
+          blue,
+        )
+
+        block-node(
+          5.95,
+          y,
+          w,
+          h,
+          [Capteurs],
+          [
+            Caméra \
+            Radar \
+            LiDAR \
+            Ultrason
+          ],
+          teal,
+        )
+
+        block-node(
+          10.10,
+          y,
+          w,
+          h,
+          [Perception],
+          [
+            Détection \
+            Objets \
+            Voies \
+            Signaux
+          ],
+          green,
+        )
+
+        block-node(
+          14.25,
+          y,
+          w,
+          h,
+          [Fusion],
+          [
+            Combinaison \
+            des données \
+            capteurs
+          ],
+          orange,
+        )
+
+        block-node(
+          18.40,
+          y,
+          w,
+          h,
+          [Décision],
+          [
+            Analyse \
+            du risque \
+            Choix action
+          ],
+          purple,
+        )
+
+        block-node(
+          22.55,
+          y,
+          w,
+          h,
+          [Assistance],
+          [
+            Alerte \
+            Freinage \
+            Direction \
+            Vitesse
+          ],
+          red,
+        )
+
+        // =========================
+        // Arrows main chain
+        // =========================
+        arrow((3.43, y), (4.30, y))
+        arrow((7.58, y), (8.45, y))
+        arrow((11.73, y), (12.60, y))
+        arrow((15.88, y), (16.75, y))
+        arrow((20.03, y), (20.90, y))
+
+        // =========================
+        // ADAS functions row
+        // =========================
+        content((12.2, 3.05), anchor: "center", [
+          #text(size: 11pt, weight: "bold", fill: black)[
+            Exemples de fonctions ADAS
+          ]
+        ])
+
+        small-chip(6.7, 2.38, [ACC], blue)
+        small-chip(8.7, 2.38, [AEB], red)
+        small-chip(10.7, 2.38, [LKA], green)
+        small-chip(12.7, 2.38, [FCW], orange)
+        small-chip(14.7, 2.38, [TSR], purple)
+        small-chip(16.7, 2.38, [BSW], teal)
+
+        // Link from decision to ADAS functions
+        line(
+          (18.40, 4.18),
+          (18.40, 3.58),
+          (12.2, 3.58),
+          (12.2, 2.80),
+          stroke: gray + 0.65pt,
+          mark: (end: ">"),
+        )
+
+        // =========================
+        // Bottom explanation box
+        // =========================
+        rect(
+          (2.3, 0.68),
+          (22.1, 1.50),
+          fill: light,
+          stroke: 0.55pt + rgb("#B7D8DF"),
+          radius: 0.12,
+        )
+
+        content((12.2, 1.09), anchor: "center", [
+          #box(width: 17.0cm)[
+            #align(center)[
+              #set par(
+                leading: 0.55em,
+                justify: false,
+              )
+
+              #text(size: 7.5pt, fill: gray)[
+                Un système ADAS analyse l’environnement du véhicule à l’aide de capteurs,
+                interprète la scène de conduite, puis déclenche une assistance adaptée
+                afin d’améliorer la sécurité et le confort du conducteur.
+              ]
+            ]
+          ]
+        ])
+      })
+    ]
+  ],
+  caption: [Chaîne fonctionnelle générale d’un système ADAS],
+)
+
+
+
+
+#let prompt-chain-gate-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111827")
+        let gray = rgb("#6B7280")
+        let border = rgb(94, 177, 163)
+        let gate-border = rgb("#E5E7EB")
+        let red = rgb("#6d888b")
+        let white = rgb("#FFFFFF")
+
+        // =========================
+        // Helpers
+        // =========================
+        let arrow(a, b, color: black) = {
+          line(
+            a,
+            b,
+            stroke: color + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let llm-box(x, y) = {
+          rect(
+            (x - 0.75, y - 0.48),
+            (x + 0.75, y + 0.48),
+            fill: white,
+            stroke: border + 1.0pt,
+            radius: 0.16,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 9pt,
+              weight: "bold",
+              fill: black,
+            )[LLM]
+          ])
+        }
+
+        let gate-node(x, y) = {
+          circle(
+            (x, y),
+            radius: 0.43,
+            fill: white,
+            stroke: gate-border + 1.0pt,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 6.2pt,
+              fill: gray,
+            )[Gate]
+          ])
+        }
+
+        // =========================
+        // Diagram
+        // =========================
+
+        // In label
+        content((0.0, 0.0), anchor: "center", [
+          #text(size: 8pt, fill: gray)[In]
+        ])
+
+        // First arrow
+        arrow((0.35, 0), (1.05, 0))
+
+        // First LLM
+        llm-box(1.85, 0)
+
+        // Arrow LLM 1 -> Gate
+        arrow((2.60, 0), (3.15, 0))
+
+        // Gate
+        gate-node(3.65, 0)
+
+        // Arrow Gate -> LLM 2
+        arrow((4.10, 0), (4.75, 0))
+
+        // Second LLM
+        llm-box(5.55, 0)
+
+        // Arrow LLM 2 -> Out
+        arrow((6.30, 0), (6.95, 0))
+
+        // Out label
+        content((7.25, 0.0), anchor: "west", [
+          #text(size: 8pt, fill: gray)[Out]
+        ])
+
+        // Fail vertical arrow from Gate
+        line(
+          (3.65, -0.42),
+          (3.65, -1.20),
+          stroke: red + 0.65pt,
+          mark: (end: ">"),
+        )
+
+        // Fail label
+        content((3.65, -1.45), anchor: "center", [
+          #text(
+            size: 8pt,
+            weight: "bold",
+            fill: red,
+          )[Fail]
+        ])
+      })
+    ]
+  ],
+  caption: [Chaînage de prompts avec étape de validation],
+)
+
+
+
+#let routing-workflow-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.95cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111827")
+        let gray = rgb("#6B7280")
+        let border = rgb(94, 177, 163)
+        let gate-border = rgb("#E5E7EB")
+        let red = rgb("#6d888b")
+        let white = rgb("#FFFFFF")
+
+        // =========================
+        // Helpers
+        // =========================
+        let arrow(a, b, color: black) = {
+          line(
+            a,
+            b,
+            stroke: color + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let llm-box(x, y) = {
+          rect(
+            (x - 0.75, y - 0.42),
+            (x + 0.75, y + 0.42),
+            fill: white,
+            stroke: border + 1.0pt,
+            radius: 0.14,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 8.5pt,
+              weight: "bold",
+              fill: black,
+            )[LLM]
+          ])
+        }
+
+        let route-node(x, y) = {
+          // Diamond shape
+          line(
+            (x, y + 0.58),
+            (x + 0.72, y),
+            (x, y - 0.58),
+            (x - 0.72, y),
+            (x, y + 0.58),
+            stroke: border + 1.0pt,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 6.6pt,
+              weight: "bold",
+              fill: black,
+            )[Route]
+          ])
+        }
+
+        // =========================
+        // Diagram
+        // =========================
+
+        // Input label
+        content((0.0, 0.0), anchor: "center", [
+          #text(size: 8pt, fill: gray)[In]
+        ])
+
+        // Arrow In -> Route
+        arrow((0.35, 0), (0.95, 0))
+
+        // Route diamond
+        route-node(1.75, 0)
+
+        // Branch arrows
+        arrow((2.35, 0.28), (3.25, 1.12))
+        arrow((2.45, 0.00), (3.25, 0.00))
+        arrow((2.35, -0.28), (3.25, -1.12))
+
+        // LLM boxes
+        llm-box(4.05, 1.12)
+        llm-box(4.05, 0.00)
+        llm-box(4.05, -1.12)
+
+        // Arrows LLM -> Out
+        arrow((4.80, 1.12), (5.45, 1.12))
+        arrow((4.80, 0.00), (5.45, 0.00))
+        arrow((4.80, -1.12), (5.45, -1.12))
+
+        // Output labels
+        content((5.70, 1.12), anchor: "west", [
+          #text(size: 8pt, fill: gray)[Out]
+        ])
+
+        content((5.70, 0.00), anchor: "west", [
+          #text(size: 8pt, fill: gray)[Out]
+        ])
+
+        content((5.70, -1.12), anchor: "west", [
+          #text(size: 8pt, fill: gray)[Out]
+        ])
+      })
+    ]
+  ],
+  caption: [Workflow de routage vers des spécialistes LLM],
+)
+
+
+
+#let parallelization-workflow-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.95cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111827")
+        let gray = rgb("#6B7280")
+        let border = rgb(94, 177, 163)
+        let gate-border = rgb("#E5E7EB")
+        let red = rgb("#6d888b")
+        let white = rgb("#FFFFFF")
+
+        // =========================
+        // Helpers
+        // =========================
+        let arrow(a, b, color: black) = {
+          line(
+            a,
+            b,
+            stroke: color + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let llm-box(x, y) = {
+          rect(
+            (x - 0.75, y - 0.42),
+            (x + 0.75, y + 0.42),
+            fill: white,
+            stroke: border + 1.0pt,
+            radius: 0.14,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 8.5pt,
+              weight: "bold",
+              fill: black,
+            )[LLM]
+          ])
+        }
+
+        let merge-box(x, y) = {
+          rect(
+            (x - 0.82, y - 0.42),
+            (x + 0.82, y + 0.42),
+            fill: white,
+            stroke: border + 1.0pt,
+            radius: 0.14,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 7.8pt,
+              weight: "bold",
+              fill: black,
+            )[Merge]
+          ])
+        }
+
+        let join-node(x, y) = {
+          circle(
+            (x, y),
+            radius: 0.11,
+            fill: black,
+            stroke: black + 0.5pt,
+          )
+        }
+
+        // =========================
+        // Diagram
+        // =========================
+
+        // Input label
+        content((0.0, 0.0), anchor: "center", [
+          #text(size: 8pt, fill: gray)[In]
+        ])
+
+        // Input arrow to split point
+        arrow((0.35, 0), (0.95, 0))
+
+        // Split point
+        join-node(1.15, 0)
+
+        // Arrows from split to parallel LLMs
+        arrow((1.15, 0), (2.15, 1.05))
+        arrow((1.15, 0), (2.15, 0.00))
+        arrow((1.15, 0), (2.15, -1.05))
+
+        // LLM boxes
+        llm-box(3.05, 1.05)
+        llm-box(3.05, 0.00)
+        llm-box(3.05, -1.05)
+
+        // Join point before Merge
+
+        // Arrows from LLMs to join point
+        arrow((3.80, 1.05), (4.95, 0.00))
+        arrow((3.80, 0.00), (4.95, 0.00))
+        arrow((3.80, -1.05), (4.95, 0.00))
+
+        // Merge box
+        merge-box(6.05, 0.00)
+
+        // Arrow join -> Merge
+        arrow((5.05, 0.00), (5.25, 0.00))
+
+        // Arrow Merge -> Output
+        arrow((6.87, 0.00), (7.55, 0.00))
+
+        // Output label
+        content((7.82, 0.0), anchor: "west", [
+          #text(size: 8pt, fill: gray)[Out]
+        ])
+      })
+    ]
+  ],
+  caption: [Workflow de parallélisation avec fusion des résultats],
+)
+
+
+#let orchestrator-workers-workflow-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.95cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111827")
+        let gray = rgb("#6B7280")
+        let border = rgb(94, 177, 163)
+        let gate-border = rgb("#E5E7EB")
+        let red = rgb("#6d888b")
+        let white = rgb("#FFFFFF")
+
+        // =========================
+        // Helpers
+        // =========================
+        let arrow(a, b, color: black) = {
+          line(
+            a,
+            b,
+            stroke: color + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let orchestrator-box(x, y) = {
+          rect(
+            (x - 1.75, y - 0.52),
+            (x + 1.75, y + 0.52),
+            fill: white,
+            stroke: border + 1.1pt,
+            radius: 0.18,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 9pt,
+              weight: "bold",
+              fill: black,
+            )[Orchestrator]
+          ])
+        }
+
+        let worker-box(x, y) = {
+          rect(
+            (x - 0.95, y - 0.48),
+            (x + 0.95, y + 0.48),
+            fill: rgb("#F8FAFC"),
+            stroke: gate-border + 1.0pt,
+            radius: 0.14,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 8pt,
+              weight: "bold",
+              fill: gray,
+            )[Worker]
+          ])
+        }
+
+        // =========================
+        // Diagram
+        // =========================
+
+        // Orchestrator
+        orchestrator-box(3.8, 1.55)
+
+        // Workers
+        worker-box(1.2, -0.35)
+        worker-box(3.8, -0.35)
+        worker-box(6.4, -0.35)
+
+        // Arrows: delegate
+        arrow((2.8, 1.05), (1.65, 0.18))
+        arrow((3.8, 1.03), (3.8, 0.18))
+        arrow((4.8, 1.05), (5.95, 0.18))
+
+        // Delegate labels
+        content((1.20, 0.62), anchor: "center", [
+          #text(size: 6.2pt, fill: gray)[delegate]
+        ])
+
+        content((6.40, 0.62), anchor: "center", [
+          #text(size: 6.2pt, fill: gray)[delegate]
+        ])
+
+        // Results synthesized label
+        content((3.8, -1.25), anchor: "center", [
+          #text(
+            size: 7pt,
+            weight: "bold",
+            fill: red,
+          )[results synthesized]
+        ])
+      })
+    ]
+  ],
+  caption: [Workflow Orchestrator–Workers],
+)
+
+
+
+
+#let evaluator-optimizer-workflow-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.95cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111827")
+        let gray = rgb("#6B7280")
+        let border = rgb(94, 177, 163)
+        let gate-border = rgb("#E5E7EB")
+        let red = rgb("#6d888b")
+        let white = rgb("#FFFFFF")
+
+        // =========================
+        // Helpers
+        // =========================
+        let arrow(a, b, color: black) = {
+          line(
+            a,
+            b,
+            stroke: color + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let process-box(x, y, label) = {
+          rect(
+            (x - 1.05, y - 0.48),
+            (x + 1.05, y + 0.48),
+            fill: white,
+            stroke: border + 1.05pt,
+            radius: 0.16,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              size: 8.3pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        // =========================
+        // Diagram
+        // =========================
+
+        // Input
+        content((0.0, 0.0), anchor: "center", [
+          #text(size: 8pt, fill: gray)[In]
+        ])
+
+        // In -> Generator
+        arrow((0.35, 0.0), (1.05, 0.0))
+
+        // Generator
+        process-box(2.15, 0.0, [Generator])
+
+        // Generator -> Evaluator
+        arrow((3.20, 0.0), (4.05, 0.0))
+
+        // Evaluator
+        process-box(5.15, 0.0, [Evaluator])
+
+        // Evaluator -> Out
+        arrow((6.20, 0.0), (7.00, 0.0))
+
+        // Output
+        content((7.28, 0.0), anchor: "west", [
+          #text(size: 8pt, fill: gray)[Out]
+        ])
+
+        // =========================
+        // Feedback loop
+        // =========================
+
+        // Feedback path from Evaluator back to Generator
+        line(
+          (5.15, -0.48),
+          (5.15, -1.25),
+          (2.15, -1.25),
+          (2.15, -0.48),
+          stroke: red + 0.75pt,
+          mark: (end: ">"),
+        )
+
+        // Feedback label
+        content((3.65, -1.55), anchor: "center", [
+          #text(
+            size: 7pt,
+            weight: "bold",
+            fill: red,
+          )[
+            feedback
+          ]
+        ])
+      })
+    ]
+  ],
+  caption: [Workflow Evaluator–Optimizer],
+)
+
+
+
+

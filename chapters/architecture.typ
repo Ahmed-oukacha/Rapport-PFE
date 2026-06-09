@@ -7,7 +7,7 @@
 #chapter-cover_3(
   "3",
   "Architecture du système",
-  subtitle: "Contexte, objectifs et organisation du mémoire",
+  subtitle: "Pipeline multi-agents, flux de données et mécanismes de contrôle",
 )
-
-#set page(header: report-header, footer: report-footer)
+#v(-1cm)
+== Vue d'ensemble
