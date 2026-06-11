@@ -3890,3 +3890,1973 @@
 
 
 
+// =====================================================
+// PFE Title Page - Typst Version
+// =====================================================
+
+// ---------- Colors ----------
+#let ENIADWhite = white
+#let ENIADOrange = rgb("#d17a23")
+#let ENIADNavy = rgb("#0B1F3A")
+#let ENIADBlue = rgb("#0070C0")
+#let ENIADLightBlue = rgb("#EAF4FF")
+#let ENIADGray = rgb("#6B7280")
+#let ENIADDark = rgb("#111827")
+
+// ---------- Variables ----------
+#let pfeAcademicYear = "2025–2026"
+#let pfeSpeciality = "Intelligence Artificielle et Digital"
+#let pfeProjectTitle = [
+  ADAS Test Case Generation \ using agentic AI
+]
+#let pfeStudentName = "Ahmed Oukacha"
+#let pfeCompanyName = "Capgemini Engineering"
+#let pfeInternshipPeriod = "Février 2026 – Aout 2026"
+#let pfeDefenseDate = "Juillet 2026"
+#let pfeAcademicSupervisor = "Nom de l’encadrant académique"
+#let pfeIndustrialSupervisor = "Nom de l’encadrant industriel"
+
+// Mets ici les chemins de tes logos.
+// Si tu n’as pas encore les logos, mets none.
+#let pfeLogoUMP = "img/logo-ump.png"
+#let pfeLogoENIAD = "img/logo-eniad.png"
+
+// ---------- Logo helper ----------
+#let logo-or-box(path, width, fallback) = {
+  if path != none {
+    image(path, width: width)
+  } else {
+    box(
+      width: width,
+      height: 2.4cm,
+      stroke: 0.7pt + rgb("#CBD5E1"),
+      radius: 4pt,
+      inset: 6pt,
+    )[
+      #align(center + horizon)[
+        #text(size: 9pt, fill: ENIADGray)[#fallback]
+      ]
+    ]
+  }
+}
+
+// ---------- Title page ----------
+#let pfe-title-page() = [
+  #set page(
+    width: 21cm,
+    height: 29.7cm,
+    margin: 0cm,
+    header: [],
+    footer: [],
+  )
+
+  // =====================================================
+  // Background
+  // =====================================================
+
+  // Fond blanc général
+  #place(top + left, dx: 0cm, dy: 0cm)[
+    #rect(
+      width: 21cm,
+      height: 29.7cm,
+      fill: ENIADWhite,
+      stroke: none,
+      
+    )
+  ]
+// ── Triangles décoratifs bas-droite ─────────────────────
+
+// Grand triangle bleu marine
+#place(bottom + right, dx: 0cm, dy: 0cm)[
+  #box(width: 8cm, height: 8cm)[
+    #polygon(
+      fill: ENIADNavy,
+      stroke: none,
+      (100%, 100%),
+      (0%, 100%),
+      (100%, 0%),
+    )
+  ]
+]
+
+// Petit triangle orange au-dessus
+#place(bottom + right, dx: 0cm, dy: 0cm)[
+  #box(width: 4.5cm, height: 4.5cm)[
+    #polygon(
+      fill: ENIADOrange,
+      stroke: none,
+      (100%, 100%),
+      (0%, 100%),
+      (100%, 0%),
+    )
+  ]
+]
+  // Bande orange fine sous le bandeau supérieur
+  #place(top + left, dx: 0cm, dy: 4cm)[
+    #rect(
+      width: 21cm,
+      height: 0.4cm,
+      fill: ENIADOrange,
+      stroke: none,
+    )
+  ]
+
+  // Barre verticale orange gauche
+  #place(top + left, dx: 1.5cm, dy: 4.4cm)[
+    #rect(
+      width: 0.35cm,
+      height: 22.9cm,
+      fill: ENIADOrange,
+      stroke: none,
+    )
+  ]
+
+  // Bandeau inférieur bleu marine
+  #place(bottom + left, dx: 0cm, dy: 0cm)[
+    #rect(
+      width: 21cm,
+      height: 2.4cm,
+      fill: ENIADNavy,
+      stroke: none,
+    )
+  ]
+
+  // Texte année universitaire dans le pied
+  #place(bottom + center, dy: -1.15cm)[
+    #text(
+      size: 10pt,
+      weight: "bold",
+      fill: ENIADWhite,
+    )[
+      Année Universitaire #pfeAcademicYear
+    ]
+  ]
+
+  // Décoration bas droite simple
+  #place(bottom + right, dx: 0cm, dy: 0cm)[
+    #rect(
+      width: 5.5cm,
+      height: 2.4cm,
+      fill: ENIADNavy,
+      stroke: none,
+    )
+  ]
+
+  // =====================================================
+  // Logos
+  // =====================================================
+
+  // Logo UMP
+  #place(top + left, dx: 2.2cm, dy: 0.1cm)[
+    #logo-or-box(
+      pfeLogoUMP,
+      5cm,
+      [
+        Logo \
+        Univ. Mohamed \
+        Premier
+      ],
+    )
+  ]
+
+  // Logo ENIAD
+  #place(top + right, dx: -2cm, dy: 0.23cm)[
+    #logo-or-box(
+      pfeLogoENIAD,
+      5cm,
+      [
+        Logo \
+        ENIAD \
+        Berkane
+      ],
+    )
+  ]
+
+  // =====================================================
+  // Bloc mention officielle diplôme
+  // =====================================================
+
+  #place(top + center, dy: 4.55cm)[
+    #box(
+      width: 15cm,
+      inset: (x: 18pt, y: 8pt),
+      fill: ENIADWhite,
+      stroke: 1.5pt + ENIADOrange,
+      radius: 6pt,
+    )[
+      #align(center)[
+        #text(
+          size: 11pt,
+          weight: "bold",
+          fill: ENIADNavy,
+        )[
+          Université Mohamed Premier, Oujda, Maroc
+        ]
+
+        #v(2pt)
+
+        #text(
+          size: 11pt,
+          weight: "bold",
+          fill: ENIADNavy,
+        )[
+          École Nationale de l'Intelligence Artificielle et du Digital, Berkane
+        ]
+
+        #v(5pt)
+
+        #text(
+          size: 15pt,
+          weight: "bold",
+          fill: ENIADBlue,
+        )[
+          PROJET DE FIN D'ÉTUDES
+        ]
+
+        #v(2pt)
+
+        #text(
+          size: 9.5pt,
+          style: "italic",
+          fill: ENIADGray,
+        )[
+          Pour l'obtention du Diplôme d'Ingénieur d'État
+        ]
+      ]
+    ]
+  ]
+
+  // =====================================================
+  // Filière
+  // =====================================================
+
+  #place(top + center, dy: 8.55cm)[
+    #box(
+      width: 12cm,
+      height: 0.72cm,
+      fill: ENIADOrange,
+      radius: 3pt,
+    )[
+      #align(center + horizon)[
+        #text(
+          size: 11pt,
+          weight: "bold",
+          fill: ENIADWhite,
+        )[
+          Filière : #pfeSpeciality
+        ]
+      ]
+    ]
+  ]
+
+  // =====================================================
+  // Separateurs et titre du projet
+  // =====================================================
+
+  // Trait supérieur
+  #place(top + center, dy: 9.5cm)[
+    #line(
+      length: 14cm,
+      stroke: 1.2pt + ENIADOrange,
+    )
+  ]
+
+  // Titre du projet
+  #place(top + center, dy: 10.0cm)[
+    #box(width: 15cm)[
+      #align(center)[
+        #set par(justify: false, leading: 0.75em)
+
+        #text(
+          size: 18pt,
+          weight: "bold",
+          fill: ENIADNavy,
+        )[
+          #pfeProjectTitle
+        ]
+      ]
+    ]
+  ]
+
+  // Trait inférieur
+  #place(top + center, dy: 12.2cm)[
+    #line(
+      length: 14cm,
+      stroke: 1.2pt + ENIADOrange,
+    )
+  ]
+
+  // =====================================================
+  // Bloc informations étudiant
+  // =====================================================
+
+  #place(top + center, dy: 12.55cm)[
+    #box(
+      width: 13.5cm,
+      inset: 10pt,
+      fill: ENIADLightBlue,
+      stroke: 1pt + ENIADBlue,
+      radius: 7pt,
+    )[
+      #align(center)[
+        #text(
+          size: 8.5pt,
+          weight: "bold",
+          fill: ENIADGray,
+        )[
+          RÉALISÉ PAR
+        ]
+
+        #v(3pt)
+
+        #text(
+          size: 16pt,
+          weight: "bold",
+          fill: ENIADNavy,
+        )[
+          #pfeStudentName
+        ]
+      ]
+
+      #v(8pt)
+
+      #line(
+        length: 100%,
+        stroke: 0.4pt + ENIADBlue.lighten(60%),
+      )
+
+      #v(8pt)
+
+      #align(center)[
+        #table(
+          columns: (4.2cm, 0.3cm, 6.2cm),
+          inset: (x: 2pt, y: 3pt),
+          stroke: none,
+
+          [#text(size: 9pt, weight: "bold", fill: ENIADGray)[Organisme d'accueil]],
+          [#text(size: 9pt, fill: ENIADGray)[:]],
+          [#text(size: 9pt, fill: ENIADDark)[#pfeCompanyName]],
+
+          [#text(size: 9pt, weight: "bold", fill: ENIADGray)[Période de stage]],
+          [#text(size: 9pt, fill: ENIADGray)[:]],
+          [#text(size: 9pt, fill: ENIADDark)[#pfeInternshipPeriod]],
+
+          [#text(size: 9pt, weight: "bold", fill: ENIADGray)[Soutenu le]],
+          [#text(size: 9pt, fill: ENIADGray)[:]],
+          [#text(size: 9pt, fill: ENIADDark)[#pfeDefenseDate]],
+        )
+      ]
+    ]
+  ]
+
+  // =====================================================
+  // Tableau du jury
+  // =====================================================
+
+  #place(top + center, dy: 18.65cm)[
+    #box(width: 14cm)[
+      #align(center)[
+        #text(
+          size: 14pt,
+          weight: "bold",
+          fill: ENIADNavy,
+        )[
+          JURY DE SOUTENANCE
+        ]
+
+        #v(6pt)
+
+        #table(
+          columns: (4.5cm, 5.5cm, 3cm),
+          inset: (x: 4pt, y: 4pt),
+          stroke: none,
+
+          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[Nom du Professeur 1]],
+          [#text(size: 8.5pt, fill: ENIADGray)[Président du Jury]],
+          [#text(size: 8.5pt, fill: ENIADGray)[ENIAD]],
+
+          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[Nom du Professeur 2]],
+          [#text(size: 8.5pt, fill: ENIADGray)[Examinateur]],
+          [#text(size: 8.5pt, fill: ENIADGray)[ENIAD]],
+
+          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[#pfeAcademicSupervisor]],
+          [#text(size: 8.5pt, fill: ENIADGray)[Encadrant Académique]],
+          [#text(size: 8.5pt, fill: ENIADGray)[ENIAD]],
+
+          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[#pfeIndustrialSupervisor]],
+          [#text(size: 8.5pt, fill: ENIADGray)[Relevant de l'organisme d'accueil]],
+          [#text(size: 8.5pt, fill: ENIADGray)[#pfeCompanyName]],
+        )
+      ]
+    ]
+  ]
+
+  // Force one full page
+  #v(29.7cm)
+  #pagebreak()
+]
+
+
+
+// =====================================================
+// Front Matter Pages Design
+// =====================================================
+
+// Colors
+#let ENIADWhite = white
+#let ENIADOrange = rgb("#F28C28")
+#let ENIADNavy = rgb("#0B1F3A")
+#let ENIADBlue = rgb("#0070C0")
+#let ENIADLightBlue = rgb("#EAF4FF")
+#let ENIADGray = rgb("#6B7280")
+#let ENIADDark = rgb("#111827")
+
+// ---------- Decorative background ----------
+#let frontmatter-decoration() = [
+  // Left vertical orange bar
+  
+
+  // Small bottom-right decoration
+  #place(bottom + right, dx: 0cm, dy: 0cm)[
+    #box(width: 5.5cm, height: 5.5cm)[
+      #polygon(
+        fill: ENIADNavy,
+        stroke: none,
+        (100%, 100%),
+        (0%, 100%),
+        (100%, 0%),
+      )
+    ]
+  ]
+
+  #place(bottom + right, dx: 0cm, dy: 0cm)[
+    #box(width: 3.2cm, height: 3.2cm)[
+      #polygon(
+        fill: ENIADOrange,
+        stroke: none,
+        (100%, 100%),
+        (0%, 100%),
+        (100%, 0%),
+      )
+    ]
+  ]
+]
+
+// ---------- Frontmatter title ----------
+#let frontmatter-page-title(title) = [
+  #show heading.where(level: 1): it => [
+    #align(left)[
+      #text(
+        font: "Times New Roman",
+        size: 22pt,
+        weight: "bold",
+        fill: ENIADNavy,
+      )[
+        #it.body
+      ]
+    ]
+
+    #v(0.25cm)
+
+    #align(center)[
+      #line(
+        length: 100%,
+        stroke: 1.2pt + ENIADOrange,
+      )
+    ]
+
+    #v(0.9cm)
+  ]
+
+  #heading(
+    level: 1,
+    numbering: none,
+    outlined: true,
+  )[#title]
+]
+
+// ---------- Hint text ----------
+#let hint(body) = text(
+  font: "Times New Roman",
+  size: 12pt,
+  style: "italic",
+  fill: ENIADGray,
+)[#body]
+
+// ---------- Keywords box ----------
+#let keywords-box(title, body, is-rtl: false) = [
+  #v(0.8em)
+
+  #block(
+    width: 100%,
+    inset: 12pt,
+    fill: ENIADLightBlue,
+    stroke: 0.8pt + ENIADBlue,
+    radius: 4pt,
+  )[
+    #if is-rtl [
+      #set text(
+        font: "Arial",
+        size: 11pt,
+        lang: "ar",
+        dir: rtl,
+      )
+
+      #align(right)[
+        #text(
+          weight: "bold",
+          fill: ENIADNavy,
+        )[
+          #title
+        ]
+
+        #v(0.35em)
+
+        #text(
+          style: "italic",
+          fill: ENIADDark,
+        )[
+          #body
+        ]
+      ]
+    ] else [
+      #text(
+        font: "Times New Roman",
+        size: 10pt,
+        weight: "bold",
+        fill: ENIADNavy,
+      )[
+        #title
+      ]
+
+      #v(0.35em)
+
+      #text(
+        font: "Times New Roman",
+        size: 11pt,
+        style: "italic",
+        fill: ENIADDark,
+      )[
+        #body
+      ]
+    ]
+  ]
+]
+// ---------- Generic frontmatter page ----------
+#let frontmatter-page(title, body, is-rtl: false) = [
+  #pagebreak(weak: true)
+
+  #set page(
+    header: [],
+    footer: [],
+  )
+
+
+  #frontmatter-page-title(title)
+
+  #set text(
+    font: "Times New Roman",
+    size: 12pt,
+  )
+
+  #set par(
+    justify: true,
+    leading: 1.15em,
+  )
+
+  #if is-rtl [
+    #set text(
+      font: "Arial",
+      size: 12pt,
+      lang: "ar",
+      dir: rtl,
+    )
+
+    #align(right)[
+      #body
+    ]
+  ] else [
+    #body
+  ]
+
+  #pagebreak()
+]
+
+
+
+// =====================================================
+// Navigation Pages: TOC, LOF, LOT, Abbreviations
+// Fixed version: decoration in page background
+// =====================================================
+
+// ---------- Background only ----------
+#let navigation-background = [
+  // Left vertical orange bar
+  #place(top + left, dx: 1.2cm, dy: 0cm)[
+    #rect(
+      width: 0.25cm,
+      height: 29.7cm,
+      fill: ENIADOrange,
+      stroke: none,
+    )
+  ]
+
+  // Bottom-right navy triangle
+  #place(bottom + right, dx: 0cm, dy: 0cm)[
+    #box(width: 5.5cm, height: 5.5cm)[
+      #polygon(
+        fill: ENIADNavy,
+        stroke: none,
+        (100%, 100%),
+        (0%, 100%),
+        (100%, 0%),
+      )
+    ]
+  ]
+
+  // Bottom-right orange triangle
+  #place(bottom + right, dx: 0cm, dy: 0cm)[
+    #box(width: 3.2cm, height: 3.2cm)[
+      #polygon(
+        fill: ENIADOrange,
+        stroke: none,
+        (100%, 100%),
+        (0%, 100%),
+        (100%, 0%),
+      )
+    ]
+  ]
+]
+
+// ---------- Page setup ----------
+#let navigation-page-setup() = [
+  #set page(
+    header: [],
+    footer: [],
+    background: navigation-background,
+  )
+
+  #set text(
+    font: "Times New Roman",
+    size: 12pt,
+  )
+]
+
+// ---------- Title ----------
+#let navigation-page-title(title) = [
+  #align(left)[
+    #text(
+      font: "Times New Roman",
+      size: 20pt,
+      weight: "bold",
+      fill: rgb("#475e6e"),
+    )[
+      #upper(title)
+    ]
+  ]
+
+  #v(0.25cm)
+
+  
+
+  #v(0.7cm)
+]
+
+// =====================================================
+// Sommaire
+// =====================================================
+
+#let sommaire-page() = [
+  #pagebreak(weak: true)
+  #navigation-page-setup()
+
+  #navigation-page-title([Sommaire])
+
+  #outline(
+    title: none,
+    indent: auto,
+    depth: 3,
+  )
+
+  #pagebreak()
+]
+
+// =====================================================
+// Liste des figures
+// =====================================================
+
+#let liste-figures-page() = [
+  #pagebreak(weak: true)
+  #navigation-page-setup()
+
+  #navigation-page-title([Liste des figures])
+
+  #outline(
+    title: none,
+    target: figure,
+  )
+
+  #pagebreak()
+]
+
+// =====================================================
+// Liste des tableaux
+// =====================================================
+
+#let liste-tableaux-page() = [
+  #pagebreak(weak: true)
+  #navigation-page-setup()
+
+  #navigation-page-title([Liste des tableaux])
+
+  #outline(
+    title: none,
+    target: figure.where(kind: table),
+  )
+
+  #pagebreak()
+]
+
+// =====================================================
+// Abbreviations table
+// =====================================================
+
+#let abbreviations-table(items) = [
+  #table(
+    columns: (3cm, 1fr),
+    inset: (x: 8pt, y: 7pt),
+    stroke: 0.45pt + rgb("#D1D5DB"),
+    fill: (x, y) => {
+      if y == 0 {
+        ENIADNavy
+      } else if calc.odd(y) {
+        rgb("#F8FAFC")
+      } else {
+        white
+      }
+    },
+
+    table.header(
+      text(fill: white, weight: "bold")[Abréviation],
+      text(fill: white, weight: "bold")[Signification],
+    ),
+
+    ..items
+  )
+]
+
+// =====================================================
+// Liste des abréviations
+// =====================================================
+// =====================================================
+// Liste d'abréviations - Style académique simple
+// =====================================================
+
+#let abbreviations-simple-list(items) = [
+  #v(1.2cm)
+
+  #table(
+    columns: (3.2cm, 1fr),
+    inset: (x: 0pt, y: 10pt),
+    stroke: none,
+    align: (left, left),
+
+    ..items
+  )
+]
+
+#let liste-abreviations-page() = [
+  #pagebreak(weak: true)
+
+  #set page(
+    header: [],
+    footer: [],
+  )
+
+  #set text(
+    font: "Times New Roman",
+    size: 12pt,
+  )
+
+  // Titre
+  #v(1.3cm)
+
+  #text(
+    font: "Times New Roman",
+    size: 24pt,
+    weight: "bold",
+    fill: ENIADNavy,
+  )[
+    Liste d’abréviations
+  ]
+
+  #v(0.7cm)
+
+  // Ligne orange
+  #line(
+    length: 100%,
+    stroke: 1.4pt + ENIADOrange,
+  )
+
+  // Liste des abréviations
+  #abbreviations-simple-list((
+    [#text(weight: "bold")[ACC]],
+    [Adaptive Cruise Control — Régulateur de vitesse adaptatif],
+
+    [#text(weight: "bold")[ADAS]],
+    [Advanced Driver Assistance Systems — Systèmes avancés d'aide à la conduite],
+
+    [#text(weight: "bold")[AEB]],
+    [Automatic Emergency Braking — Freinage d'urgence automatique],
+
+    [#text(weight: "bold")[API]],
+    [Application Programming Interface — Interface de programmation applicative],
+
+    [#text(weight: "bold")[BSW]],
+    [Blind Spot Warning — Avertissement d'angle mort],
+
+    [#text(weight: "bold")[CDC]],
+    [Cahier des charges — Document de spécification du projet],
+
+    [#text(weight: "bold")[CI/CD]],
+    [Continuous Integration / Continuous Deployment — Intégration et déploiement continus],
+
+    [#text(weight: "bold")[ESC]],
+    [Electronic Stability Control — Contrôle électronique de stabilité],
+
+    [#text(weight: "bold")[FCW]],
+    [Forward Collision Warning — Avertissement de collision frontale],
+
+    [#text(weight: "bold")[GenAI]],
+    [Generative Artificial Intelligence — Intelligence artificielle générative],
+
+    [#text(weight: "bold")[HMI]],
+    [Human-Machine Interface — Interface homme-machine],
+
+    [#text(weight: "bold")[JWT]],
+    [JSON Web Token — Jeton d'authentification web],
+
+    [#text(weight: "bold")[LKA]],
+    [Lane Keeping Assist — Aide au maintien de voie],
+
+    [#text(weight: "bold")[LLM]],
+    [Large Language Model — Grand modèle de langage],
+  ))
+
+  #pagebreak()
+]
+
+
+
+
+#let eniad-note(body) = block(
+  width: 100%,
+  inset: 12pt,
+  fill: rgb("#EAF4FF"),
+  stroke: (left: 3pt + rgb("#F28C28")),
+  radius: 4pt,
+)[
+  #text(
+    font: "Times New Roman",
+    size: 11pt,
+    fill: rgb("#111827"),
+  )[
+    #body
+  ]
+]
+
+
+
+// =====================================================
+// ENIAD PFE REPORT — Typst Components
+// =====================================================
+
+// =====================================================
+// Colors ENIAD
+// =====================================================
+
+#let ENIADBlue = rgb(0, 62, 126)
+#let ENIADOrange = rgb(230, 100, 20)
+#let ENIADLightBlue = rgb(210, 228, 248)
+#let ENIADGray = rgb(100, 110, 120)
+#let ENIADDark = rgb(25, 30, 40)
+#let ENIADWhite = white
+#let ENIADAccent = rgb(0, 160, 200)
+#let ENIADNavy = rgb(10, 35, 80)
+
+// =====================================================
+// Variables de personnalisation
+// =====================================================
+
+#let pfeStudentName = "Ahmed Oukacha"
+#let pfeProjectTitle = "Titre Complet du Projet de Fin d'Études"
+#let pfeSpeciality = "Intelligence Artificielle et Digital"
+#let pfeAcademicYear = "2025 -- 2026"
+#let pfeCompanyName = "Capgemini Engineering"
+#let pfeAcademicSupervisor = "Nom du Professeur 3"
+#let pfeIndustrialSupervisor = "M./Mme Prénom NOM, Titre"
+#let pfeInternshipPeriod = ".... au .... 2026"
+
+#let pfeLogoENIAD = "img/logo-eniad.png"
+#let pfeLogoUMP = "img/logo-ump.png"
+#let pfeLogoCompany = none
+
+// =====================================================
+// Logo helper
+// =====================================================
+
+#let logo-or-box(path, width, fallback) = {
+  if path != none {
+    image(path, width: width)
+  } else {
+    box(
+      width: width,
+      height: 2.4cm,
+      stroke: 0.7pt + ENIADGray,
+      radius: 4pt,
+      inset: 6pt,
+    )[
+      #align(center + horizon)[
+        #text(size: 8pt, fill: ENIADGray)[#fallback]
+      ]
+    ]
+  }
+}
+
+// =====================================================
+// Global page setup
+// Equivalent geometry
+// =====================================================
+
+#let page-margins = (
+  top: 2.5cm,
+  bottom: 2.5cm,
+  left: 3cm,
+  right: 2.5cm,
+)
+
+// =====================================================
+// Header / Footer
+// Equivalent fancyhdr
+// =====================================================
+
+#let report-header = context [
+  #grid(
+    columns: (1fr, auto),
+    align: horizon,
+    [
+      #text(size: 9pt, weight: "bold", fill: ENIADBlue)[ENIAD]
+      #text(size: 9pt, fill: ENIADGray)[ | Rapport PFE]
+    ],
+    [
+      #text(size: 9pt, fill: ENIADGray)[
+        #let hs = query(heading.where(level: 1).before(here()))
+        #if hs.len() > 0 [
+          #hs.last().body
+        ]
+      ]
+    ],
+  )
+
+  #v(4pt)
+
+  #line(
+    length: 100%,
+    stroke: 0.4pt + ENIADBlue,
+  )
+]
+
+#let report-footer = context [
+  #line(
+    length: 100%,
+    stroke: 0.4pt + ENIADOrange.lighten(35%),
+  )
+
+  #v(4pt)
+
+  #grid(
+    columns: (1fr, auto, 1fr),
+    align: horizon,
+    [
+      #text(size: 9pt, style: "italic", fill: ENIADGray)[
+        #pfeStudentName
+      ]
+    ],
+    [
+      #text(size: 9pt, fill: ENIADGray)[
+        --- #counter(page).display("1") ---
+      ]
+    ],
+    [
+      #align(right)[
+        #text(size: 9pt, style: "italic", fill: ENIADGray)[
+          #pfeAcademicYear
+        ]
+      ]
+    ],
+  )
+]
+
+// Footer roman for frontmatter
+#let frontmatter-footer = context [
+  #align(center)[
+    #text(size: 9pt, fill: ENIADGray)[
+      --- #counter(page).display("i") ---
+    ]
+  ]
+]
+
+// Setup frontmatter
+#let setup-frontmatter() = [
+  #set page(
+    paper: "a4",
+    margin: page-margins,
+    header: [],
+    footer: frontmatter-footer,
+  )
+
+  #counter(page).update(1)
+]
+
+// Setup body
+#let setup-body() = [
+  #set page(
+    paper: "a4",
+    margin: page-margins,
+    header: report-header,
+    footer: report-footer,
+  )
+
+  #counter(page).update(1)
+]
+
+// Setup pages without header/footer
+#let setup-empty-page() = [
+  #set page(
+    paper: "a4",
+    margin: page-margins,
+    header: [],
+    footer: [],
+  )
+]
+
+// =====================================================
+// Typography
+// =====================================================
+
+#let setup-typography() = [
+  #set text(
+    font: "Times New Roman",
+    size: 12pt,
+    lang: "fr",
+  )
+
+  #set par(
+    justify: true,
+    leading: 1.15em,
+  )
+]
+
+// =====================================================
+// Chapter / Section styles
+// =====================================================
+
+// Chapter cover similar to LaTeX chapter style
+#let eniad-chapter(number, title) = [
+  #pagebreak(weak: true)
+
+  #v(0.2cm)
+
+  #box(
+    width: 4.4cm,
+    height: 1.1cm,
+    fill: ENIADBlue,
+    radius: 4pt,
+  )[
+    #align(center + horizon)[
+      #text(size: 14pt, weight: "bold", fill: white)[
+        CHAPITRE #number
+      ]
+    ]
+  ]
+
+  #v(0.5cm)
+
+  #text(
+    font: "Times New Roman",
+    size: 28pt,
+    weight: "bold",
+    fill: ENIADDark,
+  )[
+    #title
+  ]
+
+  #v(0.25cm)
+
+  #line(
+    length: 100%,
+    stroke: 2.5pt + ENIADOrange,
+  )
+
+  #v(0.9cm)
+
+  #heading(
+    level: 1,
+    outlined: true,
+    numbering: none,
+  )[#title]
+]
+
+// Section style
+#show heading.where(level: 2): it => [
+  #v(0.8cm)
+
+  #text(
+    font: "Times New Roman",
+    size: 17pt,
+    weight: "bold",
+    fill: ENIADBlue,
+  )[
+    #it.body
+  ]
+
+  #v(0.25cm)
+
+  #line(
+    length: 100%,
+    stroke: 0.6pt + ENIADBlue.lighten(65%),
+  )
+
+  #v(0.45cm)
+]
+
+// Subsection style
+#show heading.where(level: 3): it => [
+  #v(0.45cm)
+
+  #text(
+    font: "Times New Roman",
+    size: 14pt,
+    weight: "bold",
+    fill: ENIADDark,
+  )[
+    #it.body
+  ]
+
+  #v(0.25cm)
+]
+
+// Subsubsection style
+#show heading.where(level: 4): it => [
+  #v(0.3cm)
+
+  #text(
+    font: "Times New Roman",
+    size: 12pt,
+    weight: "bold",
+    fill: ENIADGray,
+  )[
+    #it.body
+  ]
+
+  #v(0.2cm)
+]
+
+// =====================================================
+// ENIAD boxes
+// =====================================================
+
+#let eniad-note(body) = block(
+  width: 100%,
+  inset: 0pt,
+  stroke: 0.8pt + ENIADBlue,
+  radius: 4pt,
+)[
+  #block(
+    width: 100%,
+    inset: (x: 8pt, y: 5pt),
+    fill: ENIADBlue,
+    radius: (top-left: 4pt, top-right: 4pt),
+  )[
+    #text(size: 10.5pt, weight: "bold", fill: white)[
+      ⓘ Note
+    ]
+  ]
+
+  #block(
+    width: 100%,
+    inset: 10pt,
+    fill: ENIADLightBlue.lighten(35%),
+    radius: (bottom-left: 4pt, bottom-right: 4pt),
+  )[
+    #set par(
+      justify: true,
+      leading: 1.1em,
+      first-line-indent: 0cm,
+    )
+
+    #text(size: 11pt, fill: ENIADDark)[
+      #body
+    ]
+  ]
+]
+
+#let eniad-warning(body) = block(
+  width: 100%,
+  inset: 0pt,
+  stroke: 0.8pt + ENIADOrange,
+  radius: 4pt,
+)[
+  #block(
+    width: 100%,
+    inset: (x: 8pt, y: 5pt),
+    fill: ENIADOrange,
+    radius: (top-left: 4pt, top-right: 4pt),
+  )[
+    #text(size: 10.5pt, weight: "bold", fill: white)[
+      ⚠ Problématique
+    ]
+  ]
+
+  #block(
+    width: 100%,
+    inset: 10pt,
+    fill: ENIADOrange.lighten(85%),
+    radius: (bottom-left: 4pt, bottom-right: 4pt),
+  )[
+    #text(size: 11pt, fill: ENIADDark)[
+      #body
+    ]
+  ]
+]
+
+// =====================================================
+// Code source style
+// Equivalent listings
+// =====================================================
+
+#show raw.where(block: true): it => block(
+  width: 100%,
+  inset: 10pt,
+  fill: ENIADLightBlue.lighten(35%),
+  stroke: 0.6pt + ENIADBlue.lighten(45%),
+  radius: 4pt,
+)[
+  #text(
+    font: "Consolas",
+    size: 9pt,
+    fill: ENIADDark,
+  )[
+    #it
+  ]
+]
+
+// =====================================================
+// Figure caption style
+// =====================================================
+
+#show figure.caption: it => [
+  #v(0.2cm)
+  #align(center)[
+    #text(size: 9pt, fill: ENIADGray)[
+      #it.body
+    ]
+  ]
+]
+
+// =====================================================
+// Navigation pages
+// Sommaire / Listes / Abréviations
+// =====================================================
+
+#let navigation-page-title(title) = [
+  #v(1.2cm)
+
+  #text(
+    font: "Times New Roman",
+    size: 24pt,
+    weight: "bold",
+    fill: ENIADBlue,
+  )[
+    #title
+  ]
+
+  #v(0.6cm)
+
+  #line(
+    length: 100%,
+    stroke: 1.4pt + ENIADOrange,
+  )
+
+  #v(0.8cm)
+]
+
+#let sommaire-page() = [
+  #pagebreak(weak: true)
+  #navigation-page-title([Sommaire])
+
+  #outline(
+    title: none,
+    depth: 3,
+    indent: auto,
+  )
+
+  #pagebreak()
+]
+
+#let liste-figures-page() = [
+  #pagebreak(weak: true)
+  #navigation-page-title([Liste des figures])
+
+  #outline(
+    title: none,
+    target: figure,
+  )
+
+  #pagebreak()
+]
+
+#let liste-tableaux-page() = [
+  #pagebreak(weak: true)
+  #navigation-page-title([Liste des tableaux])
+
+  #outline(
+    title: none,
+    target: figure.where(kind: table),
+  )
+
+  #pagebreak()
+]
+
+// =====================================================
+// Liste d'abréviations style simple
+// =====================================================
+
+#let abbreviations-simple-list(items) = [
+  #v(0.8cm)
+
+  #table(
+    columns: (3.2cm, 1fr),
+    inset: (x: 0pt, y: 6pt),
+    stroke: none,
+    align: (left, left),
+
+    ..items
+  )
+]
+
+#let liste-abreviations-page() = [
+  #pagebreak(weak: true)
+
+  #navigation-page-title([Liste d’abréviations])
+
+  #abbreviations-simple-list((
+    [#text(weight: "bold")[ACC]],
+    [Adaptive Cruise Control — Régulateur de vitesse adaptatif],
+
+    [#text(weight: "bold")[ADAS]],
+    [Advanced Driver Assistance Systems — Systèmes avancés d'aide à la conduite],
+
+    [#text(weight: "bold")[AEB]],
+    [Automatic Emergency Braking — Freinage d'urgence automatique],
+
+    [#text(weight: "bold")[API]],
+    [Application Programming Interface — Interface de programmation applicative],
+
+    [#text(weight: "bold")[BSW]],
+    [Blind Spot Warning — Avertissement d'angle mort],
+
+    [#text(weight: "bold")[CDC]],
+    [Cahier des charges — Document de spécification du projet],
+
+    [#text(weight: "bold")[CI/CD]],
+    [Continuous Integration / Continuous Deployment — Intégration et déploiement continus],
+
+    [#text(weight: "bold")[ESC]],
+    [Electronic Stability Control — Contrôle électronique de stabilité],
+
+    [#text(weight: "bold")[FCW]],
+    [Forward Collision Warning — Avertissement de collision frontale],
+
+    [#text(weight: "bold")[GenAI]],
+    [Generative Artificial Intelligence — Intelligence artificielle générative],
+
+    [#text(weight: "bold")[HMI]],
+    [Human-Machine Interface — Interface homme-machine],
+
+    [#text(weight: "bold")[JWT]],
+    [JSON Web Token — Jeton d'authentification web],
+
+    [#text(weight: "bold")[LKA]],
+    [Lane Keeping Assist — Aide au maintien de voie],
+
+    [#text(weight: "bold")[LLM]],
+    [Large Language Model — Grand modèle de langage],
+  ))
+
+  #pagebreak()
+]
+``
+
+
+// =====================================================
+// Fonction générique pour table des besoins
+// =====================================================
+
+#let requirements-table(title, columns, rows, caption-text) = [
+  #v(0.5cm)
+
+  // Titre
+  #text(
+    font: "Times New Roman",
+    size: 13pt,
+    weight: "bold",
+    fill: ENIADBlue,
+  )[
+    #title
+  ]
+
+  #v(0.3cm)
+
+  #figure(
+    table(
+      columns: columns,
+      inset: (x: 6pt, y: 6pt),
+
+      stroke: none,
+
+      table.hline(stroke: 0.8pt + black),
+
+      ..rows.slice(0, columns.len()),
+
+      table.hline(stroke: 0.6pt + rgb("#B0B8C1")),
+
+      ..rows.slice(columns.len()),
+
+      table.hline(stroke: 0.8pt + black),
+    ),
+    caption: caption-text,
+    kind: table,
+  )
+]
+
+
+
+
+// =====================================================
+// Tables des besoins du système
+// =====================================================
+
+#let requirements-section-tables() = [
+  #set text(
+    font: "Times New Roman",
+    size: 10.5pt,
+  )
+
+  ===============================
+  Besoins Fonctionnels
+  ===============================
+
+  #requirements-table(
+    [- Besoins fonctionnels],
+    (1.6cm, 1fr),
+    (
+      table.header(
+        table.cell(fill: rgb("#0443a081"))[
+
+          #text(fill: white, weight: "bold")[ID]
+        ],
+        table.cell(fill: rgb("#0443a081"))[
+          #align(center)[#text(fill: white, weight: "bold")[Description du besoin fonctionnel]]
+          
+        ],
+      ),
+
+      [#text(weight: "bold", fill: ENIADBlue)[BF01]],
+      [Le système doit accepter un fichier Excel contenant des exigences fonctionnelles ADAS et générer un fichier Excel de cas de test.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BF02]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        Le système doit accepter une vidéo de conduite et extraire des scénarios de test avec raisonnement causal : cause, effet et conséquence.
+      ],
+
+      [#text(weight: "bold", fill: ENIADBlue)[BF03]],
+      [Le système doit supporter trois modes d’entrée : Excel seul, vidéo seule, et Excel + vidéo.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BF04]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        Le système doit permettre à l’utilisateur de revoir les résultats avant le téléchargement : approbation, rejet avec feedback ou suppression.
+      ],
+
+      [#text(weight: "bold", fill: ENIADBlue)[BF05]],
+      [Le système doit régénérer uniquement les cas de test rejetés sans relancer tout le pipeline.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BF06]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        Le système doit afficher la progression en temps réel pendant la génération à travers un mécanisme de streaming SSE.
+      ],
+
+      [#text(weight: "bold", fill: ENIADBlue)[BF07]],
+      [Le système doit maintenir un historique des versions et des révisions : v1, v2, v3, etc.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BF08]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        Le système doit évaluer automatiquement 100 % des cas de test générés afin de détecter les contradictions, les éléments hors périmètre et les doublons.
+      ],
+
+      [#text(weight: "bold", fill: ENIADBlue)[BF09]],
+      [Le système doit apprendre des feedbacks utilisateurs à travers une mémoire à long terme, incluant des règles partagées et des préférences personnelles.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BF10]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        Le système doit supporter plusieurs utilisateurs simultanément avec isolation des données.
+      ],
+    ),
+    [Liste des besoins fonctionnels],
+  )
+
+
+
+  // ===============================
+  // Besoins Non Fonctionnels
+  // ===============================
+#pagebreak()
+  #requirements-table(
+    [- Besoins non fonctionnels],
+    (1.6cm, 3.2cm, 1fr),
+    (
+      table.header(
+        table.cell(fill: rgb("#0443a081"))[
+          #text(fill: white, weight: "bold")[ID]
+        ],
+        table.cell(fill: rgb("#0443a081"))[
+          #align(center)[
+          #text(fill: white, weight: "bold")[Catégorie]]
+        ],
+        table.cell(fill: rgb("#0443a081"))[
+          #align(center)[
+          #text(fill: white, weight: "bold")[Description du besoin non fonctionnel]]
+        ],
+      ),
+
+      [#text(weight: "bold", fill: ENIADBlue)[BNF01]],
+      [Performance],
+      [La génération doit s’effectuer en moins de 120 secondes pour 1 exigence.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BNF02]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[Scalabilité],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        L’architecture doit supporter l’ajout des nouvelles fonctions ADAS sans modification majeure.
+      ],
+
+      [#text(weight: "bold", fill: ENIADBlue)[BNF03]],
+      [Disponibilité],
+      [Le système doit reprendre après un crash sans perte des données.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BNF04]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[Sécurité],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        Les checkpoints doivent être chiffrés. L’authentification par clé API est obligatoire.
+      ],
+
+      [#text(weight: "bold", fill: ENIADBlue)[BNF05]],
+      [Maintenabilité],
+      [Le code doit être modulaire, documenté et accompagné d’un logging structuré.],
+
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        #text(weight: "bold", fill: ENIADBlue)[BNF06]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[Portabilité],
+      table.cell(fill: ENIADLightBlue.lighten(55%))[
+        Le système doit être déployable sur tout environnement.
+      ],
+
+      [#text(weight: "bold", fill: ENIADBlue)[BNF07]],
+      [Interopérabilité],
+      [Le système doit communiquer via une API REST.]
+    ),
+    [Liste des besoins non fonctionnels],
+  )
+]
+
+
+#let eniad-chapter(number, title) = [
+  #pagebreak(weak: true)
+
+  // ✅ heading مخفي (فقط sommaire)
+  #hide[
+    #heading(
+      level: 1,
+      numbering:"1.",
+      outlined: true,
+    )[Chapitre #number — #title]
+  ]
+
+  // ✅ الشكل فقط هو اللي يبقى
+  #v(0.2cm)
+
+  // Badge
+  #box(
+    width: 3.6cm,
+    height: 1.1cm,
+    fill: ENIADBlue,
+    radius: 4pt,
+  )[
+    #align(center + horizon)[
+      #text(size: 13pt, weight: "bold", fill: white)[
+        Chapitre #number
+      ]
+    ]
+  ]
+
+  #v(0.5cm)
+
+  // Title
+  #text(
+    font: "Times New Roman",
+    size: 26pt,
+    fill: ENIADDark,
+  )[
+    #title
+  ]
+
+  #v(0.6cm)
+
+  // Orange line
+  #line(
+    length: 100%,
+    stroke: 2pt + ENIADOrange,
+  )
+
+  #v(0.8cm)
+]
+#let eniad-warning(body) = block(
+  width: 100%,
+  radius: 4pt,
+  stroke: 1pt + ENIADOrange,
+)[
+  // Header
+  #block(
+    width: 100%,
+    inset: 6pt,
+    fill: ENIADOrange,
+    radius: (top-left: 4pt, top-right: 4pt),
+  )[
+    #text(weight: "bold", fill: white)[⚠ Attention]
+  ]
+
+  // Content
+  #block(
+    width: 100%,
+    inset: 10pt,
+    fill: rgb("#FFF4E8"),
+  )[
+    #text(size: 11pt)[#body]
+  ]
+]
+
+#show heading.where(level: 2): it => [
+  #v(0.6cm)
+
+  #text(
+    size: 17pt,
+    weight: "bold",
+    fill: ENIADBlue,
+  )[
+    #it.body
+  ]
+
+  #v(0.2cm)
+
+  #line(
+    length: 100%,
+    stroke: 0.6pt + rgb("#C5CED8"),
+  )
+
+  #v(0.5cm)
+]
+
+#show heading.where(level: 3): it => [
+  #v(0.3cm)
+
+  #text(
+    size: 13pt,
+    weight: "bold",
+    fill: ENIADDark,
+  )[
+    #it.body
+  ]
+
+  #v(0.3cm)
+]
+
+#let eniad-synthese(body) = block(
+  width: 100%,
+  radius: 6pt,
+  stroke: 1pt + ENIADBlue,
+)[
+  // Header
+  #block(
+    width: 100%,
+    inset: 8pt,
+    fill: ENIADBlue,
+    radius: (top-left: 6pt, top-right: 6pt),
+  )[
+    #text(weight: "bold", fill: white)[✔ NOTE]
+  ]
+
+  // Content
+  #block(
+    inset: 12pt,
+    fill: rgb("#EDF4FB"),
+  )[
+    #text(size: 11pt)[#body]
+  ]
+]
+
+
+// =====================================================
+// Gantt simple avec CeTZ - Planification ADAS-R2T
+// =====================================================
+
+#let adas-r2t-simple-gantt() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.77cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let orange = rgb("#e27638")
+        let grid = rgb("#D9D9D9")
+        let text-gray = rgb("#666666")
+        let dark = rgb("#333333")
+
+        // =========================
+        // Layout parameters
+        // =========================
+        let x-label = 2.65
+        let x0 = 3.4
+        let month-w = 2.05
+
+        let y-top = 7.0
+        let y-bottom = 0.7
+
+        // Month x positions
+        let feb = x0
+        let mar = x0 + month-w
+        let apr = x0 + 2 * month-w
+        let may = x0 + 3 * month-w
+        let jun = x0 + 4 * month-w
+        let jul = x0 + 5 * month-w
+        let aug = x0 + 6 * month-w
+        let end = x0 + 7 * month-w
+
+        // =========================
+        // Title
+        // =========================
+        content(((x0 + end) / 2, 8.0), anchor: "center", [
+          #align(center)[
+            #text(
+            font: "Times New Roman",
+            size: 16pt,
+            weight: "bold",
+            fill: text-gray,
+          )[
+            
+          ]]
+          
+        ])
+
+        // =========================
+        // Vertical grid lines
+        // =========================
+        for x in (feb, mar, apr, may, jun, jul, aug, end) {
+          line(
+            (x, y-bottom),
+            (x, y-top),
+            stroke: grid + 0.7pt,
+          )
+        }
+
+        // =========================
+// Horizontal grid lines
+// =========================
+for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
+  line(
+    (x0, y),
+    (end, y),
+    stroke: grid + 0.55pt,
+  )
+}
+
+        // =========================
+        // Month labels
+        // =========================
+        let month-label(x, label) = {
+          content((x, 7.35), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 9pt,
+              weight: "bold",
+              fill: text-gray,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        month-label(feb, [Feb])
+        month-label(mar, [Mar])
+        month-label(apr, [Apr])
+        month-label(may, [May])
+        month-label(jun, [Jun])
+        month-label(jul, [Jul])
+        month-label(aug, [Aug])
+
+        // =========================
+        // Task labels
+        // =========================
+        let task-label(y, label) = {
+          content((x-label, y), anchor: "east", [
+            #text(
+              font: "Times New Roman",
+              size: 9.2pt,
+              fill: text-gray,
+            )[
+              #label
+            ]
+          ])
+        }
+
+    
+
+        task-label(6.45, [Recherche et étude ])
+        task-label(5.65, [MVP 1: Requirements to Tests])
+        task-label(4.85, [MVP 2: Video Input Layer])
+        task-label(4.05, [MVP 3: Human-in-the-Loop])
+        task-label(3.25, [MVP 4: Chatbot])
+        task-label(2.45, [MVP 5: Mémoire agents])
+        task-label(1.35, [Interface utilisateur])
+
+        // =========================
+        // Horizontal bars
+        // =========================
+        let gantt-bar(x1, x2, y, label, size: 6.8pt) = {
+          rect(
+            (x1, y - 0.17),
+            (x2, y + 0.17),
+            fill: orange,
+            stroke: none,
+            radius: 0.05,
+          )
+
+          content(((x1 + x2) / 2, y), anchor: "center", [
+            #box(width: ((x2 - x1) * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.35em)
+                #text(
+                  font: "Times New Roman",
+                  size: size,
+                  weight: "bold",
+                  fill: white,
+                )[
+                  #label
+                ]
+              ]
+            ]
+          ])
+        }
+
+        // =========================
+        // Project bars - contenu ADAS-R2T
+        // =========================
+
+        // Planning / Design : Feb -> Mar
+        gantt-bar(
+          feb,
+          mar,
+          6.45,
+          [],
+          size: 7pt,
+        )
+
+        // MVP 1 : Mar -> Apr
+        gantt-bar(
+          mar ,
+          apr + 0.15,
+          5.65,
+          [
+            
+          ],
+          size: 5.8pt,
+        )
+
+        // MVP 2 : Apr -> May
+        gantt-bar(
+          apr + 0.15,
+          may + 0.8,
+          4.85,
+          [],
+          size: 6pt,
+        )
+
+        // MVP 3 : Jun -> Jul
+        gantt-bar(
+          may + 0.4,
+          jun + 0.4,
+          4.05,
+          [
+            
+          ],
+          size: 5.8pt,
+        )
+
+        // MVP 4 : Jul
+        gantt-bar(
+          jun + 0.25,
+          jun + 2,
+          3.25,
+          [],
+          size: 6.2pt,
+        )
+
+        // MVP 5 : Aug
+        gantt-bar(
+          jun + 0.25,
+          jun + 2,
+          2.45,
+          [
+            
+          ],
+          size: 6pt,
+        )
+
+        // Interface : Mar -> Jul
+        gantt-bar(
+          mar,
+          aug,
+          1.35,
+          [],
+          size: 6.2pt,
+        )
+      })
+    ]
+  ],
+  caption: [Planification globale du projet ADAS-R2T],
+)
