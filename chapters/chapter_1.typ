@@ -80,7 +80,7 @@
       ]
 
       // ✅ display الحقيقي
-      #v(0.9cm)
+      #v(0.1cm)
 
       #text(
         size: 17pt,
@@ -162,12 +162,13 @@ après-vente et la production. Elle est caractérisée avec son fort et unique s
 matière d’innovation, Capgemini Engineering répond aux besoins de ses clients dans 6
 catégories d’activités :
 *- Consulting :* Accompagne les clients du Groupe dans la transformation de leursopérations, les conseille dans la définition de leurs stratégies en matière d’innovation et de leurs services et produits futurs.
- 
+ #v(0.6cm)
 
 *- Digital :* Accompagne les clients dans leur transformation digitale par le biais de
 la capitalisation sur sa connaissance de leurs produits et processus industriels, et
 sur l’expertise de ses ingénieurs spécialisés dans les métiers du numérique.
- 
+
+
 *- Engineering :* aide les clients du Groupe dans le développement de nouveaux
 produits et système tout en réduisant leurs délais de mise sur le marché et leurs
 coûts, et les accompagne dans l’amélioration de leurs processus industriels et leurs
@@ -304,7 +305,7 @@ Pour inscrire ce travail dans une perspective scientifique, nous avons identifi�
  Enfin, la conception de cette solution n'était pas accidentelle, mais plutôt basée sur une double base de connaissances : un aspect technique lié à la physique de la construction de systèmes basés sur des graphes et des sorties régies par des états (Stateful Systems) dans l'environnement LangGraph, et un aspect industriel conforme aux exigences strictes et précises des tests de systèmes ADAS dans le secteur automobile.
 
 #intro-subsection[Planification du projet] 
-Afin de garantir le respect du calendrier de formation et une gestion efficace du temps, le projet a fait l'objet d'une planification par phases rigoureuse. Nous avons décomposé la feuille de route en tâches et sous-thèmes plus petits, directement liés à chaque version des livrables initiaux *MVP*. Le diagramme suivant résume la séquence chronologique et les interrelations structurelles de ces tâches tout au long du projet :
+Afin de garantir le respect du calendrier de formation et une gestion efficace du temps, le projet a fait l'objet d'une planification par phases rigoureuse. Nous avons décomposé la feuille de route en tâches et sous-tâches plus petits planifiées a l'aide de *Notion app*, directement liés à chaque version des livrables initiaux *MVP*. Le diagramme suivant résume la séquence chronologique et les interrelations structurelles de ces tâches tout au long du projet :
 #v(0.6cm)
 
 

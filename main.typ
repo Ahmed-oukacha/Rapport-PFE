@@ -2,7 +2,7 @@
 #import "components.typ": *
 
 #import "@preview/fletcher:0.5.8": *
-
+#show cite: set text(fill: ENIADBlue)
 ///////////////////////////////////////////
 // 1/3 If not already done, download the
 //     "Segoe UI This" font (see README)

@@ -632,14 +632,12 @@
     let n = intro-section-counter.get().at(0)
 
     [
-      // ✅ heading مخفي (باش يدخل في sommaire)
       #heading(
         level: 1,
         numbering: none,
         outlined: true,
       )[0.#n #title]
 
-      // ✅ الشكل اللي بان لك
       #v(0.9cm)
 
       #text(
@@ -743,11 +741,37 @@ Dans cette optique, notre projet de fin d’études, conçu au sein de Capgemini
 
 Notre solution repose sur une approche d’IA multi-agents, où le travail est réparti entre un réseau d’agents numériques spécialisés. Chaque agent logiciel prend en charge une tâche spécifique, depuis l’analyse des exigences et l’extraction d’indicateurs jusqu’à la formulation des plans de test, l’évaluation de la couverture et l’amélioration des résultats. Cette approche dépasse la génération traditionnelle et s’inscrit dans une logique de planification, d’évaluation et d’auto-correction.
 
-Sur le plan structurel, ces modèles de langage sont intégrés au framework *LangGraph* pour gérer le dialogue et la coordination entre les agents. Nous avons également intégré le principe de Human-in-the-Loop afin que la décision finale revienne à l’expert humain. L’objectif n’est pas de remplacer l’ingénieur, mais de lui fournir un outil intelligent qui lui permette de gagner du temps tout en assurant un suivi précis entre l’exigence initiale et le test final généré.
+Sur le plan structurel, ces modèles de langage sont intégrés au framework LangGraph pour gérer le dialogue et la coordination entre les agents. Nous avons également intégré le principe de Human-in-the-Loop afin que la décision finale revienne à l’expert humain. L’objectif n’est pas de remplacer l’ingénieur, mais de lui fournir un outil intelligent qui lui permette de gagner du temps tout en assurant un suivi précis entre l’exigence initiale et le test final généré.
 
 Techniquement, la plateforme repose sur une architecture logicielle flexible et évolutive, s’appuyant sur les services backend FastAPI et fonctionnant dans des conteneurs Docker pour faciliter son déploiement en milieu industriel. Elle est également optimisée par un système de surveillance et d’analyse continue des performances. La valeur ajoutée de ce travail réside dans la création d’un parcours intelligent intégré pour l’automatisation des tests ADAS, l’augmentation de la couverture fonctionnelle et la garantie d’un suivi complet des exigences, tout en préservant le rôle de la supervision humaine à l’ère de l’intelligence artificielle.
 
 Le présent rapport décrit le travail réalisé au sein de #text(weight: "bold")[#pfeCompanyName].
+
+
+// =====================================================
+// 0.4 Organisation du Mémoire
+// =====================================================
+
+
+Le présent mémoire est structuré comme suit :
+
+#set list(
+  marker: ([•], [—]),
+  indent: 1.3em,
+  body-indent: 0.6em,
+  spacing: 0.35em,
+)
+
+- *Chapitre 1 :* Contexte général du projet, présentation de l’organisme d’accueil, problématique, cahier des charges et méthodologie de travail.
+\
+- *Chapitre 2 :* État de l’art relatif aux systèmes ADAS, à l’intelligence artificielle générative, aux grands modèles de langage et aux architectures agentiques.
+\
+- *Chapitre 3 :* Présentation de l’architecture globale de la plateforme ADAS-R2T.
+\
+- *Chapitre 4 :* Implémentation technique de la solution.
+\
+- *Chapitre 5 :* Évaluation des résultats obtenus, limites et perspectives.
+
 
 // // =====================================================
 // // 0.1 Présentation de Capgemini Engineering

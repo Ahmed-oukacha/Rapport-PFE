@@ -4998,7 +4998,7 @@
     stroke: 2.5pt + ENIADOrange,
   )
 
-  #v(0.9cm)
+  #v(0.5cm)
 
   #heading(
     level: 1,
@@ -5302,44 +5302,68 @@
 // =====================================================
 // Fonction générique pour table des besoins
 // =====================================================
+// =====================================================
+// Fonction générique pour table des besoins - Style clean
+// =====================================================
+
+// =====================================================
+// Fonction générique pour table des besoins - Style image
+// =====================================================
 
 #let requirements-table(title, columns, rows, caption-text) = [
-  #v(0.5cm)
+  #v(0.45cm)
 
-  // Titre
   #text(
     font: "Times New Roman",
-    size: 13pt,
+    size: 12.5pt,
     weight: "bold",
     fill: ENIADBlue,
   )[
     #title
   ]
 
-  #v(0.3cm)
+  #v(0.25cm)
 
   #figure(
-    table(
-      columns: columns,
-      inset: (x: 6pt, y: 6pt),
+    block[
+      #set text(
+        font: "Times New Roman",
+        size: 9pt,
+      )
 
-      stroke: none,
+      #table(
+        columns: columns,
+        inset: (x: 5pt, y: 6pt),
+        stroke: none,
 
-      table.hline(stroke: 0.8pt + black),
+        align: (x, y) => {
+          if x == 0 {
+            center
+          } else {
+            center
+          }
+        },
 
-      ..rows.slice(0, columns.len()),
+        // Top rule
+        table.hline(stroke: 0.8pt + black),
 
-      table.hline(stroke: 0.6pt + rgb("#B0B8C1")),
+        // Header
+        rows.at(0),
 
-      ..rows.slice(columns.len()),
+        // Mid rule
+        table.hline(stroke: 0.45pt + black),
 
-      table.hline(stroke: 0.8pt + black),
-    ),
+        // Body
+        ..rows.slice(1),
+
+        // Bottom rule
+        table.hline(stroke: 0.8pt + black),
+      )
+    ],
     caption: caption-text,
     kind: table,
   )
 ]
-
 
 
 
@@ -5362,12 +5386,12 @@
     (1.6cm, 1fr),
     (
       table.header(
-        table.cell(fill: rgb("#0443a081"))[
+        table.cell(fill:rgb("#DCE6F1"))[
 
-          #text(fill: white, weight: "bold")[ID]
+          #text(fill: ENIADBlue, weight: "bold")[ID]
         ],
-        table.cell(fill: rgb("#0443a081"))[
-          #align(center)[#text(fill: white, weight: "bold")[Description du besoin fonctionnel]]
+        table.cell(fill: rgb("#DCE6F1"))[
+          #align(center)[#text(fill: ENIADBlue, weight: "bold")[Description du besoin fonctionnel]]
           
         ],
       ),
@@ -5375,50 +5399,50 @@
       [#text(weight: "bold", fill: ENIADBlue)[BF01]],
       [Le système doit accepter un fichier Excel contenant des exigences fonctionnelles ADAS et générer un fichier Excel de cas de test.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(85%))[
         #text(weight: "bold", fill: ENIADBlue)[BF02]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         Le système doit accepter une vidéo de conduite et extraire des scénarios de test avec raisonnement causal : cause, effet et conséquence.
       ],
 
       [#text(weight: "bold", fill: ENIADBlue)[BF03]],
       [Le système doit supporter trois modes d’entrée : Excel seul, vidéo seule, et Excel + vidéo.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         #text(weight: "bold", fill: ENIADBlue)[BF04]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         Le système doit permettre à l’utilisateur de revoir les résultats avant le téléchargement : approbation, rejet avec feedback ou suppression.
       ],
 
       [#text(weight: "bold", fill: ENIADBlue)[BF05]],
       [Le système doit régénérer uniquement les cas de test rejetés sans relancer tout le pipeline.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         #text(weight: "bold", fill: ENIADBlue)[BF06]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         Le système doit afficher la progression en temps réel pendant la génération à travers un mécanisme de streaming SSE.
       ],
 
       [#text(weight: "bold", fill: ENIADBlue)[BF07]],
       [Le système doit maintenir un historique des versions et des révisions : v1, v2, v3, etc.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         #text(weight: "bold", fill: ENIADBlue)[BF08]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         Le système doit évaluer automatiquement 100 % des cas de test générés afin de détecter les contradictions, les éléments hors périmètre et les doublons.
       ],
 
       [#text(weight: "bold", fill: ENIADBlue)[BF09]],
       [Le système doit apprendre des feedbacks utilisateurs à travers une mémoire à long terme, incluant des règles partagées et des préférences personnelles.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         #text(weight: "bold", fill: ENIADBlue)[BF10]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         Le système doit supporter plusieurs utilisateurs simultanément avec isolation des données.
       ],
     ),
@@ -5430,22 +5454,21 @@
   // ===============================
   // Besoins Non Fonctionnels
   // ===============================
-#pagebreak()
   #requirements-table(
     [- Besoins non fonctionnels],
     (1.6cm, 3.2cm, 1fr),
     (
       table.header(
-        table.cell(fill: rgb("#0443a081"))[
-          #text(fill: white, weight: "bold")[ID]
+        table.cell(fill: rgb("#DCE6F1"))[
+          #text(fill: ENIADBlue, weight: "bold")[ID]
         ],
-        table.cell(fill: rgb("#0443a081"))[
+        table.cell(fill: rgb("#DCE6F1"))[
           #align(center)[
-          #text(fill: white, weight: "bold")[Catégorie]]
+          #text(fill: ENIADBlue, weight: "bold")[Catégorie]]
         ],
-        table.cell(fill: rgb("#0443a081"))[
+        table.cell(fill: rgb("#DCE6F1"))[
           #align(center)[
-          #text(fill: white, weight: "bold")[Description du besoin non fonctionnel]]
+          #text(fill: ENIADBlue, weight: "bold")[Description du besoin non fonctionnel]]
         ],
       ),
 
@@ -5453,11 +5476,11 @@
       [Performance],
       [La génération doit s’effectuer en moins de 120 secondes pour 1 exigence.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         #text(weight: "bold", fill: ENIADBlue)[BNF02]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[Scalabilité],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[Scalabilité],
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         L’architecture doit supporter l’ajout des nouvelles fonctions ADAS sans modification majeure.
       ],
 
@@ -5465,11 +5488,11 @@
       [Disponibilité],
       [Le système doit reprendre après un crash sans perte des données.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         #text(weight: "bold", fill: ENIADBlue)[BNF04]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[Sécurité],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[Sécurité],
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         Les checkpoints doivent être chiffrés. L’authentification par clé API est obligatoire.
       ],
 
@@ -5477,11 +5500,11 @@
       [Maintenabilité],
       [Le code doit être modulaire, documenté et accompagné d’un logging structuré.],
 
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         #text(weight: "bold", fill: ENIADBlue)[BNF06]
       ],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[Portabilité],
-      table.cell(fill: ENIADLightBlue.lighten(55%))[
+      table.cell(fill: ENIADLightBlue.lighten(80%))[Portabilité],
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
         Le système doit être déployable sur tout environnement.
       ],
 
