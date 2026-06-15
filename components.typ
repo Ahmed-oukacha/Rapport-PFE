@@ -5883,3 +5883,189 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
   ],
   caption: [Planification globale du projet ADAS-R2T],
 )
+
+
+// =====================================================
+// ADAS-R2T Pipeline Stages Diagram - Native Typst Version
+// =====================================================
+
+#let adas-r2t-pipeline-stages() = figure(
+  block(width: 100%)[
+    #set text(font: "Arial")
+
+    // =========================
+    // Colors
+    // =========================
+    #let green = rgb("#2FBF6B")
+    #let blue = rgb("#6B86E8")
+    #let cyan = rgb("#08B9C9")
+    #let beige = rgb("#D2B39E")
+
+    #let card-bg = rgb("#F8F8FA")
+    #let bottom-bg = rgb("#FBFAFC")
+    #let input-bg = rgb("#91DFC0")
+    #let pipeline-bg = rgb("#A8C7F4")
+    #let output-bg = rgb("#F2C6A8")
+
+    #let gray = rgb("#4B4B4B")
+
+    // =========================
+    // Helpers
+    // =========================
+    #let stage-card(color, number, title, body) = box(
+      width: 3.35cm,
+      height: 4.15cm,
+      fill: card-bg,
+      inset: 0pt,
+    )[
+      #box(
+        width: 100%,
+        height: 0.20cm,
+        fill: color,
+      )[]
+
+      #pad(x: 0.28cm, y: 0.30cm)[
+        #text(size: 17pt, weight: "bold")[stage #number]
+
+        #v(0.55cm)
+
+        #text(size: 10.5pt, weight: "bold")[
+          #title
+        ]
+
+        #v(0.35cm)
+
+        #text(size: 9pt, fill: gray)[
+          #body
+        ]
+      ]
+    ]
+
+    #let arrow-symbol() = align(center + horizon)[
+      #text(size: 22pt, weight: "bold")[→]
+    ]
+
+    #let bottom-card(color, title, body) = box(
+      width: 3.8cm,
+      height: 1.05cm,
+      fill: color,
+      inset: 4pt,
+    )[
+      #align(center)[
+        #text(size: 11pt, weight: "bold")[#title]
+
+        #v(1pt)
+
+        #text(size: 9pt)[
+          #body
+        ]
+      ]
+    ]
+
+    // =========================
+    // Top stages row
+    // =========================
+
+    #grid(
+      columns: (3.35cm, 0.55cm, 3.35cm, 0.55cm, 3.35cm, 0.55cm, 3.35cm),
+      column-gutter: 0.15cm,
+      align: horizon,
+
+      stage-card(
+        green,
+        "1",
+        [Input Extraction],
+        [
+          Lire l’Excel \
+          Extraire requirements
+        ],
+      ),
+
+      arrow-symbol(),
+
+      stage-card(
+        blue,
+        "2",
+        [Semantic Analysis],
+        [
+          5 analyseurs \
+          en parallèle
+        ],
+      ),
+
+      arrow-symbol(),
+
+      stage-card(
+        cyan,
+        "3",
+        [Test Case Generation],
+        [
+          Planner + \
+          Workers parallèles
+        ],
+      ),
+
+      arrow-symbol(),
+
+      stage-card(
+        beige,
+        "4",
+        [Evaluation & Output],
+        [
+          Vérifier qualité \
+          Exporter Excel
+        ],
+      ),
+    )
+
+    #v(1.15cm)
+
+    // =========================
+    // Bottom overview row
+    // =========================
+
+    #box(
+      width: 100%,
+      fill: bottom-bg,
+      inset: (x: 0.45cm, y: 0.45cm),
+    )[
+      #align(center)[
+        #grid(
+          columns: (3.8cm, 0.9cm, 3.8cm, 0.9cm, 3.8cm),
+          column-gutter: 0.25cm,
+          align: horizon,
+
+          bottom-card(
+            input-bg,
+            [INPUT],
+            [
+              Excel  
+              Video 
+            ],
+          ),
+
+          arrow-symbol(),
+
+          bottom-card(
+            pipeline-bg,
+            [PIPELINE],
+            [
+              14 nodes LangGraph
+            ],
+          ),
+
+          arrow-symbol(),
+
+          bottom-card(
+            output-bg,
+            [OUTPUT],
+            [
+              Excel (test cases)
+            ],
+          ),
+        )
+      ]
+    ]
+  ],
+  caption: [Vue synthétique du pipeline ADAS-R2T],
+)
