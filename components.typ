@@ -5914,7 +5914,7 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
     // =========================
     #let stage-card(color, number, title, body) = box(
       width: 3.35cm,
-      height: 4.15cm,
+      height: 5.15cm,
       fill: card-bg,
       inset: 0pt,
     )[
@@ -5925,9 +5925,9 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
       )[]
 
       #pad(x: 0.28cm, y: 0.30cm)[
-        #text(size: 17pt, weight: "bold")[stage #number]
+        #text(size: 20pt, weight: "bold")[Stage #number]
 
-        #v(0.55cm)
+        #v(-0.1cm)
 
         #text(size: 10.5pt, weight: "bold")[
           #title
@@ -5947,7 +5947,138 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
 
     #let bottom-card(color, title, body) = box(
       width: 3.8cm,
-      height: 1.05cm,
+      height: 1.3cm,
+      fill: color,
+      inset: 4pt,
+    )[
+      #align(center)[
+        #text(size: 11pt, weight: "bold")[#title]
+
+        #v(1pt)
+
+        #text(size: 9pt)[
+          #body
+        ]
+      ]
+    ]
+
+    // =========================
+    // Top stages row
+    // =========================
+
+    
+    #v(0.1cm)
+
+    // =========================
+    // Bottom overview row
+    // =========================
+
+    #box(
+      width: 100%,
+      fill: bottom-bg,
+      inset: (x: 0.45cm, y: 0.45cm),
+    )[
+      #align(center)[
+        #grid(
+          columns: (3.8cm, 0.9cm, 3.8cm, 0.9cm, 3.8cm),
+          column-gutter: 0.25cm,
+          align: horizon,
+
+          bottom-card(
+            input-bg,
+            [INPUT],
+            [
+              Excel + Video 
+            ],
+          ),
+
+          arrow-symbol(),
+
+          bottom-card(
+            pipeline-bg,
+            [PIPELINE],
+            [
+              25 nodes LangGraph
+            ],
+          ),
+
+          arrow-symbol(),
+
+          bottom-card(
+            output-bg,
+            [OUTPUT],
+            [
+              Excel (test cases)
+            ],
+          ),
+        )
+      ]
+    ]
+  ],
+  caption: [Vue synthétique du pipeline ADAS-R2T],
+)
+
+
+
+#let adas-r2t-pipeline-stages_1() = figure(
+  block(width: 100%)[
+    #set text(font: "Arial")
+
+    // =========================
+    // Colors
+    // =========================
+    #let green = rgb("#2FBF6B")
+    #let blue = rgb("#6B86E8")
+    #let cyan = rgb("#08B9C9")
+    #let beige = rgb("#D2B39E")
+
+    #let card-bg = rgb("#F8F8FA")
+    #let bottom-bg = rgb("#FBFAFC")
+    #let input-bg = rgb("#91DFC0")
+    #let pipeline-bg = rgb("#A8C7F4")
+    #let output-bg = rgb("#F2C6A8")
+
+    #let gray = rgb("#4B4B4B")
+
+    // =========================
+    // Helpers
+    // =========================
+    #let stage-card(color, number, title, body) = box(
+      width: 3.35cm,
+      height: 5.15cm,
+      fill: card-bg,
+      inset: 0pt,
+    )[
+      #box(
+        width: 100%,
+        height: 0.20cm,
+        fill: color,
+      )[]
+
+      #pad(x: 0.28cm, y: 0.30cm)[
+        #text(size: 20pt, weight: "bold")[Stage #number]
+
+        #v(-0.1cm)
+
+        #text(size: 10.5pt, weight: "bold")[
+          #title
+        ]
+
+        #v(0.35cm)
+
+        #text(size: 9pt, fill: gray)[
+          #body
+        ]
+      ]
+    ]
+
+    #let arrow-symbol() = align(center + horizon)[
+      #text(size: 22pt, weight: "bold")[→]
+    ]
+
+    #let bottom-card(color, title, body) = box(
+      width: 3.8cm,
+      height: 1.3cm,
       fill: color,
       inset: 4pt,
     )[
@@ -5974,10 +6105,10 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
       stage-card(
         green,
         "1",
-        [Input Extraction],
+        [Input \ Extraction],
         [
-          Lire l’Excel \
-          Extraire requirements
+          Lire et extraits l’Excel + video
+          
         ],
       ),
 
@@ -5988,8 +6119,7 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
         "2",
         [Semantic Analysis],
         [
-          5 analyseurs \
-          en parallèle
+          5 analyseurs en parallèle
         ],
       ),
 
@@ -6018,54 +6148,396 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
       ),
     )
 
-    #v(1.15cm)
+    #v(0.1cm)
 
     // =========================
     // Bottom overview row
     // =========================
 
-    #box(
-      width: 100%,
-      fill: bottom-bg,
-      inset: (x: 0.45cm, y: 0.45cm),
-    )[
-      #align(center)[
-        #grid(
-          columns: (3.8cm, 0.9cm, 3.8cm, 0.9cm, 3.8cm),
-          column-gutter: 0.25cm,
-          align: horizon,
+    
+  ],
+  caption: [Les quatre etapes du pipeline de generation.],
+)
 
-          bottom-card(
-            input-bg,
-            [INPUT],
-            [
-              Excel  
-              Video 
-            ],
-          ),
 
-          arrow-symbol(),
+// =====================================================
+// Architecture Agentic AI / ADAS-R2T Diagram - Same Shape, Readable
+// =====================================================
 
-          bottom-card(
-            pipeline-bg,
-            [PIPELINE],
-            [
-              14 nodes LangGraph
-            ],
-          ),
+#let agentic-ai-architecture-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.64cm, {
+        import cetz.draw: *
 
-          arrow-symbol(),
+        // =========================
+        // Colors
+        // =========================
+        let purple = rgb("#B879D0")
+        let blue = rgb("#3F6FE5")
+        let green = rgb("#00B862")
+        let black = rgb("#111111")
+        let gray = rgb("#4B5563")
+        let white = rgb("#FFFFFF")
 
-          bottom-card(
-            output-bg,
-            [OUTPUT],
-            [
-              Excel (test cases)
-            ],
-          ),
+        // =========================
+        // Helpers
+        // =========================
+
+        let arrow(a, b) = {
+          line(
+            a,
+            b,
+            stroke: black + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let box-node(
+          x,
+          y,
+          w,
+          h,
+          stroke-color,
+          title,
+          body,
+          title-size: 7pt,
+          body-size: 6pt,
+          body-color: green,
+        ) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: stroke-color + 1.25pt,
+            radius: 0.16,
+          )
+
+          // Title
+          content((x, y + h * 0.18), anchor: "center", [
+            #box(width: (w * 0.52cm))[
+              #align(center)[
+                #set par(leading: 0.58em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: title-size,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          // Body
+          if body != none {
+            content((x, y - h * 0.28), anchor: "center", [
+              #box(width: (w * 0.52cm))[
+                #align(center)[
+                  #set par(leading: 0.58em, justify: false)
+                  #text(
+                    font: "Arial",
+                    size: body-size,
+                    fill: body-color,
+                  )[
+                    #body
+                  ]
+                ]
+              ]
+            ])
+          }
+        }
+
+        let side-label(x, y, label) = {
+          content((x, y), anchor: "east", [
+            #text(font: "Arial", size: 7pt, fill: black)[#label]
+          ])
+        }
+
+        let legend-dot(x, y, color) = {
+          circle((x, y), radius: 0.11, fill: color, stroke: none)
+        }
+
+        let legend-label(x, y, label, color) = {
+          content((x, y), anchor: "west", [
+            #text(font: "Arial", size: 6pt, fill: color)[#label]
+          ])
+        }
+
+        // =========================
+        // Main nodes
+        // =========================
+
+        // Left labels
+        side-label(0.35, 4.00, [Query])
+        side-label(0.4, 0.20, [Output])
+
+        // App hosting
+        box-node(
+          1.6,
+          2.20,
+          3.65,
+          2.25,
+          blue,
+          [App Hosting - Api / UI],
+          [
+            FastAPI / SlowAPI \
+            JWT
+          ],
+          title-size: 6.2pt,
+          body-size: 5.7pt,
         )
-      ]
+
+        // Context / Prompt engineering
+        box-node(
+          1.65,
+          7.20,
+          3.70,
+          2.05,
+          purple,
+          [
+            Context / Prompt \
+            engineering
+          ],
+          none,
+          title-size: 6.3pt,
+        )
+
+        // Orchestration
+        box-node(
+          7.80,
+          4.65,
+          3.65,
+          3.35,
+          purple,
+          [
+            Orchestration \
+            pipeline traitement
+          ],
+          [LangGraph],
+          title-size: 7.5pt,
+          body-size: 6.0pt,
+        )
+
+        // Right stack components
+        box-node(
+          12.85,
+          8.4,
+          3.55,
+          2.12,
+          purple,
+          [Tools],
+          [
+            API / LangChain \
+            tool
+          ],
+          title-size: 6.2pt,
+          body-size: 5.5pt,
+        )
+
+        box-node(
+          12.85,
+          6.1,
+          3.55,
+          2.12,
+          purple,
+          [Mémoire],
+          [
+            PostgreSQL / \
+            mem0ai
+          ],
+          title-size: 6.2pt,
+          body-size: 5.5pt,
+        )
+
+        box-node(
+          12.85,
+          3.8,
+          3.55,
+          2.12,
+          blue,
+          [LLM Cache],
+          [Redis],
+          title-size: 6.2pt,
+          body-size: 5.5pt,
+        )
+
+        box-node(
+          12.85,
+          1.4,
+          3.55,
+          2.30,
+          blue,
+          [Logging / LLMOps],
+          [
+            Langfuse / Structlog \
+            Prometheus / Grafana
+          ],
+          title-size: 5.8pt,
+          body-size: 5.1pt,
+        )
+
+        box-node(
+          12.85,
+          -1.00,
+          3.55,
+          2.12,
+          blue,
+          [Validation],
+          [pydantic ai],
+          title-size: 6.2pt,
+          body-size: 5.5pt,
+        )
+
+        // LLM APIs and Hosting
+        box-node(
+          18.95,
+          4.55,
+          6.25,
+          2,
+          purple,
+          [LLM APIs and Hosting],
+          [
+            API model / Local model \
+            GPT / Gemini / Ollama / Tenacity
+          ],
+          title-size: 6.2pt,
+          body-size: 5.4pt,
+        )
+
+        // =========================
+        // Arrows - Left side
+        // =========================
+// =========================
+// Arrows - Left side
+// =========================
+
+// Query -> App
+line(
+  (0.50, 4.00),
+  (0.85, 4.00),
+  (0.85, 3.33),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// App -> Output
+line(
+  (1.60, 1.08),
+  (1.60, 0.20),
+  (0.55, 0.20),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// App -> Orchestration
+line(
+  (3.43, 2.65),
+  (4.35, 2.65),
+  (4.35, 4.65),
+  (5.98, 4.65),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// Orchestration -> Context / Prompt engineering
+line(
+  (7.80, 6.33),
+  (7.80, 7.20),
+  (3.50, 7.20),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+
+// =========================
+// Arrows - Orchestration to stack
+// =========================
+
+// Orchestration -> Tools
+line(
+  (9.63, 5.75),
+  (10.25, 5.75),
+  (10.25, 8.40),
+  (11.08, 8.40),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// Orchestration -> Mémoire
+line(
+  (9.63, 5.35),
+  (10.45, 5.35),
+  (10.45, 6.10),
+  (11.08, 6.10),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// Orchestration -> LLM Cache
+line(
+  (9.63, 3.80),
+  (11.08, 3.80),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// Orchestration -> Logging / LLMOps
+line(
+  (9.63, 3.25),
+  (10.45, 3.25),
+  (10.45, 1.40),
+  (11.08, 1.40),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// Orchestration -> Validation
+line(
+  (7.80, 2.98),
+  (7.80, -1.00),
+  (11.08, -1.00),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+
+// =========================
+// Arrows - Stack to LLM APIs
+// =========================
+
+// LLM Cache -> LLM APIs and Hosting
+line(
+  (14.63, 3.80),
+  (15.83, 3.80),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+
+// Validation -> LLM APIs and Hosting
+line(
+  (14.63, -1.00),
+  (18.95, -1.00),
+  (18.95, 3.55),
+  stroke: black + 0.75pt,
+  mark: (end: ">"),
+)
+        // =========================
+        // Legend
+        // =========================
+
+        legend-dot(3.25, -3.45, purple)
+        legend-label(3.62, -3.45, [Agentic AI Components], purple)
+
+        legend-dot(8.4, -3.45, blue)
+        legend-label(8.8, -3.45, [Backend technologie], blue)
+
+        legend-dot(13.20, -3.45, green)
+        legend-label(13.57,-3.45, [Technologie utilisée], green)
+      })
     ]
   ],
-  caption: [Vue synthétique du pipeline ADAS-R2T],
+  caption: [Architecture globale des composants agentiques et techniques d’ADAS-R2T],
 )
+``
