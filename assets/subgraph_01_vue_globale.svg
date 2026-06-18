@@ -1,0 +1,124 @@
+<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="#fafbfe" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1e3d">Vue globale du pipeline — Routage par mode d'entree</text>
+
+  <!-- START node -->
+  <rect x="380" y="50" width="100" height="32" rx="16" fill="#e4e5eb" stroke="#888" stroke-width="1"/>
+  <text x="430" y="71" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a3d4a">START</text>
+
+  <!-- Routing arrows from START -->
+  <!-- Excel only / Excel+Video → left -->
+  <path d="M410 82 L410 110 L200 110 L200 140" fill="none" stroke="#2e7bd6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="280" y="105" text-anchor="middle" font-size="10" fill="#2e7bd6" font-style="italic">excel_only / excel_video</text>
+
+  <!-- Video only → right -->
+  <path d="M450 82 L450 110 L700 110 L700 140" fill="none" stroke="#6c5ce7" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <text x="600" y="105" text-anchor="middle" font-size="10" fill="#6c5ce7" font-style="italic">video_only</text>
+
+  <!-- Excel+Video also goes right -->
+  <path d="M430 82 L430 120 L700 120 L700 140" fill="none" stroke="#0fa67a" stroke-width="1" stroke-dasharray="6 3" marker-end="url(#arrow-green)"/>
+  <text x="590" y="134" text-anchor="middle" font-size="9" fill="#0fa67a" font-style="italic">excel_video (branche video)</text>
+
+  <!-- ═══ STAGE 1: Extraction ═══ -->
+  <rect x="100" y="140" width="200" height="90" rx="8" fill="#e3f2fd" stroke="#2e7bd6" stroke-width="1.2"/>
+  <rect x="100" y="140" width="200" height="6" rx="3" fill="#2e7bd6"/>
+  <text x="200" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e7bd6">Etape 1</text>
+  <text x="200" y="182" text-anchor="middle" font-size="11" fill="#3a3d4a">Extraction des entrees</text>
+  <text x="200" y="198" text-anchor="middle" font-size="9" fill="#888">ingest_excel</text>
+  <text x="200" y="212" text-anchor="middle" font-size="9" fill="#888">extract_and_structure</text>
+
+  <!-- ═══ VIDEO PIPELINE ═══ -->
+  <rect x="600" y="140" width="200" height="90" rx="8" fill="#f3e8ff" stroke="#6c5ce7" stroke-width="1.2"/>
+  <rect x="600" y="140" width="200" height="6" rx="3" fill="#6c5ce7"/>
+  <text x="700" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#6c5ce7">Pipeline Video</text>
+  <text x="700" y="182" text-anchor="middle" font-size="11" fill="#3a3d4a">Analyse et mutations</text>
+  <text x="700" y="198" text-anchor="middle" font-size="9" fill="#888">analyze → frames → scenarios</text>
+  <text x="700" y="212" text-anchor="middle" font-size="9" fill="#888">→ mutations (15-25 / seed)</text>
+
+  <!-- Arrow: Stage 1 → Stage 2 -->
+  <path d="M200 230 L200 270" fill="none" stroke="#2e7bd6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- Arrow: Video → Stage 2 (excel_video) -->
+  <path d="M600 200 L370 200 L370 270 L310 270" fill="none" stroke="#0fa67a" stroke-width="1" stroke-dasharray="6 3" marker-end="url(#arrow-green)"/>
+  <text x="480" y="194" text-anchor="middle" font-size="9" fill="#0fa67a" font-style="italic">video_insights</text>
+
+  <!-- ═══ STAGE 2: Analyse ═══ -->
+  <rect x="100" y="270" width="200" height="80" rx="8" fill="#e8f5e9" stroke="#0fa67a" stroke-width="1.2"/>
+  <rect x="100" y="270" width="200" height="6" rx="3" fill="#0fa67a"/>
+  <text x="200" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#0fa67a">Etape 2</text>
+  <text x="200" y="312" text-anchor="middle" font-size="11" fill="#3a3d4a">Analyse semantique</text>
+  <text x="200" y="328" text-anchor="middle" font-size="9" fill="#888">5 analyseurs en parallele</text>
+  <text x="200" y="340" text-anchor="middle" font-size="9" fill="#888">→ merge_analyses</text>
+
+  <!-- Arrow: Stage 2 → Stage 3 -->
+  <path d="M200 350 L200 380" fill="none" stroke="#e0a317" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+  <!-- ═══ STAGE 3: Generation ═══ -->
+  <rect x="100" y="380" width="200" height="80" rx="8" fill="#fff8e1" stroke="#e0a317" stroke-width="1.2"/>
+  <rect x="100" y="380" width="200" height="6" rx="3" fill="#e0a317"/>
+  <text x="200" y="405" text-anchor="middle" font-size="13" font-weight="bold" fill="#e0a317">Etape 3</text>
+  <text x="200" y="422" text-anchor="middle" font-size="11" fill="#3a3d4a">Generation des cas de test</text>
+  <text x="200" y="438" text-anchor="middle" font-size="9" fill="#888">planner → workers paralleles</text>
+  <text x="200" y="450" text-anchor="middle" font-size="9" fill="#888">→ synthesizer (dedup)</text>
+
+  <!-- Arrow: Stage 3 → Stage 4 -->
+  <path d="M300 420 L450 420" fill="none" stroke="#dc3545" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- ═══ STAGE 4: Evaluation ═══ -->
+  <rect x="450" y="380" width="200" height="80" rx="8" fill="#ffebee" stroke="#dc3545" stroke-width="1.2"/>
+  <rect x="450" y="380" width="200" height="6" rx="3" fill="#dc3545"/>
+  <text x="550" y="405" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc3545">Etape 4</text>
+  <text x="550" y="422" text-anchor="middle" font-size="11" fill="#3a3d4a">Evaluation et sortie</text>
+  <text x="550" y="438" text-anchor="middle" font-size="9" fill="#888">evaluator → HITL review</text>
+  <text x="550" y="450" text-anchor="middle" font-size="9" fill="#888">→ output Excel (v1, v2...)</text>
+
+  <!-- Video only direct to HITL -->
+  <path d="M700 230 L700 340 L620 340 L620 380" fill="none" stroke="#6c5ce7" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arrow-purple)"/>
+  <text x="720" y="290" text-anchor="middle" font-size="9" fill="#6c5ce7" font-style="italic">video_only → HITL</text>
+
+  <!-- Time Travel arrow -->
+  <path d="M450 440 L400 440 L400 490 L130 490 L130 395 L100 395" fill="none" stroke="#0fa67a" stroke-width="1.2" stroke-dasharray="6 3"/>
+  <text x="260" y="504" text-anchor="middle" font-size="9" fill="#0fa67a" font-weight="bold">Time Travel (regeneration)</text>
+
+  <!-- END nodes -->
+  <rect x="510" y="475" width="80" height="28" rx="14" fill="#e4e5eb" stroke="#888" stroke-width="1"/>
+  <text x="550" y="494" text-anchor="middle" font-size="11" font-weight="bold" fill="#3a3d4a">END</text>
+  <path d="M550 460 L550 475" fill="none" stroke="#888" stroke-width="1.2" marker-end="url(#arrow-gray)"/>
+
+  <!-- Legend -->
+  <rect x="30" y="475" width="340" height="35" rx="6" fill="#fff" stroke="#e4e5eb" stroke-width="0.8"/>
+  <line x1="45" y1="492" x2="75" y2="492" stroke="#2e7bd6" stroke-width="1.5"/>
+  <text x="80" y="496" font-size="9" fill="#3a3d4a">Excel</text>
+  <line x1="120" y1="492" x2="150" y2="492" stroke="#6c5ce7" stroke-width="1.5"/>
+  <text x="155" y="496" font-size="9" fill="#3a3d4a">Video</text>
+  <line x1="195" y1="492" x2="225" y2="492" stroke="#0fa67a" stroke-width="1" stroke-dasharray="6 3"/>
+  <text x="230" y="496" font-size="9" fill="#3a3d4a">Excel+Video</text>
+  <line x1="300" y1="492" x2="330" y2="492" stroke="#0fa67a" stroke-width="1.2" stroke-dasharray="6 3"/>
+  <text x="335" y="496" font-size="9" fill="#3a3d4a">TT</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#2e7bd6" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#6c5ce7" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#0fa67a" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#e0a317" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#dc3545" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+  </defs>
+</svg>

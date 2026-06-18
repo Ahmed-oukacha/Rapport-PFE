@@ -964,7 +964,7 @@
       #cetz.canvas(length: 0.75cm, {
         import cetz.draw: *
 
-        let bg = rgb(243, 245, 246)
+        let bg = rgb(255, 248, 236)
         let top-blue = rgb(153, 217, 244)
         let dark-blue = rgb(116, 145, 149)
         let mid-blue = rgb("#30448E")
@@ -1041,10 +1041,10 @@
           2.45,
           1.25,
           [
-            Capgemini \
+            CaCpgemini \
             Engineering
           ],
-          fill-color: top-blue,
+          fill-color: rgb(236, 160, 124),
           size: 16pt,
         )
 
@@ -1055,7 +1055,7 @@
           2.45,
           1.15,
           [MG2],
-          fill-color: dark-blue,
+          fill-color: rgb(251, 193, 143),
           size: 15pt,
         )
 
@@ -1065,7 +1065,7 @@
           2.45,
           1.15,
           [i-Factories],
-          fill-color: dark-blue,
+          fill-color: rgb(220, 201, 185),
           size: 15pt,
         )
 
@@ -1078,7 +1078,7 @@
             MG2\
             Engineering
           ],
-          fill-color: dark-blue,
+          fill-color: rgb(233, 194, 132),
           size: 15pt,
         )
 
@@ -1088,7 +1088,7 @@
           2.45,
           1.15,
           [AIS],
-          fill-color: rgb("#1372f086"),
+          fill-color: rgb(241, 194, 168),
           size: 15pt,
         )
 
@@ -1098,7 +1098,7 @@
           2.45,
           1.15,
           [PowerParts],
-          fill-color: dark-blue,
+          fill-color: rgb(207, 205, 180),
           size: 15pt,
         )
       })
@@ -1113,7 +1113,7 @@
       #cetz.canvas(length: 0.62cm, {
         import cetz.draw: *
 
-        let bg = rgb(243, 245, 246)
+        let bg = rgb(255, 248, 236)
         let dark-blue = rgb(116, 145, 149)
         let mid-blue = rgb("#1372f086")
         let main-blue = rgb(153, 217, 244)
@@ -1174,7 +1174,7 @@
           3.4,
           1.45,
           [AIS],
-          fill-color: main-blue,
+          fill-color: rgb(235, 159, 125),
           size: 11pt,
           text-width: 2.3cm,
         )
@@ -1192,7 +1192,7 @@
             connected \
             systems
           ],
-          fill-color: dark-blue,
+          fill-color: rgb(253, 193, 139),
           size: 8.4pt,
           text-width: 2.55cm,
         )
@@ -1207,7 +1207,7 @@
             product \
             engineering
           ],
-          fill-color: dark-blue,
+          fill-color: rgb(218, 199, 183),
           size: 8.4pt,
           text-width: 2.55cm,
         )
@@ -1221,7 +1221,7 @@
             Modeling & \
             Simulation
           ],
-          fill-color: dark-blue,
+          fill-color: rgb(233, 193, 131),
           size: 8.8pt,
           text-width: 2.45cm,
         )
@@ -1236,7 +1236,7 @@
             Architecture \
             & Safety
           ],
-          fill-color: mid-blue,
+          fill-color: rgb(243, 191, 168),
           size: 8.4pt,
           text-width: 2.55cm,
         )
@@ -1250,7 +1250,7 @@
           3.7,
           1.55,
           [SDA],
-          fill-color: mid-blue,
+          fill-color: rgb(221, 139, 100),
           size: 10pt,
           text-width: 2.2cm,
         )
@@ -1268,7 +1268,7 @@
             & System \
             Engineers
           ],
-          fill-color: mid-blue,
+          fill-color: rgb(210, 204, 170),
           size: 8pt,
           text-width: 2.75cm,
         )
@@ -1282,7 +1282,7 @@
             NVH \
             Engineers
           ],
-          fill-color: mid-blue,
+          fill-color: rgb(210, 214, 191),
           size: 8.8pt,
           text-width: 2.25cm,
         )
@@ -1297,7 +1297,7 @@
             Analysts / \
             Developers
           ],
-          fill-color: mid-blue,
+          fill-color: rgb(216, 209, 217),
           size: 8pt,
           text-width: 2.45cm,
         )
@@ -1513,7 +1513,7 @@
       #cetz.canvas(length: 0.72cm, {
         import cetz.draw: *
 
-        let cyan = rgb("#76CBE8")
+        let cyan = rgb(211, 213, 191)
         let black = rgb("#000000")
 
         // Style des lignes pointillées
@@ -1554,15 +1554,15 @@
         // Lettres SDA
         // =========================
         content((5.0, 8.8), anchor: "center", [
-          #text(size: 20pt, fill: rgb(116, 145, 149))[S]
+          #text(size: 20pt, fill: rgb(252, 193, 142))[S]
         ])
 
         content((7.6, 8.8), anchor: "center", [
-          #text(size: 20pt, fill: rgb(116, 145, 149))[D]
+          #text(size: 20pt, fill: rgb(252, 193, 142))[D]
         ])
 
         content((10.0, 8.8), anchor: "center", [
-          #text(size: 20pt, fill: rgb(116, 145, 149))[A]
+          #text(size: 20pt, fill: rgb(252, 193, 142))[A]
         ])
 
         // =========================
@@ -1687,10 +1687,10 @@
       #cetz.canvas(length: 0.84cm, {
         import cetz.draw: *
 
-        let card-bg = rgb("#f3f5f6")
-        let cyan = rgb(116, 145, 149)
-        let black = rgb("#000000")
-        let text-dark = rgb("#263238")
+        let card-bg = rgb(255, 248, 236)
+        let cyan = rgb(235, 159, 125)
+        let black = rgb(116, 105, 97)
+        let text-dark = rgb("#000000")
 
         // =========================
         // Fonction carte
@@ -2389,10 +2389,10 @@
         // =========================
         // Couleurs
         // =========================
-        let cyan = rgb("#11B8D0")
-        let cyan-fill = rgb("#DDF7FA")
-        let orange = rgb(116, 145, 149)
-        let orange-fill = rgb("#78a8b4")
+        let cyan = rgb(241, 192, 165)
+        let cyan-fill = rgb(220, 138, 100)
+        let orange = rgb(211, 213, 191)
+        let orange-fill = rgb(211, 213, 191)
         let grid = rgb("#E5E7EB")
         let dark = rgb("#4B5563")
         let black = rgb("#111827")
@@ -3322,8 +3322,8 @@
         // =========================
         let black = rgb("#111827")
         let gray = rgb("#6B7280")
-        let border = rgb(94, 177, 163)
-        let gate-border = rgb("#E5E7EB")
+        let border = rgb(235, 159, 125)
+        let gate-border = rgb(211, 213, 191)
         let red = rgb("#6d888b")
         let white = rgb("#FFFFFF")
 
@@ -3443,7 +3443,7 @@
         // =========================
         let black = rgb("#111827")
         let gray = rgb("#6B7280")
-        let border = rgb(94, 177, 163)
+        let border = rgb(235, 159, 125)
         let gate-border = rgb("#E5E7EB")
         let red = rgb("#6d888b")
         let white = rgb("#FFFFFF")
@@ -3559,7 +3559,7 @@
         // =========================
         let black = rgb("#111827")
         let gray = rgb("#6B7280")
-        let border = rgb(94, 177, 163)
+        let border = rgb(235, 159, 125)
         let gate-border = rgb("#E5E7EB")
         let red = rgb("#6d888b")
         let white = rgb("#FFFFFF")
@@ -3684,7 +3684,7 @@
         // =========================
         let black = rgb("#111827")
         let gray = rgb("#6B7280")
-        let border = rgb(94, 177, 163)
+        let border = rgb(235, 159, 125)
         let gate-border = rgb("#E5E7EB")
         let red = rgb("#6d888b")
         let white = rgb("#FFFFFF")
@@ -3791,7 +3791,7 @@
         // =========================
         let black = rgb("#111827")
         let gray = rgb("#6B7280")
-        let border = rgb(94, 177, 163)
+        let border = rgb(235, 159, 125)
         let gate-border = rgb("#E5E7EB")
         let red = rgb("#6d888b")
         let white = rgb("#FFFFFF")
@@ -5903,9 +5903,9 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
 
     #let card-bg = rgb("#F8F8FA")
     #let bottom-bg = rgb("#FBFAFC")
-    #let input-bg = rgb("#91DFC0")
-    #let pipeline-bg = rgb("#A8C7F4")
-    #let output-bg = rgb("#F2C6A8")
+    #let input-bg = rgb("#f9c3907f")
+    #let pipeline-bg = rgb("#dac7b786")
+    #let output-bg = rgb("#d2cdaba0")
 
     #let gray = rgb("#4B4B4B")
 
@@ -6027,10 +6027,10 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
     // =========================
     // Colors
     // =========================
-    #let green = rgb("#2FBF6B")
-    #let blue = rgb("#6B86E8")
-    #let cyan = rgb("#08B9C9")
-    #let beige = rgb("#D2B39E")
+    #let green = rgb(254, 192, 141)
+    #let blue = rgb(218, 199, 183)
+    #let cyan = rgb(233, 193, 131)
+    #let beige = rgb(210, 205, 171)
 
     #let card-bg = rgb("#F8F8FA")
     #let bottom-bg = rgb("#FBFAFC")
@@ -6173,9 +6173,9 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
         // =========================
         // Colors
         // =========================
-        let purple = rgb("#B879D0")
-        let blue = rgb("#3F6FE5")
-        let green = rgb("#00B862")
+        let purple = rgb(235, 159, 124)
+        let blue = rgb("#66348b")
+        let green = rgb("#92aa07")
         let black = rgb("#111111")
         let gray = rgb("#4B5563")
         let white = rgb("#FFFFFF")

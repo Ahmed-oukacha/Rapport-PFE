@@ -255,9 +255,13 @@ Le coeur du systeme est un graphe d'execution construit avec LangGraph, le frame
 
 Le choix de LangGraph, plutot qu'un enchainement sequentiel de prompts, permet de beneficier de mecanismes avances : execution parallele via `Send()`, interruptions pour la revue humaine, retour arrière (Time Travel) sans perte de contexte, et reprise automatique apres une panne.
 
-#intro-subsection[Modeles de langage (LLM APIs)]
+#intro-subsection[Modeles de langage ]
 
-Le systeme fait appel a des modeles de langage pour les taches d'analyse, de generation et d'evaluation. Deux fournisseurs sont supportes : OpenAI (GPT-4o) pour les taches textuelles, et Google Gemini (Gemini 2.5 Flash) pour l'analyse video grace a ses capacites multimodales.
+Lors de la conception du système, une question pratique importante s'est posée : et si demain nous souhaitions utiliser un modèle de langage d'une autre entreprise que celle de départ ? Devrions-nous réécrire de larges pans du code ? C'était un véritable problème, car chaque fournisseur de services avait sa propre méthode de communication.
+Le problème : Traiter séparément avec chaque fournisseur aurait rendu le code complexe et difficile à maintenir. Chaque simple modification aurait nécessité des modifications à plusieurs endroits, un véritable cauchemar pour tout programmeur.
+La solution astucieuse : La solution a consisté à implémenter une astuce de programmation élégante appelée « Factory Pattern ». L'idée est simple et efficace : au lieu de communiquer directement avec OpenAI ou Cohere, les composants système communiquent avec un seul intermédiaire, la LLMProviderFactory. Cet intermédiaire est seul responsable de la communication avec chaque fournisseur. Grâce à un simple paramètre dans le fichier de configuration, cette « fabrique » génère l'expert approprié et le met à contribution.
+L'avantage immédiat : changer de modèle d'IA est devenu aussi simple que de changer de chaîne de télévision. Si nous souhaitons ajouter un nouveau modèle ultérieurement, il nous suffit d'apprendre à l'« usine » comment communiquer avec lui, sans toucher au reste du système. C'est une solution simple et claire qui rend le système robuste et facile à développer.
+
 
 Cette dualite n'est pas figee : chaque noeud du pipeline peut etre configure independamment pour utiliser l'un ou l'autre fournisseur, via les variables d'environnement. Cette flexibilite permet d'adapter le choix du modele au rapport cout-performance de chaque tache. Le mecanisme de retry avec backoff exponentiel (via Tenacity) assure la robustesse face aux erreurs transitoires des API externes.
 
@@ -265,7 +269,7 @@ Cette dualite n'est pas figee : chaque noeud du pipeline peut etre configure ind
 
 Les instructions envoyees aux modeles de langage ne sont pas codees en dur dans le code source. Chaque noeud charge son prompt depuis un fichier Markdown dedie, stocke dans un repertoire centralise. Cette separation entre logique de traitement et contenu des prompts facilite l'iteration rapide : un ingenieur peut modifier un prompt sans toucher au code Python, et chaque modification est tracable dans l'historique Git.
 
-Les prompts s'appuient sur les principes du framework MISBAH, qui structure les instructions en sections claires : contexte metier, format de sortie attendu, exemples, et contraintes a respecter.
+Les prompts s'appuient sur les principes du framework MISBAH @Misbah, qui structure les instructions en sections claires : contexte metier, format de sortie attendu, exemples, et contraintes a respecter.
 
 #intro-subsection[Memoire et persistance (PostgreSQL)]
 
@@ -441,12 +445,26 @@ Le module d'evaluation constitue le gardien de la qualite du systeme.
   kind: table,
 ) <tab:choix-technologiques>
 ``
-#intro-section[Architecture multi-scope]
+#intro-section[Architecture du graphe agentique]
+Le pipeline de traitement constitue le coeur technique du systeme. Il prend la forme d'un graphe oriente, construit avec LangGraph, ou chaque noeud represente un agent specialise dans une tache precise. Ce graphe ne se parcourt pas de maniere lineaire : selon le mode d'entree choisi, certaines branches s'activent et d'autres sont ignorees. Des mecanismes de parallelisme, de boucle, et d'interruption viennent enrichir ce parcours.
+#intro-subsection[ Vue d'ensemble du graphe]
+#figure(
+  image("../assets/subgraph_01_vue_globale.svg", width: 95%),
+  caption: [Vue globale du pipeline — routage conditionnel selon le mode d'entree.],
+) <fig-vue-globale>
 
-Le systeme ADAS-R2T adopte une architecture a trois niveaux, ou chaque couche assume une responsabilite distincte. Cette separation nette entre presentation, logique metier, et intelligence artificielle favorise le developpement parallele par deux equipes independantes et facilite l'evolution de chaque couche sans impact sur les autres.
+Le graphe opere a l'interieur de trois niveaux d'encapsulation, visibles sur la figure ci-dessus :
+- Le *scope session* englobe l'execution d'un pipeline unique. C'est a ce niveau que le checkpointer sauvegarde l'etat a chaque etape, rendant possibles l'interruption et la reprise.
+- Le *scope utilisateur* regroupe l'ensemble des sessions d'un meme utilisateur. La memoire semantique et episodique de l'utilisateur persiste a ce niveau.
+- Le *scope application* couvre l'ensemble du systeme. Les regles de qualite apprises et partagees par tous les utilisateurs sont stockees a ce niveau.
+#intro-subsection[ Etape 1 : Extraction des entrées]
 
 
+La premiere etape gere l'ingestion des fichiers fournis par l'utilisateur. Selon le mode d'entree, le graphe active l'une ou plusieurs des branches suivantes :
 
+*`ingest_excel`* - Ce noeud prend en charge la lecture du fichier Excel. Il identifie la structure du document (en-tetes, colonnes de donnees, flow table), extrait un apercu des premieres lignes, et prepare les donnees brutes pour l'etape suivante. Ce noeud ne fait pas appel au LLM : son traitement est entierement deterministe, base sur la bibliotheque openpyxl.
+
+*`extract_and_structure`* - A partir des donnees brutes, ce noeud fait appel au LLM pour transformer le contenu des cellules en exigences structurees. Chaque exigence se voit attribuer un identifiant unique, un texte normalise, et des metadonnees (variables, conditions, seuils). C'est ici que le passage du langage naturel a une representation exploitable s'opere.
 
 
 
