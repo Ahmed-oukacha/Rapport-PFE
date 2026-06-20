@@ -448,30 +448,84 @@ Le module d'evaluation constitue le gardien de la qualite du systeme.
 #intro-section[Architecture du graphe agentique]
 Le pipeline de traitement constitue le coeur technique du systeme. Il prend la forme d'un graphe oriente, construit avec LangGraph, ou chaque noeud represente un agent specialise dans une tache precise. Ce graphe ne se parcourt pas de maniere lineaire : selon le mode d'entree choisi, certaines branches s'activent et d'autres sont ignorees. Des mecanismes de parallelisme, de boucle, et d'interruption viennent enrichir ce parcours.
 #intro-subsection[ Vue d'ensemble du graphe]
-#figure(
-  image("../assets/subgraph_01_vue_globale.svg", width: 95%),
-  caption: [Vue globale du pipeline — routage conditionnel selon le mode d'entree.],
-) <fig-vue-globale>
 
+#pipeline-routing-modes-diagram()
 Le graphe opere a l'interieur de trois niveaux d'encapsulation, visibles sur la figure ci-dessus :
 - Le *scope session* englobe l'execution d'un pipeline unique. C'est a ce niveau que le checkpointer sauvegarde l'etat a chaque etape, rendant possibles l'interruption et la reprise.
 - Le *scope utilisateur* regroupe l'ensemble des sessions d'un meme utilisateur. La memoire semantique et episodique de l'utilisateur persiste a ce niveau.
 - Le *scope application* couvre l'ensemble du systeme. Les regles de qualite apprises et partagees par tous les utilisateurs sont stockees a ce niveau.
-#intro-subsection[ Etape 1 : Extraction des entrées]
+#intro-subsection[ Agent 1 : Extraction des entrées ]
 
 
 La premiere etape gere l'ingestion des fichiers fournis par l'utilisateur. Selon le mode d'entree, le graphe active l'une ou plusieurs des branches suivantes :
 
-*`ingest_excel`* - Ce noeud prend en charge la lecture du fichier Excel. Il identifie la structure du document (en-tetes, colonnes de donnees, flow table), extrait un apercu des premieres lignes, et prepare les donnees brutes pour l'etape suivante. Ce noeud ne fait pas appel au LLM : son traitement est entierement deterministe, base sur la bibliotheque openpyxl.
+- *ingest excel* - Ce noeud prend en charge la lecture du fichier Excel. Il identifie la structure du document (en-tetes, colonnes des donnees, flow table), extrait un apercu des premieres lignes, et prepare les donnees brutes pour l'etape suivante. Ce noeud ne fait pas appel au LLM : son traitement est entierement deterministe, base sur la bibliotheque openpyxl.
 
-*`extract_and_structure`* - A partir des donnees brutes, ce noeud fait appel au LLM pour transformer le contenu des cellules en exigences structurees. Chaque exigence se voit attribuer un identifiant unique, un texte normalise, et des metadonnees (variables, conditions, seuils). C'est ici que le passage du langage naturel a une representation exploitable s'opere.
+- *extract and structure* - A partir des donnees brutes, ce noeud fait appel au LLM pour transformer le contenu des cellules en exigences structurees. Chaque exigence se voit attribuer un identifiant unique, un texte normalise, et des metadonnees (variables, conditions, seuils). C'est ici que le passage du langage naturel a une representation exploitable s'opere.
 
+#excel-branch-ingestion-graph()
+#intro-subsection[ Agent Video  : analyse et mutations ]
 
+Lorsque l'utilisateur fournit une video de conduite, une branche parallele s'active. Elle se compose de quatre noeuds :
 
+- * analyze video* : Ce noeud extrait les frames cles de la video a intervalles reguliers, puis applique un algorithme de detection de changement de scene (base sur la difference de pixels entre frames consecutives) pour ne retenir que les moments significatifs. Le resultat est un ensemble de frames cles accompagnees de leurs timestamps.
+
+- * video frame analyzer* : Chaque frame cle est analysee individuellement par un LLM multimodal (Gemini 2.5 Flash). L'analyse produit pour chaque frame : une description de la scene, la vitesse estimee du vehicule ego, les objets detectes (vehicules, pietons, panneaux), les conditions environnementales, et l'action en cours du vehicule. Les frames sont analysees en parallele grace a un semaphore qui controle la concurrence.
+
+- * video scenario builder* : A partir des analyses de frames, ce noeud reconstruit des scenarios complets en etablissant des chaines causales. Chaque scenario se structure en trois temps : la cause (ce qui declenche la situation), l'effet (la reaction immediate), et la consequence (l'impact sur la securite). Cette approche, inspiree de la methode Txt2Sce, donne aux scenarios une profondeur que ne permettrait pas une simple description factuelle.
+
+- * video scenario mutator *: Le dernier noeud de la branche video genere des variations realistes a partir de chaque scenario de base. Cinq strategies de mutation sont appliquees : variation de la cause, variation de l'effet, augmentation de la complexite, changement d'environnement, et inversion des roles. Ce processus produit entre quinze et vingt-cinq scenarios derives pour chaque scenario source, couvrant ainsi un large spectre de situations de conduite.
+#video-branch-analysis-graph()
+#intro-subsection[ Agent 2 : Analyse semantique ]
+
+Une fois les exigences structurees, chaque exigence est soumise a un ensemble d'analyseurs specialises. Le noeud `route_requirement` examine le contenu de l'exigence et l'oriente vers les analyseurs pertinents.
+
+Cinq analyseurs fonctionnent en parallele :
+
+- *state analyzer* : Identifie les transitions d'etats decrites dans l'exigence (par exemple : ACC passe de Off a Active lorsque le bouton est presse). Il extrait les etats initiaux, les evenements declencheurs, et les etats finaux.
+
+- *timing analyzer* : Detecte les contraintes temporelles (delais, durees, timeouts) et les traduit en conditions de test verifiables (par exemple : « l'activation doit se produire en moins de 500 ms »).
+
+- *hmi analyzer* : Repere les interactions homme-machine : boutons, affichages, alertes sonores, temoins lumineux. Il identifie les entrees utilisateur et les retours attendus de l'interface.
+
+- *computation analyzer* : Extrait la logique de calcul et les formules.
+
+- *generic analyzer* : Capture les aspects qui n'entrent dans aucune des categories precedentes : conditions environnementales, contraintes de perimetre, cas aux limites.
+
+- * merge analyses * : consolide les resultats de tous les analyseurs en une synthese unique par exigence, creant ainsi un contexte riche pour la generation des cas de test.
+#semantic-analysis-graph()
+
+#intro-subsection[Agent 3 : Géneration des cas de test]
+La generation se decompose en quatre noeuds qui operent selon un schema planificateur-workers :
+
+- *coverage planner* : Ce noeud deterministe (sans appel LLM) elabore la strategie de couverture pour chaque exigence. Il determine combien de cas de test sont necessaires et de quel type : nominaux (fonctionnement normal), aux limites (valeurs seuils), negatifs (conditions de defaillance), et rares (combinaisons inhabituelles). Ce planificateur s'appuie sur la richesse de l'analyse semantique pour ne rien laisser de cote.
+
+- *plan single req* : Pour chaque exigence, ce noeud genere les blueprints (plans detailles) des cas de test via le LLM. Il recoit en entree l'exigence structuree, les resultats d'analyse,  et le cas echeant les observations video. Plusieurs instances s'executent en parallele grace au mecanisme `Send()` de LangGraph, controlees par un semaphore (`PLAN_CONCURRENCY`).
+C'est a ce niveau que la memoire a long terme est injectee : les preferences de l'utilisateur et les regles apprises enrichissent le prompt.
+
+- *dispatch tc workers* : Ce noeud de synchronisation collecte les blueprints produits par les instances paralleles de `plan_single_req`, puis les redistribue vers les workers de generation.
+
+- *generate tc* : Chaque blueprint est transforme en cas de test complet par le LLM : preconditions detaillees, actions pas a pas, et resultats attendus avec des valeurs precises. Comme pour la planification, plusieurs workers operent en parallele (`GENERATE_CONCURRENCY`).
+
+- *synthesizer* : recoit l'ensemble des cas de test generes et effectue un traitement en trois passes : deduplication exacte (texte identique), deduplication floue (similarite semantique au-dela d'un seuil de 75%), et deduplication par recouvrement des resultats attendus. Ce filtrage assure que le livrable final ne contient pas de tests redondants.
+#test-case-generation-graph()
+#intro-subsection[Agent 4 :Evaluation et sortie]
+- *Evaluator* : Ce noeud constitue le gardien de qualite du systeme. Il opere en deux phases complementaires. 
+
+ - La phase A applique des regles deterministes : detection de contradictions entre resultats attendus, verification que chaque test reste dans le perimetre de l'exigence source, et controle de la precision des valeurs limites. 
+
+ - La phase B soumet les cas ayant passe la phase A a une evaluation par LLM, qui verifie la coherence globale, la pertinence, et la completude. L'ensemble du processus garantit que cent pour cent des cas sont evalues.
+
+- *Human review* : Ce noeud marque le point d'intervention humaine. Le pipeline se met en pause grace a la fonction `interrupt()` de LangGraph et presente les resultats a l'utilisateur. L'execution ne reprend que lorsque l'utilisateur a transmis ses decisions. Ce mecanisme est detaille dans la section 3.5.
+
+- *Process review* : Ce noeud interprete les decisions de l'utilisateur et oriente la suite du flux : vers la sortie si tout est approuve, ou vers un nouveau cycle de generation si des cas ont ete rejetes.
+
+- *Output excel* et *Video output excel* : Ces noeuds produisent le livrable final au format Excel. Le nom du fichier inclut un numero de version (v1, v2, v3) qui s'incremente a chaque cycle de revue, assurant la tracabilite des iterations.
+#evaluation-hitl-output-graph() 
 
 
 #intro-section[Vue d'ensemble]
-#intro-subsection[ Flux global]#intro-section[Vue d'ensemble]
+#intro-section[Vue d'ensemble]
 #intro-subsection[ Flux global]
 #intro-section[Vue d'ensemble]
 #intro-subsection[ Flux global]

@@ -139,7 +139,7 @@
 
 Capgemini et Altran ont annoncé, le 24 juin 2019, un accord portant sur l’acquisition de la société Altran par Capgemini. Le 1er avril 2020, l’OPA amicale de Capgemini sur Altran a été finalisée. Dominique Cerutti, directeur général d’Altran, a confirmé que cette acquisition allait créer un leader mondial de l’industrie intelligente au service de la transformation numérique des entreprises. En avril 2021, Altran est devenue *Capgemini Engineering*.
 #v(0.5cm)
-La figure @fig:historique-capgemini présente l’évolution historique de Capgemini Engineering au Maroc:
+ @fig:historique-capgemini présente l’évolution historique de Capgemini Engineering au Maroc:
     
 #set page(header: report-header, footer: report-footer)
 #align(center)[
@@ -254,9 +254,9 @@ L'approche actuelle de conception et de développement des tests *ADAS* présent
 ]
 
 #intro-subsection[Objectifs du projet]
-À cette fin, la feuille de route du projet *ADAS-R2T* a été conçue pour se concentrer sur la réalisation des objectifs stratégiques suivants : 
+À cette fin, la feuille de route du projet *" _Test Cases Generator_ "* a été conçue pour se concentrer sur la réalisation des objectifs stratégiques suivants : 
 
-- *Flux de travail entièrement automatisé (de bout en bout) :* Nous visons à construire un cycle de traitement intégré qui démarre automatiquement dès l’importation du fichier d’exigences source (Excel) et se poursuit sans interruption jusqu’à la génération et l’extraction, dans le même format, du fichier de résultats structurés contenant 
+- *Flux de travail entièrement automatisé(End To End) :* Nous visons à construire un cycle de traitement intégré qui démarre automatiquement dès l’importation du fichier d’exigences source (Excel) et se poursuit sans interruption jusqu’à la génération et l’extraction, dans le même format, du fichier de résultats structurés contenant 
  les cas de test finaux. 
  
 - *Couverture complète et multidimensionnelle :* La plateforme ne se limitera pas à une analyse superficielle, mais est conçue pour décomposer chaque condition fonctionnelle selon cinq dimensions techniques (telles que les transitions d’état, les contraintes temporelles et les messages IHM). Cette approche garantit une génération structurée couvrant quatre catégories de tests : de routine, de pointe, inversés et rares. 
