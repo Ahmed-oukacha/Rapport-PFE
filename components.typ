@@ -1631,7 +1631,7 @@
         text-block(
           4.8,
           3.3,
-          [Conception],
+          [Conception (Design) ],
           [
             • Construire le système à partir
             de zéro.
@@ -5398,7 +5398,7 @@
       ),
 
       [#text(weight: "bold", fill: ENIADBlue)[BF01]],
-      [Le système doit accepter un fichier Excel contenant des exigences fonctionnelles ADAS et générer un fichier Excel de cas de test.],
+      [Le système doit accepter un fichier Excel contenant des exigences fonctionnelles ADAS et générer un fichier Excel des cas de test.],
 
       table.cell(fill: ENIADLightBlue.lighten(85%))[
         #text(weight: "bold", fill: ENIADBlue)[BF02]
@@ -6542,3 +6542,2264 @@ line(
   caption: [Architecture globale des composants agentiques et techniques d’ADAS-R2T],
 )
 ``
+
+
+
+// =====================================================
+// Pipeline Routing Diagram - Readable Black/White Style
+// =====================================================
+
+#let pipeline-routing-modes-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#6B7280")
+        let white = rgb("#FFFFFF")
+        let light-gray = rgb("#F8FAFC")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let solid-arrow(points) = {
+          line(
+            ..points,
+            stroke: black + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let dashed-arrow(points) = {
+          line(
+            ..points,
+            stroke: (
+              paint: black,
+              thickness: 0.65pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+        }
+
+        let flow-label(x, y, txt) = {
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 6.6pt,
+              style: "italic",
+              fill: black,
+            )[
+              #txt
+            ]
+          ])
+        }
+
+        let pill(x, y, w, h, txt) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: light-gray,
+            stroke: black + 0.8pt,
+            radius: h / 2,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 8.5pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #txt
+            ]
+          ])
+        }
+
+        let node(x, y, w, h, title, main, details) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.9pt,
+            radius: 0.18,
+          )
+
+          // Title
+          content((x, y + h * 0.27), anchor: "center", [
+            #box(width: (w * 0.54cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 9.4pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          // Main text
+          content((x, y - h * 0.03), anchor: "center", [
+            #box(width: (w * 0.54cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 7.4pt,
+                  fill: black,
+                )[
+                  #main
+                ]
+              ]
+            ]
+          ])
+
+          // Details
+          content((x, y - h * 0.32), anchor: "center", [
+            #box(width: (w * 0.54cm))[
+              #align(center)[
+                #set par(leading: 0.50em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 7.3pt,
+                  fill: gray,
+                )[
+                  #details
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let legend-line(x1, y, x2, dashed: false) = {
+          if dashed {
+            line(
+              (x1, y),
+              (x2, y),
+              stroke: (
+                paint: black,
+                thickness: 0.6pt,
+                dash: "dashed",
+              ),
+            )
+          } else {
+            line(
+              (x1, y),
+              (x2, y),
+              stroke: black + 0.7pt,
+            )
+          }
+        }
+
+        // =========================
+        // Title
+        // =========================
+
+        content((8.8, 10.4), anchor: "center", [
+          #text(
+            font: "Arial",
+            size: 11.5pt,
+            weight: "bold",
+            fill: black,
+          )[
+          ]
+        ])
+
+        // =========================
+        // Nodes
+        // =========================
+
+        pill(8.8, 9.55, 2.0, 0.55, [START])
+
+        node(
+          2.8,
+          7.15,
+          4.35,
+          2.05,
+          [Agent 1],
+          [Extraction des entrées],
+          [
+            ingest_excel \
+            extract_and_structure
+          ],
+        )
+
+        node(
+          2.8,
+          4.65,
+          4.35,
+          2.05,
+          [Agent 2],
+          [Analyse sémantique],
+          [
+            5 analyseurs en parallèle 
+          ],
+        )
+
+        node(
+          2.8,
+          2.15,
+          4.35,
+          2.05,
+          [Agent 3],
+          [Génération des cas de test],
+          [
+            planner → workers parallèles 
+            synthesizer 
+          ],
+        )
+
+        node(
+          14.4,
+          7.15,
+          4.55,
+          2.05,
+          [Agent Vidéo],
+          [Analyse et mutations],
+          [
+            analyze → frames → scenarios 
+            mutations
+          ],
+        )
+
+        node(
+          10.6,
+          2.15,
+          4.55,
+          2.05,
+          [Agent 4],
+          [Evaluation et sortie],
+          [
+            evaluator → HITL review 
+            output Excel .
+          ],
+        )
+
+        pill(10.6, 0.25, 1.75, 0.48, [END])
+
+        // =========================
+        // Main routes
+        // =========================
+
+        // START -> Etape 1
+        solid-arrow((
+          (8.8, 9.28),
+          (8.8, 8.45),
+          (2.8, 8.45),
+          (2.8, 8.18),
+        ))
+        flow-label(5.7, 8.68, [excel_only / excel_video])
+
+        // START -> Pipeline Video
+        solid-arrow((
+          (9.25, 9.28),
+          (9.25, 8.45),
+          (14.4, 8.45),
+          (14.4, 8.18),
+        ))
+        flow-label(12.5, 8.68, [video_only])
+
+        // START -> Pipeline Video dashed branch
+        dashed-arrow((
+          (8.55, 9.28),
+          (8.55, 8.10),
+          (10, 8.10),
+          (12.4, 8.18),
+        ))
+        flow-label(9.7, 7.90, [excel_video branche vidéo])
+
+        // Etape 1 -> Etape 2
+        solid-arrow((
+          (2.8, 6.12),
+          (2.8, 5.68),
+        ))
+
+        // Etape 2 -> Etape 3
+        solid-arrow((
+          (2.8, 3.62),
+          (2.8, 3.18),
+        ))
+
+        // Etape 3 -> Etape 4
+        solid-arrow((
+          (4.98, 2.15),
+          (8.30, 2.15),
+        ))
+
+        // Etape 4 -> END
+        solid-arrow((
+          (10.6, 1.12),
+          (10.6, 0.50),
+        ))
+
+        // Pipeline Video -> Etape 4
+        dashed-arrow((
+          (14.4, 6.12),
+          (14.4, 4.20),
+          (12.85, 4.20),
+          (12.85, 3.18),
+        ))
+        flow-label(14.65, 4.70, [video_only → HITL])
+
+        // Pipeline Video -> Etape 2 : video insights
+        dashed-arrow((
+          (12.12, 7.15),
+          (7.00, 7.15),
+          (7.00, 5.68),
+          (4.98, 5.68),
+        ))
+        flow-label(8.65, 7.38, [video_insights])
+
+        // TT path from Etape 3 to Etape 4
+        dashed-arrow((
+          
+          (9.30, 1),
+          (9.30, 0.82),
+          (1.55, 0.82),
+          (1.55, 1.3),
+        ))
+
+        
+      })
+    ]
+  ],
+  caption: [Vue globale du pipeline ],
+)
+
+
+// =====================================================
+// Branche Excel Graph - Same Graph Style, White Background
+// =====================================================
+
+#let excel-branch-ingestion-graph() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#6B7280")
+        let white = rgb("#FFFFFF")
+        let light = rgb("#FFFFFF")
+        let orange = rgb("#F59E0B")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let solid-arrow(points) = {
+          line(
+            ..points,
+            stroke: black + 0.85pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let dashed-arrow(points) = {
+          line(
+            ..points,
+            stroke: (
+              paint: black,
+              thickness: 0.75pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+        }
+
+        let pill-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: light,
+            stroke: black + 0.9pt,
+            radius: h / 2,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 7.5pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let graph-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: light,
+            stroke: black + 0.9pt,
+            radius: 0.20,
+          )
+
+          content((x, y + h * 0.16), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 8.3pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+                #v(0.6em)
+              ]
+            ]
+          ])
+          
+          content((x, y - h * 0.24), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 6.7pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let orange-node(x, y, w, h, title) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: orange + 1pt,
+            radius: 0.20,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 8.3pt,
+              weight: "bold",
+              fill: orange,
+            )[
+              #title
+            ]
+          ])
+        }
+
+        
+
+        // =========================
+        // Title
+        // =========================
+
+       
+
+        // =========================
+        // Nodes
+        // =========================
+
+        pill-node(
+          5.8,
+          7.55,
+          1.85,
+          0.55,
+          [START],
+        )
+
+        graph-node(
+          5.8,
+          6.40,
+          4.25,
+          1.10,
+          [Ingest_excel],
+          [
+            Lecture Excel, détection structure,
+          ],
+        )
+
+        graph-node(
+          5.8,
+          4.95,
+          4.25,
+          1.10,
+          [Extract_and_structure],
+          [
+            texte brut → exigences structurées
+          ],
+        )
+
+        graph-node(
+          5.8,
+          3.45,
+          4.25,
+          1.05,
+          [Structured_req],
+        
+          [
+            Vers Étape 2 (Analyse sémantique)
+          ],
+        )
+
+       
+
+        pill-node(
+          5.8,
+          2.25,
+          1.70,
+          0.50,
+          [END],
+        )
+
+        // =========================
+        // Main arrows
+        // =========================
+
+        solid-arrow((
+          (5.8, 7.28),
+          (5.8, 6.95),
+        ))
+
+        solid-arrow((
+          (5.8, 5.85),
+          (5.8, 5.50),
+        ))
+
+        solid-arrow((
+          (5.8, 4.40),
+          (5.8, 3.98),
+        ))
+
+        solid-arrow((
+          (5.8, 2.93),
+          (5.8, 2.43),
+        ))
+
+      
+
+        // =========================
+        // Dashed routing links
+        // =========================
+
+       
+
+       
+        
+
+        
+      
+
+        // =========================
+        // Optional agent-style node
+        // =========================
+
+        
+
+     
+      })
+    ]
+  ],
+  caption: [Agent 1 Workflows],
+)
+
+
+
+
+
+// =====================================================
+// Branche Video Graph - Same Graph Style, White Background
+// =====================================================
+
+#let video-branch-analysis-graph() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#6B7280")
+        let white = rgb("#FFFFFF")
+        let light = rgb("#FFFFFF")
+        let orange = rgb("#F59E0B")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let solid-arrow(points) = {
+          line(
+            ..points,
+            stroke: black + 0.85pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let dashed-arrow(points) = {
+          line(
+            ..points,
+            stroke: (
+              paint: black,
+              thickness: 0.75pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+        }
+
+        let pill-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: light,
+            stroke: black + 0.9pt,
+            radius: h / 2,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Arial",
+              size: 8.5pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let graph-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: light,
+            stroke: black + 0.9pt,
+            radius: 0.20,
+          )
+
+          content((x, y + h * 0.16), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 8.3pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.24), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 7.7pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let orange-node(x, y, w, h, title) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: orange + 1pt,
+            radius: 0.20,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 7.3pt,
+              weight: "bold",
+              fill: orange,
+            )[
+              #title
+            ]
+          ])
+        }
+
+        // =========================
+        // Title
+        // =========================
+
+       
+        // =========================
+        // Nodes
+        // =========================
+
+        pill-node(
+          5.8,
+          7.55,
+          1.85,
+          0.55,
+          [START],
+        )
+
+        graph-node(
+          5.8,
+          6.40,
+          4.80,
+          1.10,
+          [Analyze_video],
+          [
+            Extraction frames
+          ],
+        )
+
+        graph-node(
+          5.8,
+          4.95,
+          4.80,
+          1.10,
+          [Video_frame_analyzer],
+          [
+            Vision LLM par frame 
+          ],
+        )
+
+        graph-node(
+          5.8,
+          3.50,
+          4.80,
+          1.10,
+          [Video_scenario_builder],
+          [
+             cause → effet → conséquence
+          ],
+        )
+
+        graph-node(
+          5.8,
+          2.05,
+          4.80,
+          1.10,
+          [Video_scenario_mutator],
+          [
+             mutations / seed
+          ],
+        )
+
+        pill-node(
+          5.8,
+          0.75,
+          1.70,
+          0.50,
+          [END],
+        )
+
+        // =========================
+        // Main vertical arrows
+        // =========================
+
+        solid-arrow((
+          (5.8, 7.28),
+          (5.8, 6.95),
+        ))
+
+        solid-arrow((
+          (5.8, 5.85),
+          (5.8, 5.50),
+        ))
+
+        solid-arrow((
+          (5.8, 4.40),
+          (5.8, 4.05),
+        ))
+
+        solid-arrow((
+          (5.8, 2.95),
+          (5.8, 2.60),
+        ))
+
+        solid-arrow((
+          (5.8, 1.50),
+          (5.8, 1.02),
+        ))
+
+        
+
+        
+
+       
+
+
+        
+      })
+    ]
+  ],
+  caption: [Agent video Workflows],
+)
+
+
+// =====================================================
+// Etape 2 - Analyse sémantique multi-dimensionnelle
+// Clean Graph Style - Readable and Spacious
+// =====================================================
+
+#let semantic-analysis-graph() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.7cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#6B7280")
+        let white = rgb("#FFFFFF")
+        let orange = rgb("#F59E0B")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let solid-arrow(points) = {
+          line(
+            ..points,
+            stroke: black + 0.78pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let dashed-arrow(points) = {
+          line(
+            ..points,
+            stroke: (
+              paint: black,
+              thickness: 0.60pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+        }
+
+        let pill-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.85pt,
+            radius: h / 2,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 7.2pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let graph-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.90pt,
+            radius: 0.20,
+          )
+
+          content((x, y + h * 0.17), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 8.0pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.25), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.52em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 6.5pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let analyzer-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.85pt,
+            radius: 0.18,
+          )
+
+          content((x, y + h * 0.25), anchor: "center", [
+            #box(width: (w * 0.58cm))[
+              #align(center)[
+                #set par(leading: 0.50em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 7.6pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.18), anchor: "center", [
+            #box(width: (w * 0.58cm))[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(
+                  font: "Times New Roman",
+                  size: 5.9pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let orange-node(x, y, w, h, title) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: orange + 0.95pt,
+            radius: 0.18,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Times New Roman",
+              size: 6.7pt,
+              weight: "bold",
+              fill: orange,
+            )[
+              #title
+            ]
+          ])
+        }
+
+        let side-label(x, y, title, body) = {
+          content((x, y + 0.18), anchor: "west", [
+            #text(
+              font: "Times New Roman",
+              size: 6.0pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #title
+            ]
+          ])
+
+          content((x, y - 0.12), anchor: "west", [
+            #text(
+              font: "Times New Roman",
+              size: 5.0pt,
+              fill: gray,
+            )[
+              #body
+            ]
+          ])
+        }
+
+        // =========================
+        // Title
+        // =========================
+
+        
+
+        // =========================
+        // Main vertical chain
+        // =========================
+
+        pill-node(
+          9.0,
+          10.45,
+          1.70,
+          0.48,
+          [START],
+        )
+
+        
+
+        graph-node(
+          9.0,
+          8.15,
+          5.35,
+          1.05,
+          [Route_requirement],
+          [
+            Orientation des exigences 
+           
+          ],
+        )
+
+        // =========================
+        // Analyzer row
+        // =========================
+
+        analyzer-node(
+          1.65,
+          5.70,
+          3.10,
+          1.45,
+          [state],
+          [
+            Transitions d’états 
+           
+          ],
+        )
+
+        analyzer-node(
+          5.30,
+          5.70,
+          3.10,
+          1.45,
+          [Timing],
+          [
+            Contraintes temporelles 
+          ],
+        )
+
+        analyzer-node(
+          9.00,
+          5.70,
+          3.10,
+          1.45,
+          [HMI],
+          [
+            Interactions homme-machine 
+          ],
+        )
+
+        analyzer-node(
+          12.70,
+          5.70,
+          3.10,
+          1.45,
+          [Computation],
+          [
+            Logique de calcul \
+            formules, seuils
+          ],
+        )
+
+        analyzer-node(
+          16.35,
+          5.70,
+          3.10,
+          1.45,
+          [Generic],
+          [
+            Analyse générique 
+          ],
+        )
+
+        // =========================
+        // Merge and result nodes
+        // =========================
+
+        graph-node(
+          9.0,
+          2.75,
+          5.35,
+          1.05,
+          [Merge_analyses],
+          [
+            Consolide les 5 analyses 
+          ],
+        )
+
+      
+
+        pill-node(
+          9.0,
+          0.20,
+          1.65,
+          0.48,
+          [END],
+        )
+
+      
+        // =========================
+        // Arrows: top chain
+        // =========================
+
+       
+
+        solid-arrow((
+          (9.0, 10.20),
+          (9.0, 8.68),
+        ))
+
+        // =========================
+        // Fan-out arrows
+        // =========================
+
+        solid-arrow((
+          (9.0, 7.62),
+          (1.65, 6.43),
+        ))
+
+        solid-arrow((
+          (9.0, 7.62),
+          (5.30, 6.43),
+        ))
+
+        solid-arrow((
+          (9.0, 7.62),
+          (9.00, 6.43),
+        ))
+
+        solid-arrow((
+          (9.0, 7.62),
+          (12.70, 6.43),
+        ))
+
+        solid-arrow((
+          (9.0, 7.62),
+          (16.35, 6.43),
+        ))
+
+        // =========================
+        // Fan-in arrows
+        // =========================
+
+        solid-arrow((
+          (1.65, 4.98),
+          (9.0, 3.28),
+        ))
+
+        solid-arrow((
+          (5.30, 4.98),
+          (9.0, 3.28),
+        ))
+
+        solid-arrow((
+          (9.00, 4.98),
+          (9.0, 3.28),
+        ))
+
+        solid-arrow((
+          (12.70, 4.98),
+          (9.0, 3.28),
+        ))
+
+        solid-arrow((
+          (16.35, 4.98),
+          (9.0, 3.28),
+        ))
+
+        // =========================
+        // Merge -> Results -> End
+        // =========================
+
+        solid-arrow((
+          (9.0, 2.22),
+          (9.0, 0.5),
+        ))
+
+      
+
+        
+
+    
+
+       
+
+      
+
+      })
+    ]
+  ],
+  caption: [Agent 3 Analyse sémentique],
+)
+
+
+
+
+// =====================================================
+// Etape 3 - Génération des cas de test
+// Clean Graph Style - Complete Working Version
+// =====================================================
+
+#let test-case-generation-graph() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#6B7280")
+        let white = rgb("#FFFFFF")
+        let orange = rgb("#F59E0B")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let solid-arrow(points) = {
+          line(
+            ..points,
+            stroke: black + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let dashed-arrow(points) = {
+          line(
+            ..points,
+            stroke: (
+              paint: black,
+              thickness: 0.60pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+        }
+
+        let pill-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.85pt,
+            radius: h / 2,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Arial",
+              size: 8pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let graph-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.90pt,
+            radius: 0.20,
+          )
+
+          content((x, y + h * 0.18), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 7.8pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.25), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.52em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 6.2pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let small-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.85pt,
+            radius: 0.18,
+          )
+
+          content((x, y + h * 0.22), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.50em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 7.1pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.24), anchor: "center", [
+            #box(width: (w * 0.56cm))[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 5.8pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let dashed-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: (
+              paint: black,
+              thickness: 0.70pt,
+              dash: "dashed",
+            ),
+            radius: 0.18,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Arial",
+              size: 8pt,
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let orange-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: orange + 0.95pt,
+            radius: 0.18,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Arial",
+              size: 7.6pt,
+              weight: "bold",
+              fill: orange,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let side-label(x, y, title, body) = {
+          content((x, y + 0.16), anchor: "west", [
+            #text(
+              font: "Arial",
+              size: 6.8pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #title
+            ]
+          ])
+
+          content((x, y - 0.12), anchor: "west", [
+            #text(
+              font: "Arial",
+              size: 5.8pt,
+              fill: gray,
+            )[
+              #body
+            ]
+          ])
+        }
+
+        // =========================
+        // Title
+        // =========================
+
+       
+
+        // =========================
+        // Main nodes
+        // =========================
+
+        pill-node(
+          9.5,
+          11.45,
+          1.65,
+          0.46,
+          [START],
+        )
+
+    
+
+        graph-node(
+          9.5,
+          9.20,
+          5.90,
+          1.15,
+          [coverage_planner],
+          [
+            Détermine les tests 
+          ],
+        )
+
+        dashed-node(
+          12.85,
+          9.50,
+          1.65,
+          0.42,
+          [rule-based],
+        )
+
+        // =========================
+        // Plan nodes
+        // =========================
+
+        small-node(
+          2.80,
+          7.10,
+          3.10,
+          1.00,
+          [plan_single_req],
+          [REQ_001],
+        )
+
+        small-node(
+          6.35,
+          7.10,
+          3.10,
+          1.00,
+          [plan_single_req],
+          [REQ_002],
+        )
+
+        dashed-node(
+          9.90,
+          7.10,
+          2.70,
+          1.00,
+          [...],
+        )
+
+        small-node(
+          15.75,
+          7.10,
+          3.10,
+          1.00,
+          [plan_single_req],
+          [REQ_00N],
+        )
+
+        graph-node(
+          9.5,
+          5.40,
+          5.25,
+          1.00,
+          [dispatch_tc_workers],
+          [
+            Collecte les blueprints 
+          ],
+        )
+
+      
+        // =========================
+        // Generate TC nodes
+        // =========================
+
+        small-node(
+          2.80,
+          3.40,
+          3.10,
+          1.00,
+          [generate_tc],
+          [TC_001],
+        )
+
+        small-node(
+          6.35,
+          3.40,
+          3.10,
+          1.00,
+          [generate_tc],
+          [TC_002],
+        )
+
+        dashed-node(
+          9.90,
+          3.40,
+          2.70,
+          1.00,
+          [...],
+        )
+
+        small-node(
+          15.75,
+          3.40,
+          3.10,
+          1.00,
+          [generate_tc],
+          [TC_00M],
+        )
+
+      
+
+        graph-node(
+          9.5,
+          1.25,
+          5.90,
+          1.10,
+          [synthesizer],
+          [
+            Dedup 3 passes 
+          ],
+        )
+
+      
+
+        pill-node(
+          9.5,
+          -1.25,
+          1.65,
+          0.46,
+          [END],
+        )
+
+      
+
+        // =========================
+        // Main vertical arrows
+        // =========================
+
+       
+
+        solid-arrow((
+          (9.5, 11.20),
+          (9.5, 9.78),
+        ))
+
+        // =========================
+        // Planner fan-out
+        // =========================
+
+        solid-arrow((
+          (9.5, 8.62),
+          (2.80, 7.60),
+        ))
+
+        solid-arrow((
+          (9.5, 8.62),
+          (6.35, 7.60),
+        ))
+
+        solid-arrow((
+          (9.5, 8.62),
+          (9.90, 7.60),
+        ))
+
+        solid-arrow((
+          (9.5, 8.62),
+          (15.75, 7.60),
+        ))
+
+        // =========================
+        // Plan fan-in to dispatch
+        // =========================
+
+        solid-arrow((
+          (2.80, 6.60),
+          (9.5, 5.90),
+        ))
+
+        solid-arrow((
+          (6.35, 6.60),
+          (9.5, 5.90),
+        ))
+
+        solid-arrow((
+          (9.90, 6.60),
+          (9.5, 5.90),
+        ))
+
+        solid-arrow((
+          (15.75, 6.60),
+          (9.5, 5.90),
+        ))
+
+    
+
+        // =========================
+        // Dispatch fan-out
+        // =========================
+
+        solid-arrow((
+          (9.5, 4.90),
+          (2.80, 3.90),
+        ))
+
+        solid-arrow((
+          (9.5, 4.90),
+          (6.35, 3.90),
+        ))
+
+        solid-arrow((
+          (9.5, 4.90),
+          (9.90, 3.90),
+        ))
+
+        solid-arrow((
+          (9.5, 4.90),
+          (15.75, 3.90),
+        ))
+
+        // =========================
+        // Generate fan-in to synthesizer
+        // =========================
+
+        solid-arrow((
+          (2.80, 2.90),
+          (9.5, 1.80),
+        ))
+
+        solid-arrow((
+          (6.35, 2.90),
+          (9.5, 1.80),
+        ))
+
+        solid-arrow((
+          (9.90, 2.90),
+          (9.5, 1.80),
+        ))
+
+        solid-arrow((
+          (15.75, 2.90),
+          (9.5, 1.80),
+        ))
+
+        // Synthesizer -> final_tcs -> END
+       
+
+        solid-arrow((
+          (9.5, 0.7),
+          (9.5, -1.02),
+        ))
+
+        // =========================
+        // Optional dashed control links
+        // =========================
+
+   
+
+      
+
+       
+
+        // =========================
+        // Side labels
+        // =========================
+
+        
+       
+
+       
+      })
+    ]
+  ],
+  caption: [Agent 3 Workflows],
+)
+
+
+
+// =====================================================
+// Etape 4 - Evaluation, HITL and Output
+// Complete Working Version - Black/White Graph Style
+// =====================================================
+
+#let evaluation-hitl-output-graph() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#6B7280")
+        let white = rgb("#FFFFFF")
+        let orange = rgb("#F59E0B")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let solid-arrow(points) = {
+          line(
+            ..points,
+            stroke: black + 0.75pt,
+            mark: (end: ">"),
+          )
+        }
+
+        let dashed-arrow(points) = {
+          line(
+            ..points,
+            stroke: (
+              paint: black,
+              thickness: 0.60pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+        }
+
+        let graph-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.90pt,
+            radius: 0.20,
+          )
+
+          content((x, y + h * 0.18), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 7.8pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.25), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.52em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 7.2pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let small-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.85pt,
+            radius: 0.18,
+          )
+
+          content((x, y + h * 0.20), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.50em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 7.2pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.25), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 6.8pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let dashed-node(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: (
+              paint: black,
+              thickness: 0.70pt,
+              dash: "dashed",
+            ),
+            radius: 0.18,
+          )
+
+          content((x, y + h * 0.27), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.50em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 7.2pt,
+                  weight: "bold",
+                  fill: black,
+                )[
+                  #title
+                ]
+              ]
+            ]
+          ])
+
+          content((x, y - h * 0.2), anchor: "center", [
+            #box(width: (w * 0.55cm))[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 6.8pt,
+                  fill: gray,
+                )[
+                  #body
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let pill-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.85pt,
+            radius: h / 2,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Arial",
+              size: 8pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let orange-node(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: orange + 0.95pt,
+            radius: 0.18,
+          )
+
+          content((x, y), anchor: "center", [
+            #text(
+              font: "Arial",
+              size: 6.5pt,
+              weight: "bold",
+              fill: orange,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        let dashed-box(x1, y1, x2, y2, label) = {
+          rect(
+            (x1, y1),
+            (x2, y2),
+            fill: white,
+            stroke: (
+              paint: black,
+              thickness: 0.65pt,
+              dash: "dashed",
+            ),
+            radius: 0.22,
+          )
+
+          content((x1 + 0.45, y2 - 0.35), anchor: "west", [
+            #text(
+              font: "Arial",
+              size: 6pt,
+              weight: "bold",
+              fill: black,
+            )[
+              #label
+            ]
+          ])
+        }
+
+        // =========================
+        // Title
+        // =========================
+
+   
+
+        // =========================
+        // HITL Zone
+        // =========================
+pill-node(
+           9.45,
+          12,
+          1.70,
+          0.48,
+          [START],
+        )
+
+        dashed-box(
+          2.0,
+          3.05,
+          17.0,
+          9.85,
+          [Zone HITL],
+        )
+
+        // =========================
+        // Nodes
+        // =========================
+
+        graph-node(
+          9.5,
+          10.75,
+          5.70,
+          1.05,
+          [Evaluator],
+          [
+            
+            Evaluation 
+          ],
+        )
+
+        graph-node(
+          9.5,
+          8.55,
+          5.05,
+          1.10,
+          [Human_review],
+          [
+            interrupt
+          ],
+        )
+
+        graph-node(
+          9.5,
+          6.55,
+          5.05,
+          1.10,
+          [Process_review],
+          [
+           
+            oriente le flux
+          ],
+        )
+
+        small-node(
+          15.95,
+          8.55,
+          3.00,
+          1.3,
+          [Decisions],
+          [
+            Approve 
+            Reject  
+            Delete  Skip
+          ],
+        )
+
+        small-node(
+          3.20,
+          2,
+          3.00,
+          0.72,
+          [Feedback],
+          [
+            regeneration
+          ],
+        )
+
+        dashed-node(
+          3.20,
+          0,
+          3.70,
+          2.20,
+          [Time Travel],
+          [
+            Excel vers coverage_planner \
+            Vidéo vers scenario_mutator
+          ],
+        )
+
+        small-node(
+          9.45,
+          2,
+          2.85,
+          0.72,
+          [Download],
+          [Skip HITL],
+        )
+
+        graph-node(
+          9.45,
+          0.4,
+          3.80,
+          0.95,
+          [Excel_Output],
+          [TC_Generated_vn.xlsx],
+        )
+
+        pill-node(
+          9.45,
+          -1,
+          1.70,
+          0.48,
+          [END],
+        )
+
+        small-node(
+          14.85,
+          2,
+          3.00,
+          0.72,
+          [Download],
+          [Skip HITL],
+        )
+
+        graph-node(
+          14.85,
+          0.4,
+          3.80,
+          0.95,
+          [Video_output],
+          [Video_Scenarios_vn.xlsx],
+        )
+
+        pill-node(
+          14.85,
+          -1,
+          1.70,
+          0.48,
+          [END],
+        )
+
+        dashed-node(
+          9.50,
+          -2.45,
+          6.40,
+          1.4,
+          [Re-entry HITL],
+          [
+            
+            retour au human_review
+          ],
+        )
+
+     
+
+        // =========================
+        // Main arrows
+        // =========================
+
+        solid-arrow((
+          (9.5, 10.22),
+          (9.5, 9.10),
+        ))
+
+        solid-arrow((
+          (9.5, 10.22),
+          (9.5, 9.10),
+        ))
+
+         solid-arrow((
+          (9.5, 8.),
+          (9.5, 7.10),
+        ))
+
+         solid-arrow((
+          (9.5, 6),
+          (9.5, 5.5),
+        ))
+
+        solid-arrow((
+          (9.5, 11.75),
+          (9.5, 11.3),
+        ))
+
+        dashed-arrow((
+          (9.5, 5.5),
+          (3.20, 5.5),
+          (3.20, 2.4),
+        ))
+
+        dashed-arrow((
+          (9.5, 5.50),
+          (9.45, 5.50),
+          (9.45, 2.4),
+        ))
+
+        dashed-arrow((
+          (9.5, 5.5),
+          (14.85, 5.5),
+          (14.85, 2.4),
+        ))
+
+        solid-arrow((
+          (9.45,  1.6),
+          (9.45, 0.9),
+        ))
+
+        solid-arrow((
+          (9.45, -0.1),
+          (9.45, -0.8),
+        ))
+
+        solid-arrow((
+          (14.85, 1.6),
+          (14.85, 0.9),
+        ))
+
+        solid-arrow((
+          (14.85, -0.1),
+          (14.85, -0.8),
+        ))
+
+        // =========================
+        // Dashed / Feedback arrows
+        // =========================
+
+        solid-arrow((
+          (14.45, 8.55),
+          (12.03, 8.55),
+        ))
+
+        dashed-arrow((
+          (12.70, -2.45),
+          (18.55, -2.45),
+          (18.55, 8.55),
+          (17.45, 8.55),
+        ))
+
+       
+
+        solid-arrow((
+          (3.20, 1.6),
+          (3.20, 1.05),
+        ))
+
+        dashed-arrow((
+          (1.30, 0.45),
+          (0.35, 0.45),
+          (0.35, 8.55),
+          (2.00, 8.55),
+          
+        ))
+
+      
+
+        // =========================
+        // Labels
+        // =========================
+
+       
+
+        content((15.95, 9.35), anchor: "center", [
+          #text(
+            font: "Arial",
+            size: 6.3pt,
+            style: "italic",
+            fill: black,
+          )[
+            actions utilisateur
+          ]
+        ])
+
+      })
+    ]
+  ],
+  caption: [Agent 4 Workfolows],
+)
