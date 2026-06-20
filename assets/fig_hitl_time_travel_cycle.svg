@@ -1,0 +1,112 @@
+<svg viewBox="0 0 750 500" xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif">
+
+  <rect width="750" height="500" fill="#fafbfe" rx="8"/>
+
+  <text x="375" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1e3d">Cycle HITL et mecanisme de Time Travel</text>
+
+  <defs>
+    <marker id="h1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#e0a317" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="h2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#0fa67a" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="h3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#2e7bd6" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="h4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="h5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#dc3545" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+  </defs>
+
+  <!-- ═══ STEP 1: Pipeline generates ═══ -->
+  <rect x="250" y="48" width="250" height="38" rx="8" fill="#e4e5eb" stroke="#888" stroke-width="1"/>
+  <text x="375" y="65" text-anchor="middle" font-size="11" fill="#3a3d4a">Pipeline genere les resultats</text>
+  <text x="375" y="79" text-anchor="middle" font-size="8" fill="#888">(evaluator termine ou video_mutator termine)</text>
+
+  <path d="M375 86 L375 115" fill="none" stroke="#e0a317" stroke-width="1.3" marker-end="url(#h1)"/>
+
+  <!-- ═══ STEP 2: PAUSE ═══ -->
+  <rect x="230" y="115" width="290" height="50" rx="10" fill="#fff3e0" stroke="#e0a317" stroke-width="1.5"/>
+  <text x="375" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#e0a317">PAUSE</text>
+  <text x="375" y="155" text-anchor="middle" font-size="9" fill="#888">interrupt() — le pipeline attend la decision humaine</text>
+  
+  <!-- Pause icon -->
+  <rect x="485" y="125" width="7" height="22" rx="1.5" fill="#e0a317"/>
+  <rect x="497" y="125" width="7" height="22" rx="1.5" fill="#e0a317"/>
+
+  <path d="M375 165 L375 195" fill="none" stroke="#e0a317" stroke-width="1.3" marker-end="url(#h1)"/>
+
+  <!-- ═══ STEP 3: User reviews ═══ -->
+  <rect x="195" y="195" width="360" height="75" rx="10" fill="#fff" stroke="#e0a317" stroke-width="1.2"/>
+  <text x="375" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#e0a317">L'utilisateur examine les resultats</text>
+  
+  <!-- 3 action boxes -->
+  <rect x="215" y="228" width="90" height="30" rx="5" fill="#e8f5e9" stroke="#0fa67a" stroke-width="0.8"/>
+  <text x="260" y="243" text-anchor="middle" font-size="9" fill="#0fa67a" font-weight="bold">Approve</text>
+  <text x="260" y="254" text-anchor="middle" font-size="7" fill="#888">conserver</text>
+
+  <rect x="320" y="228" width="110" height="30" rx="5" fill="#ffebee" stroke="#dc3545" stroke-width="0.8"/>
+  <text x="375" y="243" text-anchor="middle" font-size="9" fill="#dc3545" font-weight="bold">Reject + feedback</text>
+  <text x="375" y="254" text-anchor="middle" font-size="7" fill="#888">regenerer</text>
+
+  <rect x="445" y="228" width="90" height="30" rx="5" fill="#f5f5f5" stroke="#888" stroke-width="0.8"/>
+  <text x="490" y="243" text-anchor="middle" font-size="9" fill="#888" font-weight="bold">Delete</text>
+  <text x="490" y="254" text-anchor="middle" font-size="7" fill="#888">supprimer</text>
+
+  <!-- ═══ DECISION DIAMOND ═══ -->
+  <path d="M375 270 L375 310" fill="none" stroke="#888" stroke-width="1" marker-end="url(#h4)"/>
+  
+  <polygon points="375,310 420,340 375,370 330,340" fill="#fff" stroke="#888" stroke-width="1.2"/>
+  <text x="375" y="344" text-anchor="middle" font-size="9" fill="#3a3d4a">TCs rejetes ?</text>
+
+  <!-- ═══ PATH LEFT: YES → Time Travel ═══ -->
+  <path d="M330 340 L140 340" fill="none" stroke="#0fa67a" stroke-width="1.5" marker-end="url(#h2)"/>
+  <text x="235" y="333" text-anchor="middle" font-size="9" fill="#0fa67a" font-weight="bold">Oui</text>
+
+  <rect x="50" y="315" width="90" height="50" rx="8" fill="#e8f5e9" stroke="#0fa67a" stroke-width="1.3"/>
+  <text x="95" y="336" text-anchor="middle" font-size="10" font-weight="bold" fill="#0fa67a">Time</text>
+  <text x="95" y="352" text-anchor="middle" font-size="10" font-weight="bold" fill="#0fa67a">Travel</text>
+
+  <!-- Arrow back up to pipeline -->
+  <path d="M95 315 L95 67 L250 67" fill="none" stroke="#0fa67a" stroke-width="1.5" stroke-dasharray="7 3" marker-end="url(#h2)"/>
+
+  <!-- Annotation -->
+  <rect x="30" y="385" width="170" height="55" rx="6" fill="#fff" stroke="#0fa67a" stroke-width="0.8"/>
+  <text x="115" y="402" text-anchor="middle" font-size="8" font-weight="bold" fill="#0fa67a">Regeneration selective</text>
+  <text x="115" y="416" text-anchor="middle" font-size="7" fill="#555">Seuls les TCs rejetes sont</text>
+  <text x="115" y="428" text-anchor="middle" font-size="7" fill="#555">regeneres avec le feedback.</text>
+  <text x="115" y="440" text-anchor="middle" font-size="7" fill="#555">Les approuves ne changent pas.</text>
+
+  <!-- ═══ PATH RIGHT: NO → Download ═══ -->
+  <path d="M420 340 L560 340" fill="none" stroke="#2e7bd6" stroke-width="1.5" marker-end="url(#h3)"/>
+  <text x="490" y="333" text-anchor="middle" font-size="9" fill="#2e7bd6" font-weight="bold">Non</text>
+
+  <rect x="560" y="318" width="140" height="45" rx="8" fill="#e3f2fd" stroke="#2e7bd6" stroke-width="1.2"/>
+  <text x="630" y="338" text-anchor="middle" font-size="11" font-weight="bold" fill="#2e7bd6">Download</text>
+  <text x="630" y="354" text-anchor="middle" font-size="8" fill="#888">Excel v{n} genere</text>
+
+  <path d="M630 363 L630 395" fill="none" stroke="#888" stroke-width="1.2" marker-end="url(#h4)"/>
+  <rect x="595" y="395" width="70" height="26" rx="13" fill="#e4e5eb" stroke="#888" stroke-width="1"/>
+  <text x="630" y="413" text-anchor="middle" font-size="10" font-weight="bold" fill="#3a3d4a">END</text>
+
+  <!-- ═══ RE-ENTRY ═══ -->
+  <path d="M630 421 L630 460 L490 460" fill="none" stroke="#e0a317" stroke-width="1.2" stroke-dasharray="6 3" marker-end="url(#h1)"/>
+
+  <rect x="290" y="445" width="200" height="35" rx="8" fill="#fff8e1" stroke="#e0a317" stroke-width="1" stroke-dasharray="6 3"/>
+  <text x="390" y="461" text-anchor="middle" font-size="9" font-weight="bold" fill="#e0a317">Re-entry depuis Page 1</text>
+  <text x="390" y="474" text-anchor="middle" font-size="7" fill="#888">POST /review/{thread_id}</text>
+
+  <!-- Arrow from re-entry back to PAUSE -->
+  <path d="M290 462 L175 462 L175 140 L230 140" fill="none" stroke="#e0a317" stroke-width="1.1" stroke-dasharray="6 3" marker-end="url(#h1)"/>
+
+  <!-- ═══ LOOP LABEL ═══ -->
+  <rect x="40" y="165" width="100" height="50" rx="6" fill="#f0faf5" stroke="#0fa67a" stroke-width="0.8"/>
+  <text x="90" y="183" text-anchor="middle" font-size="8" font-weight="bold" fill="#0fa67a">Boucle iterative</text>
+  <text x="90" y="196" text-anchor="middle" font-size="7" fill="#555">Se repete jusqu'a</text>
+  <text x="90" y="207" text-anchor="middle" font-size="7" fill="#555">satisfaction (v1→v2→v3)</text>
+
+</svg>

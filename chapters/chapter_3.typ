@@ -524,7 +524,48 @@ C'est a ce niveau que la memoire a long terme est injectee : les preferences de 
 #evaluation-hitl-output-graph() 
 
 
-#intro-section[Vue d'ensemble]
+#intro-subsection[Parallelisme et controle de concurrence]
+
+Le pipeline exploite deux niveaux de parallelisme :
+
+Le premier niveau utilise le mecanisme *"Send()"* de LangGraph pour distribuer le travail. Lorsque le planificateur identifie dix exigences a traiter, il cree dix instances paralleles de `plan_single_req`. Chaque instance opere de maniere independante, avec son propre contexte et ses propres appels LLM.
+
+Le second niveau intervient au sein des noeuds eux-memes. L'analyse des frames video, par exemple, lance les appels LLM en parallele via *"asyncio.gather()"*.
+
+#intro-section[Architecture HITL et Time Travel]
+L'une des contributions majeures de ce travail est l'integration d'une boucle de controle humain directement dans le graphe d'execution. Contrairement a une approche ou l'utilisateur decouvre les resultats une fois le traitement termine, ici le pipeline s'interrompt volontairement pour solliciter l'avis de l'expert avant de poursuivre.
+#intro-subsection[ Le principe d'interruption]
+Le mecanisme repose sur la fonction `interrupt()` de LangGraph. Lorsque le pipeline atteint le noeud `human_review`, il sauvegarde son etat complet dans PostgreSQL et se met en pause. L'execution ne reprend que lorsque l'utilisateur a transmis ses decisions via l'API. Ce comportement est rendu possible par le checkpointer, qui preserve l'integralite du contexte entre la pause et la reprise.
+
+Du point de vue de l'utilisateur, l'experience est fluide : il recoit les cas de test generes, les examine a son rythme, et soumet ses decisions. Du point de vue du pipeline, rien n'est perdu : lorsqu'il reprend, il dispose exactement du meme etat qu'au moment de la pause.
+
+#intro-subsection[Les decisions de l'utilisateur]
+Pour chaque cas de test presente, l'utilisateur dispose de trois actions possibles :
+- *Approve :* le cas de test est valide et sera conserve tel quel dans le livrable final. Un commentaire optionnel peut etre ajoute.
+- *Reject :* le cas de test est insatisfaisant. L'utilisateur fournit obligatoirement un feedback expliquant ce qui doit etre ameliore. Ce cas sera regenere par le pipeline en tenant compte du feedback.
+- *Delete :* le cas de test est hors sujet ou redondant. Il sera supprime definitivement du livrable.
+\
+Les cas de test pour lesquels l'utilisateur ne se prononce pas sont automatiquement consideres comme approuves. Cette convention evite de contraindre l'utilisateur a examiner chaque element lorsque la majorite des resultats est satisfaisante.
+#intro-subsection[  Regeneration selective par *"Time Travel"*]
+
+Lorsque l'utilisateur rejette certains cas de test, le pipeline ne repart pas de zero. Grace au mecanisme de Time Travel de LangGraph, il revient au noeud `coverage_planner` en conservant l'integralite du contexte accumule : exigences structurees, resultats d'analyse, flow table, et observations video.
+
+Seuls les cas rejetes sont regeneres. Les cas approuves restent rigoureusement inchanges  aucun appel LLM supplementaire ne leur est consacre. Le planificateur recoit les feedbacks de l'utilisateur et les integre dans le prompt de generation, produisant ainsi des cas de test ameliores qui repondent specifiquement aux remarques formulees.
+Ce mecanisme presente un avantage considerable en termes de cout et de temps : regenerer deux cas de test sur vingt ne consomme qu'un dixieme des ressources d'une regeneration complete.
+#intro-subsection[ Regeneration globale]
+L'utilisateur peut egalement demander une regeneration de l'ensemble des cas de test, accompagnee d'un feedback global (par exemple : « je veux des cas plus detailles avec des valeurs limites plus precises »). Dans ce cas, le pipeline revient egalement au `coverage_planner`, mais planifie la generation pour toutes les exigences en integrant le feedback global dans chaque prompt.
+
+#intro-subsection[Retour à HITL]
+
+Apres le telechargement du fichier Excel, l'utilisateur peut revenir a la page de revue pour lancer un nouveau cycle d'amelioration. Cette fonctionnalite utilise le mecanisme `aupdate_state()` de LangGraph pour repositionner le graphe au noeud `human_review`, permettant une nouvelle iteration sans relancer le pipeline depuis le debut.
+
+Chaque cycle de revue produit une nouvelle version du fichier (v1, v2, v3), assurant une tracabilite complete de l'evolution des resultats.
+
+#hitl-time-travel-cycle-diagram()
+
+
+
+
 #intro-section[Vue d'ensemble]
 #intro-subsection[ Flux global]
 #intro-section[Vue d'ensemble]

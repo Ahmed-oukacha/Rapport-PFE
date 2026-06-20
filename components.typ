@@ -1041,8 +1041,8 @@
           2.45,
           1.25,
           [
-            CaCpgemini \
-            Engineering
+            #text(fill : black)[CaCpgemini \
+            Engineering]
           ],
           fill-color: rgb(236, 160, 124),
           size: 16pt,
@@ -1054,7 +1054,7 @@
           2.0,
           2.45,
           1.15,
-          [MG2],
+          [#text(fill : black)[MG2]],
           fill-color: rgb(251, 193, 143),
           size: 15pt,
         )
@@ -1064,7 +1064,7 @@
           2.0,
           2.45,
           1.15,
-          [i-Factories],
+          [#text(fill : black)[i-Factories]],
           fill-color: rgb(220, 201, 185),
           size: 15pt,
         )
@@ -1074,10 +1074,10 @@
           2.0,
           2.45,
           1.15,
-          [
+          [#text(fill : black)[
             MG2\
             Engineering
-          ],
+          ]],
           fill-color: rgb(233, 194, 132),
           size: 15pt,
         )
@@ -1087,7 +1087,7 @@
           2.0,
           2.45,
           1.15,
-          [AIS],
+          [#text(fill : black)[AIS]],
           fill-color: rgb(241, 194, 168),
           size: 15pt,
         )
@@ -1097,7 +1097,7 @@
           2.0,
           2.45,
           1.15,
-          [PowerParts],
+          [#text(fill : black)[PowerParts]],
           fill-color: rgb(207, 205, 180),
           size: 15pt,
         )
@@ -1173,7 +1173,7 @@
           10.1,
           3.4,
           1.45,
-          [AIS],
+          [#text(fill : black)[AIS]],
           fill-color: rgb(235, 159, 125),
           size: 11pt,
           text-width: 2.3cm,
@@ -1188,11 +1188,11 @@
           7.1,
           4.25,
           1.75,
-          [
+          [#text(fill : black)[
             Mechatronics \
             connected \
             systems
-          ],
+          ]],
           fill-color: rgb(253, 193, 139),
           size: 8.4pt,
           text-width: 2.55cm,
@@ -1203,11 +1203,11 @@
           7.1,
           4.25,
           1.75,
-          [
+          [#text(fill : black)[
             Mechatronics \
             product \
             engineering
-          ],
+          ]],
           fill-color: rgb(218, 199, 183),
           size: 8.4pt,
           text-width: 2.55cm,
@@ -1218,10 +1218,10 @@
           7.1,
           4.25,
           1.75,
-          [
+          [#text(fill : black)[
             Modeling & \
             Simulation
-          ],
+          ]],
           fill-color: rgb(233, 193, 131),
           size: 8.8pt,
           text-width: 2.45cm,
@@ -1232,11 +1232,11 @@
           7.1,
           4.25,
           1.75,
-          [
+          [#text(fill : black)[
             EE \
             Architecture \
             & Safety
-          ],
+          ]],
           fill-color: rgb(243, 191, 168),
           size: 8.4pt,
           text-width: 2.55cm,
@@ -1250,7 +1250,7 @@
           4.1,
           3.7,
           1.55,
-          [SDA],
+          [#text(fill : black)[SDA]],
           fill-color: rgb(221, 139, 100),
           size: 10pt,
           text-width: 2.2cm,
@@ -1264,11 +1264,11 @@
           1.1,
           4.6,
           1.75,
-          [
+          [#text(fill : black)[
             MBSE, RBSE, \
             & System \
             Engineers
-          ],
+          ]],
           fill-color: rgb(210, 204, 170),
           size: 8pt,
           text-width: 2.75cm,
@@ -1279,10 +1279,10 @@
           1.1,
           3.8,
           1.75,
-          [
+          [#text(fill : black)[
             NVH \
             Engineers
-          ],
+          ]],
           fill-color: rgb(210, 214, 191),
           size: 8.8pt,
           text-width: 2.25cm,
@@ -1293,11 +1293,11 @@
           1.1,
           4.1,
           1.75,
-          [
+          [#text(fill : black)[
             Data \
             Analysts / \
             Developers
-          ],
+          ]],
           fill-color: rgb(216, 209, 217),
           size: 8pt,
           text-width: 2.45cm,
@@ -8497,8 +8497,8 @@ line(
             fill: white,
             stroke: (
               paint: black,
-              thickness: 0.65pt,
-              dash: "dashed",
+              thickness: 0.65pt
+    ,
             ),
             radius: 0.22,
           )
@@ -8802,4 +8802,138 @@ pill-node(
     ]
   ],
   caption: [Agent 4 Workfolows],
+)
+
+#let hitl-time-travel-cycle-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.78cm, {
+        import cetz.draw: *
+
+        let black = rgb("#111111")
+        let dark = rgb("#222222")
+        let muted = rgb("#555555")
+        let gray = rgb("#8A8A8A")
+        let light = rgb("#F2F2F2")
+        let white = rgb("#FFFFFF")
+
+        let arrow(points, dashed: false, thickness: 0.75pt, paint: black) = {
+          line(
+            ..points,
+            stroke: if dashed {
+              (paint: paint, thickness: thickness, dash: (5pt, 3pt))
+            } else {
+              paint + thickness
+            },
+            mark: (end: ">"),
+          )
+        }
+
+        let label(x, y, txt, size: 7.2pt, fill: black, weight: "regular") = {
+          content((x, y), anchor: "center", [
+            #text(font: "Arial", size: size, fill: fill, weight: weight)[#txt]
+          ])
+        }
+
+        let wrapped-label(x, y, w, body, size: 6.2pt, fill: muted, weight: "regular") = {
+          content((x, y), anchor: "center", [
+            #box(width: (w * 0.68cm))[
+              #align(center)[
+                #set par(leading: 0.62em, justify: false)
+                #text(font: "Arial", size: size, fill: fill, weight: weight)[#body]
+              ]
+            ]
+          ])
+        }
+
+        let node(x, y, w, h, title, subtitle: none, fill: white, stroke: black, radius: 0.18, title-size: 7.8pt, subtitle-size: 6.1pt, title-fill: black) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: fill,
+            stroke: stroke + 0.8pt,
+            radius: radius,
+          )
+          label(x, if subtitle == none { y } else { y + h * 0.25 }, title, size: title-size, fill: title-fill, weight: "bold")
+          if subtitle != none {
+            wrapped-label(x, y - h * 0.24, w * 0.85, subtitle, size: subtitle-size, fill: muted)
+          }
+        }
+
+        let dashed-node(x, y, w, h, title, subtitle: none, fill: white, title-size: 7.3pt, subtitle-size: 5.8pt) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: fill,
+            stroke: (paint: black, thickness: 0.75pt, dash: (5pt, 3pt)),
+            radius: 0.18,
+          )
+          label(x, if subtitle == none { y } else { y + h * 0.25 }, title, size: title-size, fill: black, weight: "bold")
+          if subtitle != none {
+            wrapped-label(x, y - h * 0.25, w * 0.85, subtitle, size: subtitle-size, fill: muted)
+          }
+        }
+
+        let side-note(x, y, w, h, title, body) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: white,
+            stroke: black + 0.7pt,
+            radius: 0.15,
+          )
+          label(x, y + h * 0.32, title, size: 6.2pt, weight: "bold")
+          wrapped-label(x, y - h * 0.24, w * 0.82, body, size: 5.5pt)
+        }
+
+        // Background and title.
+        rect((0, 0), (18, 13.2), fill: white, stroke: black + 0.45pt, radius: 0.16)
+        label(9, 12.75, [Cycle HITL et mecanisme de Time Travel], size: 11.5pt, fill: black, weight: "bold")
+
+        // Main vertical flow
+        node(9, 11.65, 6.0, 0.95, [Pipeline genere les resultats], subtitle: [(evaluator termine ou video_mutator termine)], fill: light, stroke: black, title-size: 7.9pt, subtitle-size: 5.9pt)
+        arrow(((9, 11.17), (9, 10.65)))
+
+        node(9, 10.05, 6.7, 1.18, [PAUSE], subtitle: [interrupt() -- le pipeline attend la decision humaine], fill: white, stroke: black, title-size: 10pt, subtitle-size: 6pt)
+        rect((11.95, 9.82), (12.10, 10.28), fill: black, stroke: none, radius: 0.03)
+        rect((12.28, 9.82), (12.43, 10.28), fill: black, stroke: none, radius: 0.03)
+        arrow(((9, 9.46), (9, 8.65)))
+
+        rect((4.4, 6.65), (13.6, 8.65), fill: white, stroke: black + 0.8pt, radius: 0.22)
+        label(9, 8.18, [L'utilisateur examine les resultats], size: 8.4pt, weight: "bold")
+        node(6.0, 7.28, 2.35, 0.78, [Approve], subtitle: [conserver], fill: white, stroke: black, radius: 0.10, title-size: 6.8pt, subtitle-size: 5.5pt)
+        node(9, 7.28, 2.85, 0.78, [Reject + feedback], subtitle: [regenerer], fill: white, stroke: black, radius: 0.10, title-size: 6.8pt, subtitle-size: 5.5pt)
+        node(12.0, 7.28, 2.35, 0.78, [Delete], subtitle: [supprimer], fill: white, stroke: black, radius: 0.10, title-size: 6.8pt, subtitle-size: 5.5pt)
+
+        arrow(((9, 6.65), (9, 5.80)), thickness: 0.65pt, paint: gray)
+
+        // Decision diamond
+        line((9, 5.80), (10.25, 5.00), (9, 4.20), (7.75, 5.00), (9, 5.80), stroke: black + 0.8pt)
+        label(9, 4.92, [TCs rejetes ?], size: 6.7pt)
+
+        // Left branch: time travel
+        arrow(((7.75, 5.00), (3.95, 5.00)), thickness: 0.8pt)
+        label(5.85, 5.28, [Oui], size: 6.8pt, weight: "bold")
+        node(2.65, 5.00, 2.35, 1.05, [Time Travel], fill: white, stroke: black, title-size: 8.2pt)
+        arrow(((2.65, 5.53), (0.75, 5.53), (0.75, 11.65), (6.0, 11.65)), dashed: true, thickness: 0.8pt)
+
+        side-note(2.05, 2.25, 3.7, 1.45, [Regeneration selective], [TCs rejetes regeneres\ avec feedback.\ Approuves inchanges.])
+        side-note(2.05, 7.85, 3.7, 1.30, [Boucle iterative], [Jusqu'a satisfaction\ (v1->v2->v3)])
+
+        // Right branch: download and end
+        arrow(((10.25, 5.00), (14.15, 5.00)), thickness: 0.8pt)
+        label(12.2, 5.28, [Non], size: 6.8pt, weight: "bold")
+        node(15.35, 5.00, 2.75, 1.0, [Download], subtitle: [Excel v\{n\} genere], fill: white, stroke: black, title-size: 8.4pt, subtitle-size: 6pt)
+        arrow(((15.35, 4.50), (15.35, 3.50)), thickness: 0.65pt, paint: gray)
+        rect((14.6, 3.15), (16.1, 3.65), fill: light, stroke: black + 0.75pt, radius: 0.25)
+        label(15.35, 3.37, [END], size: 7pt, weight: "bold")
+
+        // Re-entry loop
+        arrow(((15.35, 3.15), (15.35, 1.10), (11.35, 1.10)), dashed: true, thickness: 0.75pt)
+        dashed-node(9, 1.10, 4.7, 0.9, [Re-entry depuis Page 1], subtitle: [POST /review/\{thread_id\}], fill: white, title-size: 7.1pt, subtitle-size: 5.6pt)
+        arrow(((6.65, 1.10), (4.15, 1.10), (4.15, 10.05), (5.65, 10.05)), dashed: true, thickness: 0.75pt)
+      })
+    ]
+  ],
+  caption: [Cycle HITL et mecanisme de Time Travel],
 )
