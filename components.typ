@@ -1,5 +1,6 @@
 #import "@preview/colorful-boxes:1.4.1": colorbox
 #import "@preview/cetz:0.5.2"
+#import "@preview/fletcher:0.5.8" as fletcher
 #let report-header = context [
   #grid(
     columns: (1fr, auto),
@@ -6543,8 +6544,6 @@ line(
 )
 ``
 
-
-
 // =====================================================
 // Pipeline Routing Diagram - Readable Black/White Style
 // =====================================================
@@ -6874,6 +6873,160 @@ line(
   ],
   caption: [Vue globale du pipeline ],
 )
+
+
+// // =====================================================
+// // Pipeline — Vue globale  (Fletcher 0.5.8)
+// // =====================================================
+
+// #let pipeline-routing-modes-diagram() = {
+
+//   // ── Palette — fill blanc, couleur sur le bord uniquement ──
+//   let wh  = white
+//   let mu  = rgb("#64748B")
+//   let mk  = rgb("#1E293B")
+
+//   // Couleurs sur le bord uniquement, fill = blanc
+//   let col-se  = rgb("#059669")   // vert
+//   let col-ag1 = rgb("#2563EB")   // bleu
+//   let col-ag2 = rgb("#7C3AED")   // violet
+//   let col-ag3 = rgb("#EA580C")   // orange
+//   let col-vid = rgb("#D97706")   // ambre
+//   let col-ag4 = rgb("#DB2777")   // rose
+
+//   let s-main = mk + 1.3pt
+//   let s-cond = (paint: rgb("#94A3B8"), thickness: 1pt, dash: "dashed")
+
+//   // Nœud compact : titre + rôle sur 2 lignes, largeur fixe 32mm
+//   let nd(title, role) = box(width: 32mm)[
+//     #set par(leading: 0.32em)
+//     #align(center)[
+//       #text(size: 9pt, weight: "bold")[#title]\
+//       #text(size: 7.5pt, fill: mu)[#role]
+//     ]
+//   ]
+
+//   // ──────────────────────────────────────────────────────
+//   //  Layout :
+//   //    (0.5, 0)  START
+//   //    (0, 1)    Agent 1        (1, 1)  Agent Vidéo
+//   //    (0, 2)    Agent 2
+//   //    (0, 3)    Agent 3
+//   //    (0.5, 4)  Agent 4
+//   //    (0.5, 5)  END
+//   // ──────────────────────────────────────────────────────
+//   let dia = fletcher.diagram(
+//     cell-size: (42mm, 16mm),
+//     node-corner-radius: 5pt,
+//     node-inset: 8pt,
+//     node-defocus: 0,
+
+//     // START — double bord (extrude) comme dans l'image
+//     fletcher.node((0.5, 0),
+//       align(center)[#text(size: 9.5pt, weight: "bold")[START]],
+//       corner-radius: 14pt,
+//       fill: wh, stroke: col-se + 2pt,
+//       extrude: (0, 3),
+//       name: <start>),
+
+//     fletcher.node((0, 1),
+//       nd([Agent 1], [Extraction des entrées]),
+//       fill: wh, stroke: col-ag1 + 1.8pt,
+//       name: <ag1>),
+
+//     fletcher.node((1, 1),
+//       nd([Agent Vidéo], [Analyse et mutations]),
+//       fill: wh, stroke: col-vid + 1.8pt,
+//       name: <vid>),
+
+//     fletcher.node((0, 2),
+//       nd([Agent 2], [Analyse sémantique]),
+//       fill: wh, stroke: col-ag2 + 1.8pt,
+//       name: <ag2>),
+
+//     fletcher.node((0, 3),
+//       nd([Agent 3], [Génération des TCs]),
+//       fill: wh, stroke: col-ag3 + 1.8pt,
+//       name: <ag3>),
+
+//     fletcher.node((0.5, 4),
+//       nd([Agent 4], [Évaluation et sortie]),
+//       fill: wh, stroke: col-ag4 + 1.8pt,
+//       name: <ag4>),
+
+//     // END — double bord
+//     fletcher.node((0.5, 5),
+//       align(center)[#text(size: 9.5pt, weight: "bold")[END]],
+//       corner-radius: 14pt,
+//       fill: wh, stroke: col-se + 2pt,
+//       extrude: (0, 3),
+//       name: <end>),
+
+//     // Flux principaux
+//     fletcher.edge(<start>, <ag1>, "->",
+//       label: text(size: 6pt)[excel],
+//       label-side: left,
+//       stroke: s-main),
+//     fletcher.edge(<start>, <vid>, "->",
+//       label: text(size: 6pt)[video],
+//       label-side: right,
+//       stroke: s-main),
+//     fletcher.edge(<ag1>, <ag2>, "->", stroke: s-main),
+//     fletcher.edge(<ag2>, <ag3>, "->", stroke: s-main),
+//     fletcher.edge(<ag3>, <ag4>, "->", stroke: s-main),
+//     fletcher.edge(<ag4>, <end>, "->", stroke: s-main),
+
+//     // Flux conditionnels (tirets)
+//     fletcher.edge(<vid>, (0.9, 1), (0.9, 2), <ag2>, "->",
+//       label: text(size: 6pt)[video\_insights],
+//       label-side: right,
+//       stroke: s-cond),
+
+//     // Routage en C à droite : Vidéo → (col 1.55, r1) → (col 1.55, r4) → Agent 4
+//     fletcher.edge(<vid>, (1.2, 1), (1.25, 4), <ag4>, "->",
+//       label: text(size: 6pt)[video → HITL],
+//       label-pos: 0.65,
+//       label-side: right,
+//       stroke: s-cond),
+//   )
+
+//   // Légende horizontale
+//   let hleg = block(
+//     stroke: rgb("#E2E8F0") + 0.8pt,
+//     radius: 4pt,
+//     inset: (x: 10pt, y: 7pt),
+//     width: 100%,
+//   )[
+//     #align(center)[
+//       #box(stroke: col-se  + 1.5pt, fill: wh, width: 12pt, height: 8pt, radius: 10pt)
+//       #h(3pt)#text(size: 7pt)[Début/Fin]#h(10pt)
+//       #box(stroke: col-ag1 + 1.5pt, fill: wh, width: 12pt, height: 8pt, radius: 2pt)
+//       #h(3pt)#text(size: 7pt)[Agent 1]#h(10pt)
+//       #box(stroke: col-vid + 1.5pt, fill: wh, width: 12pt, height: 8pt, radius: 2pt)
+//       #h(3pt)#text(size: 7pt)[Agent Vidéo]#h(10pt)
+//       #box(stroke: col-ag2 + 1.5pt, fill: wh, width: 12pt, height: 8pt, radius: 2pt)
+//       #h(3pt)#text(size: 7pt)[Agent 2]#h(10pt)
+//       #box(stroke: col-ag3 + 1.5pt, fill: wh, width: 12pt, height: 8pt, radius: 2pt)
+//       #h(3pt)#text(size: 7pt)[Agent 3]#h(10pt)
+//       #box(stroke: col-ag4 + 1.5pt, fill: wh, width: 12pt, height: 8pt, radius: 2pt)
+//       #h(3pt)#text(size: 7pt)[Agent 4]#h(12pt)
+//       #box(baseline: 2pt)[#line(length: 16pt, stroke: mk + 1.2pt)]
+//       #h(3pt)#text(size: 7pt)[Flux principal]#h(10pt)
+//       #box(baseline: 2pt)[#line(length: 16pt,
+//         stroke: (paint: rgb("#94A3B8"), thickness: 1pt, dash: "dashed"))]
+//       #h(3pt)#text(size: 7pt)[Flux conditionnel]
+//     ]
+//   ]
+
+//   figure(
+//     block(width: 100%)[
+//       #align(center, dia)
+//       #v(8pt)
+//       #hleg
+//     ],
+//     caption: [Vue globale du pipeline],
+//   )
+// }
 
 
 // =====================================================
@@ -8829,13 +8982,13 @@ pill-node(
           )
         }
 
-        let label(x, y, txt, size: 7.2pt, fill: black, weight: "regular") = {
+        let label(x, y, txt, size: 7.8pt, fill: black, weight: "regular") = {
           content((x, y), anchor: "center", [
             #text(font: "Arial", size: size, fill: fill, weight: weight)[#txt]
           ])
         }
 
-        let wrapped-label(x, y, w, body, size: 6.2pt, fill: muted, weight: "regular") = {
+        let wrapped-label(x, y, w, body, size: 6.7pt, fill: muted, weight: "regular") = {
           content((x, y), anchor: "center", [
             #box(width: (w * 0.68cm))[
               #align(center)[
@@ -8846,7 +8999,7 @@ pill-node(
           ])
         }
 
-        let node(x, y, w, h, title, subtitle: none, fill: white, stroke: black, radius: 0.18, title-size: 7.8pt, subtitle-size: 6.1pt, title-fill: black) = {
+        let node(x, y, w, h, title, subtitle: none, fill: white, stroke: black, radius: 0.18, title-size: 8.5pt, subtitle-size: 6.6pt, title-fill: black) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
@@ -8860,7 +9013,7 @@ pill-node(
           }
         }
 
-        let dashed-node(x, y, w, h, title, subtitle: none, fill: white, title-size: 7.3pt, subtitle-size: 5.8pt) = {
+        let dashed-node(x, y, w, h, title, subtitle: none, fill: white, title-size: 8pt, subtitle-size: 6.3pt) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
@@ -8882,58 +9035,318 @@ pill-node(
             stroke: black + 0.7pt,
             radius: 0.15,
           )
-          label(x, y + h * 0.32, title, size: 6.2pt, weight: "bold")
-          wrapped-label(x, y - h * 0.24, w * 0.82, body, size: 5.5pt)
+          label(x, y + h * 0.32, title, size: 6.8pt, weight: "bold")
+          wrapped-label(x, y - h * 0.24, w * 0.82, body, size: 6pt)
         }
 
         // Background and title.
         rect((0, 0), (18, 13.2), fill: white, stroke: black + 0.45pt, radius: 0.16)
-        label(9, 12.75, [Cycle HITL et mecanisme de Time Travel], size: 11.5pt, fill: black, weight: "bold")
+        label(9, 12.75, [Cycle HITL et mecanisme de Time Travel], size: 12.3pt, fill: black, weight: "bold")
 
         // Main vertical flow
-        node(9, 11.65, 6.0, 0.95, [Pipeline genere les resultats], subtitle: [(evaluator termine ou video_mutator termine)], fill: light, stroke: black, title-size: 7.9pt, subtitle-size: 5.9pt)
+        node(9, 11.65, 6.0, 0.95, [Pipeline genere les resultats], subtitle: [evaluator termine], fill: light, stroke: black, title-size: 8.6pt, subtitle-size: 6.4pt)
         arrow(((9, 11.17), (9, 10.65)))
 
-        node(9, 10.05, 6.7, 1.18, [PAUSE], subtitle: [interrupt() -- le pipeline attend la decision humaine], fill: white, stroke: black, title-size: 10pt, subtitle-size: 6pt)
-        rect((11.95, 9.82), (12.10, 10.28), fill: black, stroke: none, radius: 0.03)
-        rect((12.28, 9.82), (12.43, 10.28), fill: black, stroke: none, radius: 0.03)
+        node(9, 10.05, 6.7, 1.18, [PAUSE], subtitle: [interrupt - le pipeline attend la decision humaine], fill: white, stroke: black, title-size: 10.8pt, subtitle-size: 6.5pt)
+        
         arrow(((9, 9.46), (9, 8.65)))
 
         rect((4.4, 6.65), (13.6, 8.65), fill: white, stroke: black + 0.8pt, radius: 0.22)
-        label(9, 8.18, [L'utilisateur examine les resultats], size: 8.4pt, weight: "bold")
-        node(6.0, 7.28, 2.35, 0.78, [Approve], subtitle: [conserver], fill: white, stroke: black, radius: 0.10, title-size: 6.8pt, subtitle-size: 5.5pt)
-        node(9, 7.28, 2.85, 0.78, [Reject + feedback], subtitle: [regenerer], fill: white, stroke: black, radius: 0.10, title-size: 6.8pt, subtitle-size: 5.5pt)
-        node(12.0, 7.28, 2.35, 0.78, [Delete], subtitle: [supprimer], fill: white, stroke: black, radius: 0.10, title-size: 6.8pt, subtitle-size: 5.5pt)
+        label(9, 8.18, [L'utilisateur examine les resultats], size: 9.1pt, weight: "bold")
+        node(6.0, 7.28, 2.35, 0.78, [Approve], subtitle: [conserver], fill: white, stroke: black, radius: 0.10, title-size: 7.4pt, subtitle-size: 5.9pt)
+        node(9, 7.28, 2.85, 0.78, [Reject + feedback], subtitle: [regenerer], fill: white, stroke: black, radius: 0.10, title-size: 7.4pt, subtitle-size: 5.9pt)
+        node(12.0, 7.28, 2.35, 0.78, [Delete], subtitle: [supprimer], fill: white, stroke: black, radius: 0.10, title-size: 7.4pt, subtitle-size: 5.9pt)
 
         arrow(((9, 6.65), (9, 5.80)), thickness: 0.65pt, paint: gray)
 
         // Decision diamond
         line((9, 5.80), (10.25, 5.00), (9, 4.20), (7.75, 5.00), (9, 5.80), stroke: black + 0.8pt)
-        label(9, 4.92, [TCs rejetes ?], size: 6.7pt)
+        label(9, 4.92, [TCs rejetes ?], size: 7.3pt)
 
         // Left branch: time travel
         arrow(((7.75, 5.00), (3.95, 5.00)), thickness: 0.8pt)
-        label(5.85, 5.28, [Oui], size: 6.8pt, weight: "bold")
-        node(2.65, 5.00, 2.35, 1.05, [Time Travel], fill: white, stroke: black, title-size: 8.2pt)
+        label(5.85, 5.28, [Oui], size: 7.4pt, weight: "bold")
+        node(2.65, 5.00, 2.35, 1.05, [Time Travel], fill: white, stroke: black, title-size: 8.9pt)
         arrow(((2.65, 5.53), (0.75, 5.53), (0.75, 11.65), (6.0, 11.65)), dashed: true, thickness: 0.8pt)
 
-        side-note(2.05, 2.25, 3.7, 1.45, [Regeneration selective], [TCs rejetes regeneres\ avec feedback.\ Approuves inchanges.])
-        side-note(2.05, 7.85, 3.7, 1.30, [Boucle iterative], [Jusqu'a satisfaction\ (v1->v2->v3)])
+        
+        side-note(2.05, 7.85, 3.7, 1.30, [Boucle iterative], [Jusqu'a satisfaction\ ])
 
         // Right branch: download and end
         arrow(((10.25, 5.00), (14.15, 5.00)), thickness: 0.8pt)
-        label(12.2, 5.28, [Non], size: 6.8pt, weight: "bold")
-        node(15.35, 5.00, 2.75, 1.0, [Download], subtitle: [Excel v\{n\} genere], fill: white, stroke: black, title-size: 8.4pt, subtitle-size: 6pt)
+        label(12.2, 5.28, [Non], size: 7.4pt, weight: "bold")
+        node(15.35, 5.00, 2.75, 1.0, [Download], subtitle: [Excel output], fill: white, stroke: black, title-size: 9.1pt, subtitle-size: 6.5pt)
         arrow(((15.35, 4.50), (15.35, 3.50)), thickness: 0.65pt, paint: gray)
         rect((14.6, 3.15), (16.1, 3.65), fill: light, stroke: black + 0.75pt, radius: 0.25)
-        label(15.35, 3.37, [END], size: 7pt, weight: "bold")
+        label(15.35, 3.37, [END], size: 7.6pt, weight: "bold")
 
         // Re-entry loop
         arrow(((15.35, 3.15), (15.35, 1.10), (11.35, 1.10)), dashed: true, thickness: 0.75pt)
-        dashed-node(9, 1.10, 4.7, 0.9, [Re-entry depuis Page 1], subtitle: [POST /review/\{thread_id\}], fill: white, title-size: 7.1pt, subtitle-size: 5.6pt)
+        dashed-node(9, 1.10, 4.7, 0.9, [Rtour à HTIL], subtitle: [review], fill: white, title-size: 7.8pt, subtitle-size: 6.1pt)
         arrow(((6.65, 1.10), (4.15, 1.10), (4.15, 10.05), (5.65, 10.05)), dashed: true, thickness: 0.75pt)
       })
     ]
   ],
   caption: [Cycle HITL et mecanisme de Time Travel],
+)
+
+
+// =====================================================
+// Memory Architecture — Trois niveaux de persistance
+// =====================================================
+
+#let memory-architecture-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.52cm, {
+        import cetz.draw: *
+
+        let bk = rgb("#111111")
+        let wh = rgb("#FFFFFF")
+        let gr = rgb("#777777")
+
+        // ── DB symbol: rect body (sides + bottom) + top ellipse cap ──
+        // The flat bottom avoids complex bottom-arc code.
+        let db(cx, cy, rx, h, ry: 0.38) = {
+          let top = cy + h / 2
+          let bot = cy - h / 2
+          rect((cx - rx, bot), (cx + rx, top), fill: wh, stroke: none)
+          line((cx - rx, top), (cx - rx, bot), stroke: bk + 0.85pt)
+          line((cx + rx, top), (cx + rx, bot), stroke: bk + 0.85pt)
+          line((cx - rx, bot), (cx + rx, bot), stroke: bk + 0.85pt)
+          line(
+            (cx - rx, top),
+            (cx - rx * 0.72, top + ry * 0.55),
+            (cx - rx * 0.28, top + ry * 0.82),
+            (cx, top + ry * 0.88),
+            (cx + rx * 0.28, top + ry * 0.82),
+            (cx + rx * 0.72, top + ry * 0.55),
+            (cx + rx, top),
+            (cx + rx * 0.72, top - ry * 0.55),
+            (cx + rx * 0.28, top - ry * 0.82),
+            (cx, top - ry * 0.88),
+            (cx - rx * 0.28, top - ry * 0.82),
+            (cx - rx * 0.72, top - ry * 0.55),
+            (cx - rx, top),
+            stroke: bk + 0.85pt,
+          )
+        }
+
+        let sarr(pts) = line(..pts, stroke: bk + 0.65pt, mark: (end: ">"))
+        let darr(pts) = line(..pts,
+            stroke: (paint: bk, thickness: 0.65pt, dash: (3.5pt, 2pt)),
+            mark: (end: ">"))
+
+        // Scope rect — title and subtitle are placed at staggered y-positions
+        // to avoid any overlap (each scope top is 2 units lower than the previous).
+        let scope-rect(x0, y0, x1, y1, dp, tk: 1.0pt) = {
+          rect((x0, y0), (x1, y1), fill: wh,
+               stroke: (paint: bk, thickness: tk, dash: dp), radius: 0.25)
+        }
+
+        // ═══════════════════════════════════════════════
+        // SCOPES  (drawn first so labels sit on top)
+        // ═══════════════════════════════════════════════
+
+        // Application — outermost, large dash
+        scope-rect(0, 0, 31, 21, (7pt, 3pt), tk: 1.3pt)
+
+        // Utilisateur — medium dash, top = 19  (2 units below App top 21)
+        scope-rect(0.5, 3.5, 29.5, 19.0, (4.5pt, 2.5pt), tk: 1.0pt)
+
+        // Session — fine dash, top = 16.5  (2.5 units below Util top 19)
+        scope-rect(1.0, 7.5, 17.0, 16.5, (3pt, 2pt), tk: 0.85pt)
+
+        // ── Scope labels — each at clearly separate vertical positions ──
+
+        // Application: inside at top-left (y ≈ 20.65)
+        content((0.5, 20.75), anchor: "north-west", [
+          #text(size: 8.5pt, weight: "bold")[Scope Application]
+        ])
+        content((0.5, 20.25), anchor: "north-west", [
+          #text(size: 5.7pt, fill: gr)[Partage entre tous les utilisateurs]
+        ])
+
+        // Utilisateur: inside its own rect at top-left (y ≈ 18.65)
+        content((0.9, 18.78), anchor: "north-west", [
+          #text(size: 8.5pt, weight: "bold")[Scope Utilisateur]
+        ])
+        content((0.9, 18.28), anchor: "north-west", [
+          #text(size: 5.7pt, fill: gr)[Propre a chaque utilisateur]
+        ])
+
+        // Session: inside its own rect at top-left (y ≈ 16.15)
+        content((1.4, 16.15), anchor: "north-west", [
+          #text(size: 8.5pt, weight: "bold")[Scope Session]
+        ])
+        content((1.4, 15.65), anchor: "north-west", [
+          #text(size: 5.7pt, fill: gr)[Une execution de pipeline]
+        ])
+
+        // ═══════════════════════════════════════════════
+        // INSIDE SESSION  (y: 7.5 – 14.8, x: 1 – 17)
+        // ═══════════════════════════════════════════════
+
+        // Pipeline — rounded rect
+        rect((1.5, 12.8), (10.5, 14.6),
+             fill: wh, stroke: bk + 1.0pt, radius: 0.22)
+        content((6.0, 13.7), anchor: "center", [
+          #text(size: 9pt, weight: "bold")[Pipeline]
+        ])
+
+        // Checkpointer DB
+        db(13.8, 13.7, 2.15, 1.55)
+        content((13.8, 13.7), anchor: "center", [
+          #text(size: 8pt)[Checkpointer]
+        ])
+
+        // Memoire courte (par session)
+        rect((1.5, 7.8), (16.1, 12.0),
+             fill: wh, stroke: bk + 0.8pt, radius: 0.18)
+        content((1.85, 11.7), anchor: "north-west", [
+          #text(size: 8pt, weight: "bold")[Memoire courte (par session)]
+        ])
+        content((1.85, 11.05), anchor: "north-west", [
+          #box(width: 3.85cm)[
+            #set par(leading: 0.52em)
+            #text(size: 5.9pt)[
+              • Etat complet du graphe a chaque noeud\
+              • Checkpoints chiffres (AES)\
+              • Interrupt / resume et Time Travel\
+              • Retention configurable
+            ]
+          ]
+        ])
+
+        // PostgreSQL (inside Memoire courte)
+        rect((9.05, 8.45), (15.75, 11.25),
+             fill: wh, stroke: bk + 0.75pt, radius: 0.15)
+        content((12.4, 10.25), anchor: "center", [
+          #text(size: 8pt, weight: "bold")[PostgreSQL]
+        ])
+        content((12.4, 9.6), anchor: "center", [
+          #text(size: 6.8pt, fill: gr)[AsyncPostgresSaver]
+        ])
+        content((12.4, 9.0), anchor: "center", [
+          #text(size: 6.8pt, fill: gr)[+ Encryption AES]
+        ])
+
+        // ═══════════════════════════════════════════════
+        // RIGHT SIDE — inside Utilisateur, x > 17.5
+        // ═══════════════════════════════════════════════
+
+        // Semantique DB  (top at ≈ 16.8, well below Util title at 18.65)
+        db(23.5, 15.5, 3.0, 1.6)
+        content((23.5, 15.5), anchor: "center", [
+          #text(size: 8pt)[Semantique]
+        ])
+
+        // Memoire semantique (par user)  (below Semantique DB)
+        rect((17.5, 11.8), (29.0, 14.2),
+             fill: wh, stroke: bk + 0.75pt, radius: 0.15)
+        content((17.85, 13.9), anchor: "north-west", [
+          #text(size: 7.5pt, weight: "bold")[Memoire semantique (par user)]
+        ])
+        content((17.85, 13.2), anchor: "north-west", [
+          #box(width: 4.5cm)[
+            #set par(leading: 0.55em)
+            #text(size: 6.3pt)[
+              • Preferences : « preconditions detaillees »\
+              • Habitudes : « boundary cases prioritaires »\
+              • Confiance : low → medium → high
+            ]
+          ]
+        ])
+
+        // Episodique DB
+        db(23.5, 8.7, 3.0, 1.6)
+        content((23.5, 8.7), anchor: "center", [
+          #text(size: 8pt)[Episodique]
+        ])
+
+        // Memoire episodique (par user)
+        rect((17.5, 4.5), (29.0, 7.4),
+             fill: wh, stroke: bk + 0.75pt, radius: 0.15)
+        content((17.85, 7.1), anchor: "north-west", [
+          #text(size: 7.5pt, weight: "bold")[Memoire episodique (par user)]
+        ])
+        content((17.85, 6.45), anchor: "north-west", [
+          #box(width: 4.5cm)[
+            #set par(leading: 0.55em)
+            #text(size: 6.3pt)[
+              • « 29 mai : rejete 3 TCs, cause preconditions »\
+              • Historique des revues et feedbacks
+            ]
+          ]
+        ])
+
+        // ═══════════════════════════════════════════════
+        // BOTTOM — Application level, below Utilisateur
+        // ═══════════════════════════════════════════════
+
+        // App Semantique DB
+        db(4.5, 1.6, 2.5, 1.6)
+        content((4.5, 1.6), anchor: "center", [
+          #box(width: 2.0cm)[
+            #align(center)[
+              #set par(leading: 0.5em)
+              #text(size: 7pt)[App\ Semantique]
+            ]
+          ]
+        ])
+
+        // Memoire semantique partagee (scope app)
+        rect((8.5, 0.4), (22.5, 2.6),
+             fill: wh, stroke: bk + 0.75pt, radius: 0.15)
+        content((8.85, 2.3), anchor: "north-west", [
+          #text(size: 7.5pt, weight: "bold")[Memoire semantique (partagee — scope app)]
+        ])
+        content((8.85, 1.65), anchor: "north-west", [
+          #box(width: 5.3cm)[
+            #set par(leading: 0.55em)
+            #text(size: 6.3pt)[
+              • « road_condition obligatoire dans preconditions »\
+              • « vitesses en km/h » — regles apprises de tous les users
+            ]
+          ]
+        ])
+
+        // Regle anti-doublon (dashed border, distinct from scopes)
+        rect((23.5, 0.4), (30.5, 2.6), fill: wh,
+             stroke: (paint: bk, thickness: 0.9pt, dash: (3.5pt, 2pt)),
+             radius: 0.15)
+        content((27.0, 2.2), anchor: "center", [
+          #text(size: 7.5pt, weight: "bold")[Regle anti-doublon]
+        ])
+        content((27.0, 1.55), anchor: "center", [
+          #box(width: 3.1cm)[
+            #align(center)[
+              #set par(leading: 0.6em)
+              #text(size: 6.3pt)[
+                Si existe dans App →\
+                pas de copie dans User
+              ]
+            ]
+          ]
+        ])
+
+        // ═══════════════════════════════════════════════
+        // ARROWS
+        // ═══════════════════════════════════════════════
+
+        sarr(((10.5, 13.7), (11.65, 13.7)))
+        darr(((6.0, 14.6), (6.0, 15.25), (17.2, 15.25), (17.2, 15.5), (20.5, 15.5)))
+        content((16.1, 15.55), anchor: "center", [
+          #text(size: 5.8pt, fill: gr)[conditionnel]
+        ])
+        sarr(((10.5, 13.05), (10.9, 13.05), (10.9, 12.45), (16.9, 12.45), (16.9, 8.7), (20.5, 8.7)))
+        darr(((1.5, 13.7), (1.15, 13.7), (1.15, 3.0), (4.5, 3.0), (4.5, 2.55)))
+        content((1.35, 7.0), anchor: "west", [
+          #text(size: 5.8pt, fill: gr)[conditionnel]
+        ])
+
+      })
+    ]
+  ],
+  caption: [Architecture memoire],
 )

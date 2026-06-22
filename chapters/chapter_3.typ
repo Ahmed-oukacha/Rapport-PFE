@@ -448,7 +448,6 @@ Le module d'evaluation constitue le gardien de la qualite du systeme.
 #intro-section[Architecture du graphe agentique]
 Le pipeline de traitement constitue le coeur technique du systeme. Il prend la forme d'un graphe oriente, construit avec LangGraph, ou chaque noeud represente un agent specialise dans une tache precise. Ce graphe ne se parcourt pas de maniere lineaire : selon le mode d'entree choisi, certaines branches s'activent et d'autres sont ignorees. Des mecanismes de parallelisme, de boucle, et d'interruption viennent enrichir ce parcours.
 #intro-subsection[ Vue d'ensemble du graphe]
-
 #pipeline-routing-modes-diagram()
 Le graphe opere a l'interieur de trois niveaux d'encapsulation, visibles sur la figure ci-dessus :
 - Le *scope session* englobe l'execution d'un pipeline unique. C'est a ce niveau que le checkpointer sauvegarde l'etat a chaque etape, rendant possibles l'interruption et la reprise.
@@ -562,14 +561,92 @@ Apres le telechargement du fichier Excel, l'utilisateur peut revenir a la page d
 Chaque cycle de revue produit une nouvelle version du fichier (v1, v2, v3), assurant une tracabilite complete de l'evolution des resultats.
 
 #hitl-time-travel-cycle-diagram()
+#intro-section[Architecture memoire]
+Un systeme agentique qui ne retient rien de ses interactions passees reproduit les memes erreurs a chaque execution. Pour depasser cette limite, ADAS-R2T integre une architecture memoire a trois niveaux, chacun repondant a un besoin de persistance different.
+#intro-subsection[Les trois niveaux de memoire]
+#memory-architecture-diagram()
 
 
+// La @fig-memoire illustre l'imbrication des trois niveaux. Chaque niveau englobe le precedent, elargissant progressivement la portee des connaissances conservees.
+- *Memoire de session (courte duree)* :La memoire de session couvre une execution unique du pipeline. A chaque noeud traverse, le checkpointer de LangGraph sauvegarde l'etat complet du graphe dans PostgreSQL sous forme de checkpoint chiffre. Cet etat inclut les exigences structurees, les resultats d'analyse, les cas de test generes, et les decisions de revue.Cette memoire rend possibles trois mecanismes essentiels. L'interruption permet au pipeline de se mettre en pause au noeud de revue humaine et de reprendre exactement la ou il s'etait arrete. Le Time Travel permet de revenir a un noeud anterieur pour regenerer des resultats sans perdre le contexte accumule. La reprise apres panne garantit que si le serveur redemarre en cours de traitement, le pipeline reprend au dernier checkpoint sauvegarde plutot que de repartir de zero.Les checkpoints sont chiffres au repos par l'algorithme AES, protegeant ainsi les donnees sensibles des exigences clients stockees dans la base. La duree de retention est configurable via la variable `CHECKPOINT_CLEANUP_DAYS`.
+- *Memoire utilisateur (longue duree)*:La memoire utilisateur persiste au-dela des sessions individuelles. Elle capture les connaissances propres a chaque utilisateur et les reutilise lors des executions futures.Cette memoire se decline en deux types:
+
+  - *La memoire semantique*: stocke les preferences et habitudes extraites des feedbacks de l'utilisateur. Par exemple, si un utilisateur rejette regulierement des cas de test pour cause de preconditions insuffisantes, le systeme enregistre cette preference et l'integre automatiquement dans les prompts de generation lors des sessions suivantes. Chaque preference est assortie d'un indice de confiance (low, medium, high) qui croit avec la repetition.
+
+  - *La memoire episodique*: conserve l'historique factuel des revues effectuees par l'utilisateur : combien de cas ont ete approuves, rejetes, ou supprimes, et pour quelles raisons. Ce journal permet au systeme d'anticiper les attentes de l'utilisateur et d'adapter sa generation en consequence.
+- *Memoire applicative (longue duree partagee)* :La memoire applicative constitue le niveau le plus large. Elle stocke les regles de qualite qui transcendent les preferences individuelles et s'appliquent a l'ensemble des utilisateurs du systeme.Lorsqu'un feedback est recu, un modele de langage le classifie automatiquement. Les remarques portant sur des standards du domaine (par exemple : « les vitesses doivent etre exprimees en km/h ») sont orientees vers la memoire applicative. Les preferences personnelles restent dans la memoire utilisateur.
+Une regle fondamentale gouverne la cohabitation entre ces deux niveaux : une connaissance presente dans la memoire applicative n'est jamais dupliquee dans la memoire utilisateur. Cette regle evite la redondance et garantit qu'une regle partagee est modifiee en un seul endroit.
+
+- *Recherche semantique* et gestion du contexte :La recuperation des connaissances ne se fait pas de maniere exhaustive. Lorsque le pipeline traite une exigence portant sur l'ACC, il est inutile de lui rappeler des regles propres a l'AEB. La recherche s'appuie sur des embeddings vectoriels (via pgvector) pour identifier par similarite semantique les connaissances pertinentes pour l'exigence en cours.Le volume de connaissances injectees dans le prompt est controle dynamiquement. Le systeme calcule le budget disponible en fonction de la fenetre de contexte du modele utilise et d'un ratio configurable (`MEMORY_CONTEXT_RATIO`). Si les connaissances recuperees depassent ce budget, elles sont automatiquement resumees par un appel LLM avant injection, preservant l'essentiel sans saturer le contexte.
 
 
-#intro-section[Vue d'ensemble]
-#intro-subsection[ Flux global]
-#intro-section[Vue d'ensemble]
-#intro-subsection[ Flux global]
+#intro-subsection[ Flux d'ecriture et de lecture]
+
+Le cycle de vie des connaissances suit deux chemins distincts :
+
+*Ecriture* : Apres chaque revue humaine, le noeud "process_review" extrait les feedbacks des cas rejetes. Chaque feedback est classifie (applicatif ou utilisateur), verifie contre les doublons existants, puis stocke dans le niveau approprie. Un evenement episodique est simultanement enregistre.
+
+*Lecture* : Avant chaque generation, le noeud "plan_single_req" interroge les trois niveaux de memoire. Les connaissances pertinentes sont formatees en une section dediee du prompt, precedee d'une instruction explicite : « applique toutes les regles et preferences ci-dessous ».
+
+#intro-section[Architectured'observabilite]
+Un systeme qui fait appel a des modeles de langage externes introduit une part d'imprevisibilite que les applications traditionnelles ne connaissent pas. Un prompt qui fonctionnait hier peut produire des resultats differents aujourd'hui. Un appel API peut echouer sans raison apparente. Pour maitriser cette complexite, ADAS-R2T met en place trois piliers d'observabilite complementaires.
+#intro-subsection[Tracage LLM *"Langfuse"*]
+Langfuse est une plateforme open source specialisee dans le suivi des applications basees sur des modeles de langage. Chaque appel LLM effectue par le pipeline est automatiquement trace : le prompt envoye, la reponse recue, le nombre de tokens consommes, la duree de l'appel, et le modele utilise.
+
+Ce niveau de detail permet d'identifier les prompts qui produisent des resultats insatisfaisants, de mesurer les couts par execution, et de comparer les performances entre differents modeles. Lorsqu'un cas de test genere est rejete par l'utilisateur, l'equipe peut remonter dans Langfuse jusqu'au prompt exact qui l'a produit et comprendre pourquoi.
+
+L'integration est transparente : un callback LangChain enregistre automatiquement chaque interaction sans modifier le code des noeuds. La fonctionnalite s'active ou se desactive par simple configuration (`LANGFUSE_ENABLED`).
+
+#intro-subsection[Metriques operationnelles *"Prometheus et Grafana"*]
+Prometheus collecte les metriques quantitatives du systeme a intervalles reguliers. Un middleware instrumente chaque requete HTTP, et des compteurs dedies suivent les indicateurs specifiques au pipeline :
+
+- Nombre de pipelines executes, par mode et par statut (termine, echoue, en pause).
+- Duree d'execution de chaque noeud du graphe.
+- Nombre et duree des appels LLM, par fournisseur et par modele.
+- Decisions HITL : nombre d'approbations, de rejets, et de suppressions.
+- Operations memoire : ecritures, lectures, et doublons evites.
+- Taux d'erreur par noeud et par type d'exception.
+
+Grafana consomme ces metriques et les restitue sous forme de tableaux de bord. Le dashboard « ADAS-R2T Pipeline Monitor » offre une vue en temps reel organisee en sections : vue d'ensemble, performance par noeud, utilisation LLM, activite HITL, operations memoire, et sante de l'infrastructure.
+
+L'ensemble est deploye via Docker Compose. Node Exporter collecte les metriques systeme (CPU, memoire, disque), tandis que PostgreSQL Exporter remonte les indicateurs de la base de donnees (connexions actives, temps de reponse des requetes).
+#intro-subsection[Logging structure *"structlog"*]
+Le troisieme pilier est le logging structure. Contrairement aux logs textuels classiques, structlog produit des logs au format JSON ou chaque information est un champ exploitable : nom du noeud, duree d'execution, identifiant de session, nombre de resultats.
+
+Un decorateur *"log_node"* enveloppe chaque noeud du graphe. Il enregistre automatiquement le debut et la fin de l'execution, la duree, et en cas d'erreur, le type d'exception et sa trace. Ce mecanisme ne necessite aucune modification du code metier des noeuds : il suffit d'appliquer le decorateur.
+
+Les logs structures alimentent egalement les metriques Prometheus : le decorateur incremente les compteurs de duree et d'erreurs a chaque execution de noeud, assurant la coherence entre les deux sources d'information.
+#intro-section[Securite et resilience]
+Un systeme destine a traiter des exigences fonctionnelles de securite automobile ne peut se permettre de negliger sa propre securite. Cette section presente les mecanismes mis en place pour proteger les donnees, garantir la disponibilite, et assurer l'isolation entre utilisateurs.
+#intro-subsection[Authentification]
+
+L'acces au pipeline est protege par deux mecanismes complementaires adaptes a deux contextes d'usage differents.
+
+La communication machine-a-machine entre le backend BFF et le pipeline IA utilise une cle API transmise dans l'en-tete `X-API-Key`. Cette approche, simple et performante, convient aux echanges entre services internes ou la cle est stockee de maniere securisee dans les variables d'environnement.
+
+L'authentification des utilisateurs finaux repose sur des jetons JWT (JSON Web Tokens). Chaque utilisateur s'authentifie avec ses identifiants, recoit un jeton signe, et le presente a chaque requete subsequente. Le jeton contient l'identifiant de l'utilisateur et son role, permettant un controle d'acces sans interroger la base a chaque requete.
+#intro-subsection[Execution durable et tolerance aux pannes
+]
+L'execution durable est une propriete native de LangGraph lorsqu'il est couple a un checkpointer. Si le serveur s'arrete brutalement au milieu d'un pipeline --- coupure reseau, redemarrage du conteneur, erreur systeme --- le travail effectue n'est pas perdu. Au redemarrage, le pipeline reprend au dernier checkpoint sauvegarde.
+
+La tolerance aux pannes intervient egalement au niveau du parallelisme. Lorsque plusieurs noeuds s'executent en parallele via `Send()` et que l'un d'entre eux echoue (par exemple, un timeout de l'API LLM), les resultats des noeuds reussis sont preserves. Seul le noeud en echec est relance, sans reprendre les traitements deja termines.
+#intro-subsection[Limitation de debit *"Rate Limiting"*]
+Le rate limiting protege le systeme contre la surcharge, qu'elle soit accidentelle ou malveillante. Chaque point d'acces est soumis a des limites configurables :
+#table(
+  columns: (2fr, 1fr),
+  align: (left, center),
+  [*Point d'acces*], [*Limite*],
+  [Endpoints generaux], [100 requetes / minute],
+  [Pipeline (run, resume)], [10 requetes / heure],
+  [Authentification], [20 requetes / minute],
+)
+Ces limites sont appliquees par utilisateur et non globalement. Ainsi, un utilisateur qui atteint sa limite n'affecte pas les autres utilisateurs du systeme. La cle de limitation est derivee de l'identifiant de l'utilisateur authentifie.
+
+
+// #intro-section[Vue d'ensemble]
+// #intro-subsection[ Flux global]
+// #intro-section[Vue d'ensemble]
+// #intro-subsection[ Flux global]
 #pagebreak()
 ``
 
