@@ -1512,7 +1512,7 @@
 #let sda-definition-diagram() = figure(
   block(width: 100%)[
     #align(center)[
-      #cetz.canvas(length: 0.72cm, {
+      #cetz.canvas(length: 0.7cm, {
         import cetz.draw: *
 
         let cyan = rgb(211, 213, 191)
@@ -5904,10 +5904,10 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
     #let beige = rgb("#D2B39E")
 
     #let card-bg = rgb("#F8F8FA")
-    #let bottom-bg = rgb("#FBFAFC")
-    #let input-bg = rgb("#f9c3907f")
-    #let pipeline-bg = rgb("#dac7b786")
-    #let output-bg = rgb("#d2cdaba0")
+    #let bottom-bg = rgb("#f0f0f09f")
+    #let input-bg = rgb("#ffffff")
+    #let pipeline-bg = rgb("#ffffff")
+    #let output-bg = rgb("#ffffff")
 
     #let gray = rgb("#4B4B4B")
 
@@ -5988,7 +5988,7 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
 
           bottom-card(
             input-bg,
-            [INPUT],
+            [#text(fill:rgb("#eca474"))[INPUT]],
             [
               Excel + Video 
             ],
@@ -5998,7 +5998,7 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
 
           bottom-card(
             pipeline-bg,
-            [PIPELINE],
+            [#text(fill:rgb("#D2B39E"))[PIPELINE]],
             [
               25 nodes LangGraph
             ],
@@ -6008,7 +6008,7 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
 
           bottom-card(
             output-bg,
-            [OUTPUT],
+            [#text(fill:rgb(210, 205, 171))[OUTPUT]],
             [
               Excel (test cases)
             ],
@@ -9047,7 +9047,7 @@ pill-node(
         node(9, 11.65, 6.0, 0.95, [Pipeline genere les resultats], subtitle: [evaluator termine], fill: light, stroke: black, title-size: 8.6pt, subtitle-size: 6.4pt)
         arrow(((9, 11.17), (9, 10.65)))
 
-        node(9, 10.05, 6.7, 1.18, [PAUSE], subtitle: [interrupt - le pipeline attend la decision humaine], fill: white, stroke: black, title-size: 10.8pt, subtitle-size: 6.5pt)
+        node(9, 10.05, 6.7, 1.18, [Pause], subtitle: [interrupt - le pipeline attend la decision humaine], fill: white, stroke: black, title-size: 10.8pt, subtitle-size: 6.5pt)
         
         arrow(((9, 9.46), (9, 8.65)))
 

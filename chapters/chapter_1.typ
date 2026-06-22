@@ -97,7 +97,7 @@
         stroke: 0.6pt + ENIADBlue.lighten(65%),
       )
 
-      #v(0.55cm)
+      #v(0cm)
     ]
   }
 ]
@@ -118,7 +118,7 @@
         )[ #chapter.#section.#subsection #title ]
       ]
 
-      #v(0.45cm)
+      #v(0.2cm)
 
       #text(
         size: 13pt,
@@ -127,7 +127,7 @@
         #chapter.#section.#subsection #h(0.45cm) #title
       ]
 
-      #v(0.25cm)
+      #v(0.2cm)
     ]
   }
 ]
@@ -138,21 +138,22 @@
 #intro-subsection[Historique et positionnement]
 
 Capgemini et Altran ont annoncé, le 24 juin 2019, un accord portant sur l’acquisition de la société Altran par Capgemini. Le 1er avril 2020, l’OPA amicale de Capgemini sur Altran a été finalisée. Dominique Cerutti, directeur général d’Altran, a confirmé que cette acquisition allait créer un leader mondial de l’industrie intelligente au service de la transformation numérique des entreprises. En avril 2021, Altran est devenue *Capgemini Engineering*.
-#v(0.5cm)
+#v(0cm)
  @fig:historique-capgemini présente l’évolution historique de Capgemini Engineering au Maroc:
     
-#set page(header: report-header, footer: report-footer)
 #align(center)[
-    #v(0.5cm)
+    
 #figure(
   image(
-    "../img/hst_1.png",
+    "../img/historique.jpeg",
     width: 100%,
+    height: 7cm,
   ),
   caption: [historique de Capgemini Engineering],
 ) <fig:historique-capgemini>
 ]
 #v(0.5cm)
+#set page(header: report-header, footer: report-footer)
 
 #intro-subsection[Offres des services du Capgemini Engineering]
 
@@ -226,7 +227,7 @@ au sein de l’équipe *SDA* [@fig:organisation-ais].
 #ais-organization-diagram() <fig:organisation-ais>
 #v(0.5cm)
  Dans cette organisation, notre travail s’inscrit plus particulièrement dans le sous-groupe *MBSE, RBSE, & System Engineers*, dont les activités sont liées à l’ingénierie des systèmes, à la modélisation des exigences, à la structuration des données techniques et à l’amélioration des processus de validation.
-Ce positionnement nous a permis de travailler dans un environnement fortement orienté vers les systèmes automobiles intelligents et les méthodologies d’ingénierie avancées. Il constitue ainsi un cadre adapté pour le développement de notre projet *ADAS-R2T*, qui vise à assister les ingénieurs dans la transformation des exigences fonctionnelles *ADAS* en plans et cas de test structurés, traçables et exploitables.
+Ce positionnement nous a permis de travailler dans un environnement fortement orienté vers les systèmes automobiles intelligents et les méthodologies d’ingénierie avancées. Il constitue ainsi un cadre adapté pour le développement de notre projet , qui vise à assister les ingénieurs dans la transformation des exigences fonctionnelles *ADAS* en plans et cas de test structurés, traçables et exploitables.
 
 #intro-subsection[Présentation de l'équipe *_SDA_*]
 #sda-definition-diagram()

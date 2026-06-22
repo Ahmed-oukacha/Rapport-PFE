@@ -269,7 +269,7 @@ Cette dualite n'est pas figee : chaque noeud du pipeline peut etre configure ind
 
 Les instructions envoyees aux modeles de langage ne sont pas codees en dur dans le code source. Chaque noeud charge son prompt depuis un fichier Markdown dedie, stocke dans un repertoire centralise. Cette separation entre logique de traitement et contenu des prompts facilite l'iteration rapide : un ingenieur peut modifier un prompt sans toucher au code Python, et chaque modification est tracable dans l'historique Git.
 
-Les prompts s'appuient sur les principes du framework MISBAH @Misbah, qui structure les instructions en sections claires : contexte metier, format de sortie attendu, exemples, et contraintes a respecter.
+Les prompts s'appuient sur les principes du framework MISBAH, qui structure les instructions en sections claires : contexte metier, format de sortie attendu, exemples, et contraintes a respecter.
 
 #intro-subsection[Memoire et persistance (PostgreSQL)]
 
