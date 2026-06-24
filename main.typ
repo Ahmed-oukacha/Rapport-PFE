@@ -399,7 +399,7 @@
 #include "chapters/chapter_2.typ"
 
 #include "chapters/chapter_3.typ"
-
+#include "chapters/chapter_4.typ"
 // #include "chapters/conclusion.typ"
 
 // #bibliography("bib.yml", title: [Bibliographie])
