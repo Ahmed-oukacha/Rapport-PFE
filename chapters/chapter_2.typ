@@ -94,7 +94,7 @@
         stroke: 0.6pt + ENIADBlue.lighten(65%),
       )
 
-      #v(0.55cm)
+      #v(0cm)
     ]
   }
 ]
@@ -115,7 +115,7 @@
         )[ #chapter.#section.#subsection #title ]
       ]
 
-      #v(0.45cm)
+      #v(0.2cm)
 
       #text(
         size: 13pt,
@@ -124,14 +124,14 @@
         #chapter.#section.#subsection #h(0.45cm) #title
       ]
 
-      #v(0.25cm)
+      #v(0.2cm)
     ]
   }
 ]
 ``
 
 #intro-section[De l'IA Générative à l'IA Agentique]
-
+#genai-vs-agentic-radar()
 #intro-subsection[L'IA Générative]
 
 L’intelligence artificielle générative constitue une rupture importante par rapport aux approches classiques de l’IA. Les modèles traditionnels étaient principalement conçus pour accomplir des tâches d’analyse, de classification ou de prédiction, comme reconnaître un objet dans une image ou estimer une valeur à partir de données existantes.
@@ -161,11 +161,11 @@ Cette transition repose sur quatre piliers fondamentaux :
 #v(0.6em)
 - *Context Awareness : * Le système conserve et exploite les informations importantes tout au long du processus. Il prend en compte l'objectif initial, les actions réalisées, les préférences de l'utilisateur, les conditions environnementales, les réactions des outils et les règles à suivre. Cette mémoire contextuelle permet d'éviter les répétitions et de maintenir la cohérence logique entre les différentes étapes.
 #v(0.5cm)
-#info-box("Distinction fondamentale")[
-  L'IA Générative est une *capacité* — la faculté de raisonner et créer. L'IA Agentique est un *comportement* — la capacité d'utiliser cette faculté comme moteur d'exécution. Le LLM n'est pas remplacé : il est _enveloppé_ de mémoire, d'outils et d'un planificateur.
+#eniad-synthese[
+  L'IA Générative est une *capacité* ; la faculté de raisonner et créer. 
+  L'IA Agentique est un *comportement* ; la capacité d'utiliser cette faculté comme moteur d'exécution. Le LLM n'est pas remplacé : il est _enveloppé_ de mémoire, d'outils et d'un planificateur.
 ]
-#v(0.5cm)
-#genai-vs-agentic-radar()
+
 
 #intro-subsection[Les composants d'un système d'IA Agentique ]
 

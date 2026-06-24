@@ -268,13 +268,9 @@ L'approche actuelle de conception et de développement des tests *ADAS* présent
  
 - *Conception d'une architecture flexible et indépendante des fournisseurs :* nous avons conçu le système avec une architecture logicielle flexible qui lui permet de s'intégrer et de fonctionner de manière transparente avec divers fournisseurs de modèles de langage (tels que OpenAI, Gemini, ou même des modèles locaux via Ollama) sans qu'il soit nécessaire de réécrire ou de modifier le code source.
 #intro-subsection[Expression des besoins]
-#figure(
-  image("figures/use_case.png", width: 80%),
-  caption: [Diagramme de cas d'utilisation.],
-)
 
-Dans le cadre de ce stage, les besoins suivants ont ete identifies en collaboration avec l'equipe encadrante :
-Le tableau  présente une comparaison des frameworks d’apprentissage automatique.
+Dans le cadre de ce stage, les besoins suivants ont été identifiés en collaboration avec l’équipe encadrante. Pour mieux représenter les interactions entre les utilisateurs et la plateforme ADAS-R2T, un diagramme de cas d’utilisation a été réalisé. Il met en évidence les principales fonctionnalités du système ainsi que les acteurs concernés.
+#adas-r2t-usecase-diagram()
 
 #requirements-section-tables()
 #intro-section[ Méthodologie de Travail]

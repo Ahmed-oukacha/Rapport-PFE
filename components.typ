@@ -1580,7 +1580,7 @@
 
         line(
           (0.8, 8.45),
-          (0.8, 4.0),
+          (0.8, 6.0),
           stroke: dashed-stroke,
           mark: (end: ">"),
         )
@@ -1588,7 +1588,7 @@
         // Conception
         line(
           (7.6, 8.0),
-          (7.6, 3.8),
+          (7.6, 6),
           stroke: dashed-stroke,
           mark: (end: ">"),
         )
@@ -1602,7 +1602,7 @@
 
         line(
           (15.1, 8.3),
-          (15.1, 4.0),
+          (15.1, 6.0),
           stroke: dashed-stroke,
           mark: (end: ">"),
         )
@@ -1613,7 +1613,7 @@
 
         text-block(
           -2.5,
-          3.3,
+          5.5,
           [Système],
           [
             • Un système est un ensemble
@@ -1631,7 +1631,7 @@
 
         text-block(
           4.8,
-          3.3,
+          5.5,
           [Conception (Design) ],
           [
             • Construire le système à partir
@@ -1653,7 +1653,7 @@
 
         text-block(
           12,
-          3.3,
+          5.5,
           [Analyse],
           [
             • Vérifier la conformité des
@@ -1689,7 +1689,7 @@
       #cetz.canvas(length: 0.84cm, {
         import cetz.draw: *
 
-        let card-bg = rgb(255, 248, 236)
+        let card-bg = rgb("#fdfbf9")
         let cyan = rgb(235, 159, 125)
         let black = rgb(116, 105, 97)
         let text-dark = rgb("#000000")
@@ -5379,9 +5379,7 @@
     size: 10.5pt,
   )
 
-  ===============================
-  Besoins Fonctionnels
-  ===============================
+
 
   #requirements-table(
     [- Besoins fonctionnels],
@@ -5998,7 +5996,7 @@ for y in (6.45, 5.65, 4.85, 4.05, 3.25, 2.45, 1.35) {
 
           bottom-card(
             pipeline-bg,
-            [#text(fill:rgb("#D2B39E"))[PIPELINE]],
+            [#text(fill:rgb("#bda18e"))[PIPELINE]],
             [
               25 nodes LangGraph
             ],
@@ -6551,7 +6549,7 @@ line(
 #let pipeline-routing-modes-diagram() = figure(
   block(width: 100%)[
     #align(center)[
-      #cetz.canvas(length: 0.9cm, {
+      #cetz.canvas(length: 0.7cm, {
         import cetz.draw: *
 
         // =========================
@@ -6771,7 +6769,7 @@ line(
         )
 
         node(
-          10.6,
+          14.4,
           2.15,
           4.55,
           2.05,
@@ -6783,7 +6781,7 @@ line(
           ],
         )
 
-        pill(10.6, 0.25, 1.75, 0.48, [END])
+        pill(14.5, 0.25, 1.75, 0.48, [END])
 
         // =========================
         // Main routes
@@ -6809,10 +6807,10 @@ line(
 
         // START -> Pipeline Video dashed branch
         dashed-arrow((
-          (8.55, 9.28),
-          (8.55, 8.10),
+          (9.1, 9.28),
+          (9.1, 8.12),
           (10, 8.10),
-          (12.4, 8.18),
+          (12.4, 8.10),
         ))
         flow-label(9.7, 7.90, [excel_video branche vidéo])
 
@@ -6831,40 +6829,40 @@ line(
         // Etape 3 -> Etape 4
         solid-arrow((
           (4.98, 2.15),
-          (8.30, 2.15),
+          (12.14, 2.15),
         ))
 
         // Etape 4 -> END
         solid-arrow((
-          (10.6, 1.12),
-          (10.6, 0.50),
+          (14.5, 1.12),
+          (14.5, 0.50),
         ))
 
         // Pipeline Video -> Etape 4
         dashed-arrow((
           (14.4, 6.12),
           (14.4, 4.20),
-          (12.85, 4.20),
-          (12.85, 3.18),
+          (14.4, 4.20),
+          (14.4, 3.20),
         ))
         flow-label(14.65, 4.70, [video_only → HITL])
 
         // Pipeline Video -> Etape 2 : video insights
         dashed-arrow((
-          (12.12, 7.15),
-          (7.00, 7.15),
-          (7.00, 5.68),
-          (4.98, 5.68),
+          (12.12, 7.),
+          (7.00, 5.2),
+          (7.00, 5.2),
+          (4.98, 4.5),
         ))
-        flow-label(8.65, 7.38, [video_insights])
+        flow-label(8.65, 5.38, [video_insights])
 
         // TT path from Etape 3 to Etape 4
         dashed-arrow((
           
-          (9.30, 1),
-          (9.30, 0.82),
-          (1.55, 0.82),
-          (1.55, 1.3),
+          (13.30, 1.1),
+          (13.30, 0.82),
+          (2.55, 0.82),
+          (2.55, 1.2),
         ))
 
         
@@ -9274,7 +9272,7 @@ pill-node(
           #box(width: 4.5cm)[
             #set par(leading: 0.55em)
             #text(size: 6.3pt)[
-              • « 29 mai : rejete 3 TCs, cause preconditions »\
+              • « 29 mai : rejete 3 TCs, cause préconditions »\
               • Historique des revues et feedbacks
             ]
           ]
@@ -9305,30 +9303,13 @@ pill-node(
           #box(width: 5.3cm)[
             #set par(leading: 0.55em)
             #text(size: 6.3pt)[
-              • « road_condition obligatoire dans preconditions »\
-              • « vitesses en km/h » — regles apprises de tous les users
+              • « road_condition obligatoire dans préconditions »\
+              • « vitesses en km/h » — régles apprises de tous les users
             ]
           ]
         ])
 
-        // Regle anti-doublon (dashed border, distinct from scopes)
-        rect((23.5, 0.4), (30.5, 2.6), fill: wh,
-             stroke: (paint: bk, thickness: 0.9pt, dash: (3.5pt, 2pt)),
-             radius: 0.15)
-        content((27.0, 2.2), anchor: "center", [
-          #text(size: 7.5pt, weight: "bold")[Regle anti-doublon]
-        ])
-        content((27.0, 1.55), anchor: "center", [
-          #box(width: 3.1cm)[
-            #align(center)[
-              #set par(leading: 0.6em)
-              #text(size: 6.3pt)[
-                Si existe dans App →\
-                pas de copie dans User
-              ]
-            ]
-          ]
-        ])
+        
 
         // ═══════════════════════════════════════════════
         // ARROWS
@@ -9349,4 +9330,1270 @@ pill-node(
     ]
   ],
   caption: [Architecture memoire],
+)
+
+// =====================================================
+// Use Case Diagram - ADAS-R2T
+// FINAL VERSION - CLEAN EDGES + YOUR SCALES
+// =====================================================
+
+#let adas-r2t-usecase-diagram() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.3cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#4B5563")
+        let bg = rgb("#FAFBFE")
+        let white = rgb("#FFFFFF")
+        let head-bg = rgb("#F3F4F6")
+
+        // =========================
+        // Helpers
+        // =========================
+        let assoc(points) = {
+          line(..points, stroke: black + 0.48pt)
+        }
+
+        let dashed-arrow(points) = {
+          line(
+            ..points,
+            stroke: (paint: black, thickness: 0.50pt, dash: "dashed"),
+            mark: (end: ">"),
+          )
+        }
+
+        let rel-label(x, y, txt) = {
+          content((x, y), anchor: "center", [
+            #text(size: 7pt, style: "italic", fill: gray)[#txt]
+          ])
+        }
+
+        let actor(x, y, label) = {
+          circle((x, y + 0.80), radius: 0.24, stroke: black)
+          line((x, y + 0.55), (x, y - 0.55))
+          line((x - 0.55, y + 0.15), (x + 0.55, y + 0.15))
+          line((x, y - 0.55), (x - 0.48, y - 1.20))
+          line((x, y - 0.55), (x + 0.48, y - 1.20))
+
+          content((x, y - 1.85), anchor: "center", [
+            #text(size: 7pt, weight: "bold")[#label]
+          ])
+        }
+
+        let package-box(x1, y1, x2, y2, title) = {
+          rect((x1, y1), (x2, y2), fill: white, stroke: black)
+
+          // rect(
+          //   (x1, y2 - 0.7),
+          //   (x1 + 4.2, y2),
+          //   fill: head-bg,
+          //   stroke: black,
+          // )
+
+          content((x1 + 0.25, y2 - 0.4), anchor: "west", [
+            #text(size: 7pt, weight: "bold")[#title]
+          ])
+        }
+
+        let usecase(x, y, w, h, label) = {
+          rect(
+            (x - w/2, y - h/2),
+            (x + w/2, y + h/2),
+            stroke: black,
+            radius: h/2,
+          )
+
+          content((x, y), anchor: "center", [
+            #box(width: w * 0.34cm)[
+              #align(center)[
+                #set par(leading: 0.4em, justify: false)
+                #text(size: 8pt,font: "Times New Roman",)[#label]
+              ]
+            ]
+          ])
+        }
+
+        // =========================
+        // System
+        // =========================
+        rect((3,0.7),(56.5,24.8), fill: bg, stroke: black)
+        content((29.5,24.1), [#text(size: 14pt, weight: "bold")[ADAS-R2T]])
+
+        // =========================
+        // Packages
+        // =========================
+        package-box(4.2,12.5,20.3,24,[Generation])
+        package-box(4.2,2,20.3,11.8,[Résultats])
+        package-box(21.7,2,42.8,22.9,[HITL])
+        package-box(43.9,2,55.4,24,[Administration])
+
+        // =========================
+        // Generation
+        // =========================
+        usecase(12.25,21.6,12.1,2,[Charger un fichier \
+Excel d’exigences])
+
+        usecase(12.25,19.3,12.1,2,[Charger une vidéo \
+de conduite])
+
+        usecase(12.25,17,12.1,2,[Lancer la génération \
+des cas de test])
+
+        usecase(12.25,14.75,12.1,2,[Suivre la progression \
+en temps réel SSE])
+
+        // =========================
+        // Résultats
+        // =========================
+        usecase(12.25,10,12.3,2,[Télécharger le fichier Excel])
+        usecase(12.25,7.5,12.3,2,[Re-entrer en revue])
+        usecase(12.25,4.95,12.3,2,[Consulter l’historique \
+des versions])
+
+        // =========================
+        // HITL
+        // =========================
+        usecase(32.25,21.2,12.8,2,[Examiner les cas de test])
+        usecase(27.05,16.85,7.8,2,[Approuver])
+        usecase(37.45,16.85,8.2,2,[Rejeter])
+        usecase(27.05,12.25,7.8,2,[Supprimer])
+        usecase(37.45,12.25,8.2,2,[Regenerer rejetes])
+        usecase(32.25,9.25,13.8,2,[Regenerer global])
+
+        // =========================
+        // Admin
+        // =========================
+        usecase(49.65,11.15,8.9,2,[Gerer utilisateurs])
+        usecase(49.65,8.05,8.9,2,[Approuver inscriptions])
+        usecase(49.65,4.95,8.9,2,[Consulter metriques])
+
+        // =========================
+        // Actors
+        // =========================
+        actor(1.2,13,[Ingenieur])
+        actor(59,8,[Administrateur])
+
+        // =========================
+        // CLEAN EDGES ✅
+        // =========================
+
+        // LEFT SIDE
+        assoc(((2,13.7),(3.5,21.6),(6.3,21.6)))
+        assoc(((2,13.4),(3.5,19.3),(6.3,19.3)))
+        assoc(((2,13.1),(3.5,17),(6.3,17)))
+        assoc(((2,12.8),(3.5,14.75),(6.3,14.75)))
+
+        // ROUTED to Examiner (no overlap)
+        assoc(((2,12.4),(3,12.4),(3,23),(28,23),(28,21.2)))
+
+        assoc(((2,11.8),(3.5,10),(6.3,10)))
+        assoc(((2,11.4),(3.5,7.5),(6.3,7.5)))
+        assoc(((2,11.1),(3.5,4.95),(6.3,4.95)))
+
+        // RIGHT SIDE
+        assoc(((57.5,9),(55.4,11.1),(54,11.1)))
+        assoc(((57.5,8),(55.4,8),(54,8)))
+        assoc(((57.5,7),(55.4,5),(54,5)))
+
+        // =========================
+        // INCLUDE / EXTEND CLEAN ✅
+        // =========================
+
+        // include
+        dashed-arrow(((30.5,20.7),(27.05,17.8)))
+        rel-label(30.4 ,19.5,[include])
+
+        dashed-arrow(((34,20.7),(37.45,17.8)))
+        rel-label(35.8,19.5,[include])
+
+        dashed-arrow(((29.5,20.5),(25,17.5),(25,13),(27.05,13)))
+        rel-label(25.5,15,[include])
+
+        // extend
+        dashed-arrow(((37.45,15.5),(37.45,13.5)))
+        rel-label(37.7,15,[extend])
+
+        dashed-arrow(((32.25,20.5),(32.25,10.5)))
+        rel-label(32.2,15,[extend])
+      })
+    ]
+  ],
+  caption: [Diagramme de cas d’utilisation de la plateforme ADAS-R2T],
+)
+
+
+// =====================================================
+// Sequence Diagram - Excel Generation Flow ADAS-R2T
+// Complete visible version - no bottom clipping
+// =====================================================
+
+#let adas-r2t-sequence-excel-generation() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#4B5563")
+        let bg = rgb("#ffffff")
+        let white = rgb("#FFFFFF")
+        let light = rgb("#F8FAFC")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let participant(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: light,
+            stroke: black + 0.70pt,
+            radius: 0.12,
+          )
+
+          content((x, y), anchor: "center", [
+            #box(width: (w * 0.42cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 6.2pt,
+                  fill: black,
+                )[
+                  #label
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let actor-top(x, y, label) = {
+          circle((x, y + 0.36), radius: 0.16, stroke: black + 0.70pt, fill: white)
+          line((x, y + 0.20), (x, y - 0.38), stroke: black + 0.70pt)
+          line((x - 0.34, y - 0.02), (x + 0.34, y - 0.02), stroke: black + 0.70pt)
+          line((x, y - 0.38), (x - 0.30, y - 0.78), stroke: black + 0.70pt)
+          line((x, y - 0.38), (x + 0.30, y - 0.78), stroke: black + 0.70pt)
+
+          content((x, y - 1.12), anchor: "center", [
+            #text(font: "Arial", size: 6.0pt, weight: "bold", fill: black)[#label]
+          ])
+        }
+
+        let actor-bottom(x, y, label) = {
+          content((x, y + 0.85), anchor: "center", [
+            #text(font: "Arial", size: 6.0pt, weight: "bold", fill: black)[#label]
+          ])
+
+          circle((x, y + 0.45), radius: 0.16, stroke: black + 0.70pt, fill: white)
+          line((x, y + 0.29), (x, y - 0.30), stroke: black + 0.70pt)
+          line((x - 0.34, y + 0.08), (x + 0.34, y + 0.08), stroke: black + 0.70pt)
+          line((x, y - 0.30), (x - 0.30, y - 0.70), stroke: black + 0.70pt)
+          line((x, y - 0.30), (x + 0.30, y - 0.70), stroke: black + 0.70pt)
+        }
+
+        let lifeline(x, y1, y2) = {
+          line(
+            (x, y1),
+            (x, y2),
+            stroke: (
+              paint: gray,
+              thickness: 0.42pt,
+              dash: "dashed",
+            ),
+          )
+        }
+
+        let msg(x1, x2, y, label) = {
+          line(
+            (x1, y),
+            (x2, y),
+            stroke: black + 0.62pt,
+            mark: (end: ">"),
+          )
+
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: 3.2cm)[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(font: "Arial", size: 6.2pt, fill: black)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let ret(x1, x2, y, label) = {
+          line(
+            (x1, y),
+            (x2, y),
+            stroke: (
+              paint: black,
+              thickness: 0.56pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: 3.4cm)[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(font: "Arial", size: 6.0pt, fill: black)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let self-msg(x, y, label) = {
+          line(
+            (x, y),
+            (x + 0.90, y),
+            (x + 0.90, y - 0.32),
+            (x, y - 0.32),
+            stroke: black + 0.58pt,
+            mark: (end: ">"),
+          )
+
+          content((x + 1.02, y - 0.10), anchor: "west", [
+            #box(width: 3.0cm)[
+              #set par(leading: 0.48em, justify: false)
+              #text(font: "Arial", size: 6.0pt, fill: black)[#label]
+            ]
+          ])
+        }
+
+        let activation(x, y-top, y-bottom) = {
+          rect(
+            (x - 0.08, y-bottom),
+            (x + 0.08, y-top),
+            fill: rgb("#E5E7EB"),
+            stroke: black + 0.45pt,
+            radius: 0.03,
+          )
+        }
+
+        // =========================
+        // Background
+        // =========================
+
+        rect(
+          (-0.65, -0.20),
+          (19.25, 18.25),
+          fill: bg,
+          stroke: none,
+        )
+
+        // =========================
+        // Title
+        // =========================
+
+        content((9.30, 17.80), anchor: "center", [
+          #text(
+            font: "Arial",
+            size: 10.5pt,
+            weight: "bold",
+            fill: black,
+          )[
+            Séquence de génération des cas de test à partir d’un fichier Excel
+          ]
+        ])
+
+        // =========================
+        // X positions
+        // =========================
+
+        let x-user = 0.75
+        let x-front = 3.95
+        let x-bff = 7.25
+        let x-pipe = 10.90
+        let x-pg = 14.25
+        let x-llm = 17.55
+
+        // =========================
+        // Top participants
+        // =========================
+
+        actor-top(x-user, 16.35, [Utilisateur])
+
+        participant(x-front, 16.35, 2.15, 0.70, [Frontend])
+        participant(x-bff, 16.35, 2.40, 0.70, [Backend BFF])
+        participant(x-pipe, 16.35, 2.40, 0.70, [AI Pipeline])
+        participant(x-pg, 16.35, 2.35, 0.70, [PostgreSQL])
+        participant(x-llm, 16.35, 2.15, 0.70, [LLM API])
+
+        // =========================
+        // Bottom participants
+        // =========================
+
+        actor-bottom(x-user, 0.75, [Utilisateur])
+
+        participant(x-front, 0.75, 2.15, 0.70, [Frontend])
+        participant(x-bff, 0.75, 2.40, 0.70, [Backend BFF])
+        participant(x-pipe, 0.75, 2.40, 0.70, [AI Pipeline])
+        participant(x-pg, 0.75, 2.35, 0.70, [PostgreSQL])
+        participant(x-llm, 0.75, 2.15, 0.70, [LLM API])
+
+        // =========================
+        // Lifelines
+        // =========================
+
+        lifeline(x-user, 15.65, 1.55)
+        lifeline(x-front, 15.95, 1.10)
+        lifeline(x-bff, 15.95, 1.10)
+        lifeline(x-pipe, 15.95, 1.10)
+        lifeline(x-pg, 15.95, 1.10)
+        lifeline(x-llm, 15.95, 1.10)
+
+        // =========================
+        // Messages
+        // =========================
+
+        msg(x-user, x-front, 15.25, [Charger Excel])
+
+        msg(x-front, x-bff, 14.65, [POST /upload])
+
+        self-msg(x-bff, 14.10, [Stocker dans MongoDB])
+
+        msg(x-user, x-front, 13.35, [Lancer génération])
+
+        msg(x-front, x-bff, 12.75, [POST /generate])
+
+        msg(x-bff, x-pipe, 12.15, [POST /pipeline/run])
+
+        // Activation AI Pipeline
+        activation(x-pipe, 11.90, 3.95)
+
+        msg(x-pipe, x-pg, 11.55, [Créer checkpoint thread_id])
+
+        self-msg(x-pipe, 10.95, [ingest_Req])
+
+        msg(x-pipe, x-llm, 10.25, [extract_and_structure])
+        ret(x-llm, x-pipe, 9.78, [exigences structurées])
+
+        msg(x-pipe, x-llm, 9.15, [5 analyseurs en parallèle])
+        ret(x-llm, x-pipe, 8.68, [résultats d’analyse])
+
+        msg(x-pipe, x-llm, 8.05, [plan_single_req × N])
+        ret(x-llm, x-pipe, 7.58, [blueprints])
+
+        msg(x-pipe, x-llm, 6.95, [generate_tc × M])
+        ret(x-llm, x-pipe, 6.48, [cas de test])
+
+        self-msg(x-pipe, 5.88, [synthesizer dedup])
+
+        self-msg(x-pipe, 5.28, [evaluator])
+
+        msg(x-pipe, x-pg, 4.62, [Sauvegarder checkpoint])
+
+        ret(
+          x-pipe,
+          x-bff,
+          4.02,
+          [
+            status: awaiting_review \
+            thread_id + final_tcs
+          ],
+        )
+
+        self-msg(x-bff, 3.35, [Stocker thread_id])
+
+        ret(x-bff, x-front, 2.70, [Afficher résultats])
+
+        ret(x-front, x-user, 2.05, [Page de revue])
+      })
+    ]
+  ],
+  caption: [Diagramme de séquence du flux de génération Excel dans ADAS-R2T],
+)
+
+
+
+
+
+// =====================================================
+// Sequence Diagram - HITL Review / Regeneration Flow
+// ADAS-R2T - Typst/CeTZ
+// =====================================================
+
+#let adas-r2t-sequence-hitl-review() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        // =========================
+        // Colors
+        // =========================
+        let black = rgb("#111111")
+        let gray = rgb("#4B5563")
+        let bg = rgb("#FAFBFE")
+        let white = rgb("#FFFFFF")
+        let light = rgb("#F8FAFC")
+        let note-bg = rgb("#FFF7E6")
+
+        // =========================
+        // Helpers
+        // =========================
+
+        let participant(x, y, w, h, label) = {
+          rect(
+            (x - w / 2, y - h / 2),
+            (x + w / 2, y + h / 2),
+            fill: light,
+            stroke: black + 0.70pt,
+            radius: 0.12,
+          )
+
+          content((x, y), anchor: "center", [
+            #box(width: (w * 0.42cm))[
+              #align(center)[
+                #set par(leading: 0.55em, justify: false)
+                #text(
+                  font: "Arial",
+                  size: 6.2pt,
+                  fill: black,
+                )[
+                  #label
+                ]
+              ]
+            ]
+          ])
+        }
+
+        let actor-top(x, y, label) = {
+          circle((x, y + 0.36), radius: 0.16, stroke: black + 0.70pt, fill: white)
+          line((x, y + 0.20), (x, y - 0.38), stroke: black + 0.70pt)
+          line((x - 0.34, y - 0.02), (x + 0.34, y - 0.02), stroke: black + 0.70pt)
+          line((x, y - 0.38), (x - 0.30, y - 0.78), stroke: black + 0.70pt)
+          line((x, y - 0.38), (x + 0.30, y - 0.78), stroke: black + 0.70pt)
+
+          content((x, y - 1.12), anchor: "center", [
+            #text(font: "Arial", size: 6.0pt, weight: "bold", fill: black)[#label]
+          ])
+        }
+
+        let actor-bottom(x, y, label) = {
+          content((x, y + 0.85), anchor: "center", [
+            #text(font: "Arial", size: 6.0pt, weight: "bold", fill: black)[#label]
+          ])
+
+          circle((x, y + 0.45), radius: 0.16, stroke: black + 0.70pt, fill: white)
+          line((x, y + 0.29), (x, y - 0.30), stroke: black + 0.70pt)
+          line((x - 0.34, y + 0.08), (x + 0.34, y + 0.08), stroke: black + 0.70pt)
+          line((x, y - 0.30), (x - 0.30, y - 0.70), stroke: black + 0.70pt)
+          line((x, y - 0.30), (x + 0.30, y - 0.70), stroke: black + 0.70pt)
+        }
+
+        let lifeline(x, y1, y2) = {
+          line(
+            (x, y1),
+            (x, y2),
+            stroke: (
+              paint: gray,
+              thickness: 0.42pt,
+              dash: "dashed",
+            ),
+          )
+        }
+
+        let msg(x1, x2, y, label, width: 3.4cm) = {
+          line(
+            (x1, y),
+            (x2, y),
+            stroke: black + 0.62pt,
+            mark: (end: ">"),
+          )
+
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: width)[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(font: "Arial", size: 5.15pt, fill: black)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let ret(x1, x2, y, label, width: 3.6cm) = {
+          line(
+            (x1, y),
+            (x2, y),
+            stroke: (
+              paint: black,
+              thickness: 0.56pt,
+              dash: "dashed",
+            ),
+            mark: (end: ">"),
+          )
+
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: width)[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(font: "Arial", size: 5.0pt, fill: black)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let self-msg(x, y, label, width: 3.1cm) = {
+          line(
+            (x, y),
+            (x + 0.90, y),
+            (x + 0.90, y - 0.32),
+            (x, y - 0.32),
+            stroke: black + 0.58pt,
+            mark: (end: ">"),
+          )
+
+          content((x + 1.02, y - 0.10), anchor: "west", [
+            #box(width: width)[
+              #set par(leading: 0.48em, justify: false)
+              #text(font: "Arial", size: 5.3pt, fill: black)[#label]
+            ]
+          ])
+        }
+
+        let activation(x, y-top, y-bottom) = {
+          rect(
+            (x - 0.08, y-bottom),
+            (x + 0.08, y-top),
+            fill: rgb("#E5E7EB"),
+            stroke: black + 0.45pt,
+            radius: 0.03,
+          )
+        }
+
+        let section-title(y, label) = {
+          line((0.20, y), (18.60, y), stroke: gray + 0.35pt)
+          content((9.30, y + 0.25), anchor: "center", [
+            #box(fill: bg, inset: (x: 4pt, y: 1pt))[
+              #text(font: "Arial", size: 7.2pt, weight: "bold", fill: black)[#label]
+            ]
+          ])
+        }
+
+        let note-right(x, y, w, h, label) = {
+          rect(
+            (x, y - h / 2),
+            (x + w, y + h / 2),
+            fill: note-bg,
+            stroke: black + 0.50pt,
+            radius: 0.10,
+          )
+
+          content((x + 0.20, y), anchor: "west", [
+            #box(width: ((w - 0.35) * 0.40cm))[
+              #set par(leading: 0.48em, justify: false)
+              #text(font: "Arial", size: 5.0pt, fill: black)[#label]
+            ]
+          ])
+        }
+
+        // =========================
+        // Background
+        // =========================
+
+        rect(
+          (-0.65, -0.20),
+          (19.20, 22.80),
+          fill: bg,
+          stroke: none,
+        )
+
+        // =========================
+        // Title
+        // =========================
+
+        content((9.30, 22.35), anchor: "center", [
+          #text(
+            font: "Arial",
+            size: 10.5pt,
+            weight: "bold",
+            fill: black,
+          )[
+            Séquence de revue HITL, régénération et réentrée
+          ]
+        ])
+
+        // =========================
+        // X positions
+        // =========================
+
+        let x-user = 0.75
+        let x-front = 4.00
+        let x-bff = 7.25
+        let x-pipe = 10.90
+        let x-pg = 14.45
+
+        // =========================
+        // Top participants
+        // =========================
+
+        actor-top(x-user, 20.95, [Utilisateur])
+
+        participant(x-front, 20.95, 2.20, 0.70, [Frontend])
+        participant(x-bff, 20.95, 2.45, 0.70, [Backend BFF])
+        participant(x-pipe, 20.95, 2.45, 0.70, [AI Pipeline])
+        participant(x-pg, 20.95, 2.40, 0.70, [PostgreSQL])
+
+        // =========================
+        // Bottom participants
+        // =========================
+
+        actor-bottom(x-user, 0.85, [Utilisateur])
+
+        participant(x-front, 0.85, 2.20, 0.70, [Frontend])
+        participant(x-bff, 0.85, 2.45, 0.70, [Backend BFF])
+        participant(x-pipe, 0.85, 2.45, 0.70, [AI Pipeline])
+        participant(x-pg, 0.85, 2.40, 0.70, [PostgreSQL])
+
+        // =========================
+        // Lifelines
+        // =========================
+
+        lifeline(x-user, 20.25, 1.65)
+        lifeline(x-front, 20.55, 1.20)
+        lifeline(x-bff, 20.55, 1.20)
+        lifeline(x-pipe, 20.55, 1.20)
+        lifeline(x-pg, 20.55, 1.20)
+
+        // =========================
+        // Section 1 - Revue Round 1
+        // =========================
+
+        section-title(19.75, [Revue Round 1])
+
+        msg(
+          x-user,
+          x-front,
+          19.10,
+          [
+            Approuver TC01, TC03, TC04 \
+            Rejeter TC02 avec feedback \
+            Supprimer TC05
+          ],
+          width: 4.0cm,
+        )
+
+        msg(x-front, x-bff, 18.35, [decisions])
+
+        msg(
+          x-bff,
+          x-pipe,
+          17.65,
+          [
+            POST /pipeline/resume/thread_id \
+            action: regenerate_selected
+          ],
+          width: 4.3cm,
+        )
+
+        activation(x-pipe, 17.45, 10.55)
+
+        self-msg(
+          x-pipe,
+          16.95,
+          [
+            process_review \
+            trier décisions
+          ],
+          width: 3.0cm,
+        )
+
+        msg(x-pipe, x-pg, 16.25, [Time Travel → coverage_planner])
+
+        note-right(
+          12.50,
+          14.95,
+          5.90,
+          1.15,
+          [
+            Seul TC02 est régénéré \
+            TC01, TC03, TC04 inchangés \
+            TC05 supprimé
+          ],
+        )
+
+        self-msg(
+          x-pipe,
+          14.20,
+          [
+            plan_single_req \
+            TC02 + feedback
+          ],
+          width: 3.2cm,
+        )
+
+        self-msg(
+          x-pipe,
+          13.35,
+          [
+            generate_tc \
+            TC02 uniquement
+          ],
+          width: 3.2cm,
+        )
+
+        self-msg(x-pipe, 12.55, [synthesizer merge])
+        self-msg(x-pipe, 11.75, [evaluator])
+
+        msg(x-pipe, x-pg, 11.00, [Sauvegarder checkpoint])
+
+        ret(
+          x-pipe,
+          x-bff,
+          10.40,
+          [
+            status: awaiting_review \
+            review_round: 2 \
+            final_tcs mis à jour
+          ],
+          width: 4.0cm,
+        )
+
+        ret(x-bff, x-front, 9.75, [Afficher nouveaux résultats])
+        ret(x-front, x-user, 9.15, [Page de revue Round 2])
+
+        // =========================
+        // Section 2 - Final approval
+        // =========================
+
+        section-title(8.55, [Approbation finale])
+
+        msg(x-user, x-front, 7.95, [Tout approuver])
+        msg(x-front, x-bff, 7.35, [action: skip])
+
+        msg(
+          x-bff,
+          x-pipe,
+          6.75,
+          [POST /pipeline/resume/thread_id],
+          width: 3.8cm,
+        )
+
+        activation(x-pipe, 6.55, 4.90)
+
+        self-msg(
+          x-pipe,
+          6.10,
+          [
+            output_excel \
+            TC_Generated_v2.xlsx
+          ],
+          width: 3.4cm,
+        )
+
+        ret(x-pipe, x-bff, 5.35, [download_url])
+
+        ret(x-bff, x-front, 4.75, [Lien de téléchargement])
+        ret(x-front, x-user, 4.15, [Télécharger Excel v2])
+
+        // =========================
+        // Section 3 - Optional re-entry
+        // =========================
+
+        section-title(3.55, [Re-entry optionnel])
+
+        msg(x-user, x-front, 3.05, [Bouton Review])
+        msg(x-front, x-bff, 2.55, [Re-entrer en revue])
+
+        msg(
+          x-bff,
+          x-pipe,
+          2.05,
+          [POST /pipeline/review/thread_id],
+          width: 3.8cm,
+        )
+
+        msg(x-pipe, x-pg, 1.55, [aupdate_state → human_review])
+
+        ret(x-pipe, x-bff, 1.10, [status: awaiting_review])
+        ret(x-bff, x-front, 0.55, [Page de revue])
+        ret(x-front, x-user, 0.05, [Nouveau cycle possible])
+      })
+    ]
+  ],
+  caption: [Diagramme de séquence du processus de revue HITL, régénération et réentrée],
+)
+
+
+#let hitl-review-round1-sequence() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        let black = rgb("#111111")
+        let gray = rgb("#4B5563")
+        let bg = rgb("#ffffff")
+        let white = rgb("#FFFFFF")
+        let light = rgb("#F8FAFC")
+        let note-bg = rgb("#FFF7E6")
+
+        let participant(x, y, label) = {
+          rect((x - 1.1, y - 0.35), (x + 1.1, y + 0.35), fill: light, stroke: black + 0.7pt, radius: 0.12)
+          content((x, y), anchor: "center", [
+            #text(font: "Arial", size: 6.3pt, fill: black)[#label]
+          ])
+        }
+
+        let actor(x, y, label) = {
+          circle((x, y + 0.35), radius: 0.16, stroke: black + 0.7pt, fill: white)
+          line((x, y + 0.19), (x, y - 0.38), stroke: black + 0.7pt)
+          line((x - 0.32, y - 0.02), (x + 0.32, y - 0.02), stroke: black + 0.7pt)
+          line((x, y - 0.38), (x - 0.28, y - 0.75), stroke: black + 0.7pt)
+          line((x, y - 0.38), (x + 0.28, y - 0.75), stroke: black + 0.7pt)
+          content((x, y - 1.05), anchor: "center", [
+            #text(font: "Arial", size: 6pt, weight: "bold")[#label]
+          ])
+        }
+
+        let lifeline(x, y1, y2) = {
+          line((x, y1), (x, y2), stroke: (paint: gray, thickness: 0.42pt, dash: "dashed"))
+        }
+
+        let msg(x1, x2, y, label) = {
+          line((x1, y), (x2, y), stroke: black + 0.62pt, mark: (end: ">"))
+          content(((x1 + x2) / 2, y - 0.5), anchor: "center", [
+            #box(width: 4.2cm)[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(font: "Arial", size: 5.5pt)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let ret(x1, x2, y, label) = {
+          line((x1, y), (x2, y), stroke: (paint: black, thickness: 0.56pt, dash: "dashed"), mark: (end: ">"))
+          content(((x1 + x2) / 2, y + 0.5), anchor: "center", [
+            #box(width: 4.2cm)[
+              #align(center)[
+                #set par(leading: 0.48em, justify: false)
+                #text(font: "Arial", size: 6pt, fill: gray)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let self-msg(x, y, label) = {
+          line((x, y), (x + 0.9, y), (x + 0.9, y - 0.32), (x, y - 0.32), stroke: black + 0.58pt, mark: (end: ">"))
+          content((x + 1.05, y - 0.10), anchor: "west", [
+            #box(width: 3.6cm)[
+              #set par(leading: 0.48em, justify: false)
+              #text(font: "Arial", size: 5pt)[#label]
+            ]
+          ])
+        }
+
+        let activation(x, y-top, y-bottom) = {
+          rect((x - 0.08, y-bottom), (x + 0.08, y-top), fill: rgb("#E5E7EB"), stroke: black + 0.45pt)
+        }
+
+        let note-right(x, y, w, h, label) = {
+          rect((x, y - h / 2), (x + w, y + h / 2), fill: note-bg, stroke: black + 0.5pt, radius: 0.1)
+          content((x + 0.18, y), anchor: "west", [
+            #box(width: 4.4cm)[
+              #set par(leading: 0.48em, justify: false)
+              #text(font: "Arial", size: 5pt)[#label]
+            ]
+          ])
+        }
+
+        rect((-0.6, 0.2), (18.7, 13.8), fill: bg, stroke: none)
+
+        content((9.1, 13.35), anchor: "center", [
+          #text(font: "Arial", size: 10.5pt, weight: "bold")[]
+        ])
+
+        let x-user = 0.8
+        let x-front = 4.0
+        let x-bff = 7.3
+        let x-pipe = 10.9
+        let x-pg = 14.5
+
+        actor(x-user, 12.1, [Utilisateur])
+        participant(x-front, 12.1, [Frontend])
+        participant(x-bff, 12.1, [Backend BFF])
+        participant(x-pipe, 12.1, [AI Pipeline])
+        participant(x-pg, 12.1, [PostgreSQL])
+
+        lifeline(x-user, 11.4, 0.9)
+        lifeline(x-front, 11.7, 0.9)
+        lifeline(x-bff, 11.7, 0.9)
+        lifeline(x-pipe, 11.7, 0.9)
+        lifeline(x-pg, 11.7, 0.9)
+
+        msg(x-user, x-front, 11.0, [
+          Approuver TC01, TC03, TC04 \
+          Rejeter TC02 avec feedback \
+          Supprimer TC05
+        ])
+
+        msg(x-front, x-bff, 10.1, [decisions])
+
+        msg(x-bff, x-pipe, 9.3, [
+          POST /pipeline/resume/thread_id \
+          action: regenerate_selected
+        ])
+
+        activation(x-pipe, 9.0, 2.1)
+
+        self-msg(x-pipe, 8.55, [
+          process_review \
+          trier décisions
+        ])
+
+        msg(x-pipe, x-pg, 7.75, [Time Travel ])
+
+        note-right(13.3, 6.8, 3.7, 1.15, [
+          Seul TC02 est régénéré \
+          TC01, TC03, TC04 inchangés \
+          TC05 supprimé
+        ])
+
+        self-msg(x-pipe, 5.95, [
+          plan_single_req \
+          TC02 + feedback
+        ])
+
+        self-msg(x-pipe, 5.15, [
+          generate_tc \
+          TC02 uniquement
+        ])
+
+        self-msg(x-pipe, 4.35, [synthesizer merge])
+        self-msg(x-pipe, 3.55, [evaluator])
+
+        msg(x-pipe, x-pg, 2.85, [Sauvegarder checkpoint])
+
+        ret(x-pipe, x-bff, 2.15, [
+          status: awaiting_review \
+          review_round: 2 \
+          final_tcs mis à jour
+        ])
+
+        ret(x-bff, x-front, 1.45, [Afficher nouveaux résultats])
+        ret(x-front, x-user, 0.85, [Page de revue Round 2])
+      })
+    ]
+  ],
+  caption: [Revue HITL — Round 1 et régénération sélective],
+)
+
+
+
+#let hitl-reentry-sequence() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 0.9cm, {
+        import cetz.draw: *
+
+        let black = rgb("#111111")
+        let gray = rgb("#4B5563")
+        let bg = rgb("#ffffff")
+        let white = rgb("#FFFFFF")
+        let light = rgb("#F8FAFC")
+
+        let participant(x, y, label) = {
+          rect((x - 1.1, y - 0.35), (x + 1.1, y + 0.35), fill: light, stroke: black + 0.7pt, radius: 0.12)
+          content((x, y), anchor: "center", [
+            #text(font: "Arial", size: 6.3pt)[#label]
+          ])
+        }
+
+        let actor(x, y, label) = {
+          circle((x, y + 0.35), radius: 0.16, stroke: black + 0.7pt, fill: white)
+          line((x, y + 0.19), (x, y - 0.38), stroke: black + 0.7pt)
+          line((x - 0.32, y - 0.02), (x + 0.32, y - 0.02), stroke: black + 0.7pt)
+          line((x, y - 0.38), (x - 0.28, y - 0.75), stroke: black + 0.7pt)
+          line((x, y - 0.38), (x + 0.28, y - 0.75), stroke: black + 0.7pt)
+          content((x, y - 1.05), anchor: "center", [
+            #text(font: "Arial", size: 6pt, weight: "bold")[#label]
+          ])
+        }
+
+        let lifeline(x, y1, y2) = {
+          line((x, y1), (x, y2), stroke: (paint: gray, thickness: 0.42pt, dash: "dashed"))
+        }
+
+        let msg(x1, x2, y, label) = {
+          line((x1, y), (x2, y), stroke: black + 0.62pt, mark: (end: ">"))
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: 3.8cm)[
+              #align(center)[
+                #text(font: "Arial", size: 6pt)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let ret(x1, x2, y, label) = {
+          line((x1, y), (x2, y), stroke: (paint: black, thickness: 0.56pt, dash: "dashed"), mark: (end: ">"))
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: 3.8cm)[
+              #align(center)[
+                #text(font: "Arial", size: 6pt, fill: gray)[#label]
+              ]
+            ]
+          ])
+        }
+
+        rect((-0.6, 0.2), (15.6, 7.2), fill: bg, stroke: none)
+
+        content((7.5, 6.85), anchor: "center", [
+          #text(font: "Arial", size: 10.5pt, weight: "bold")[]
+        ])
+
+        let x-user = 0.8
+        let x-front = 4.0
+        let x-bff = 7.3
+        let x-pipe = 10.9
+        let x-pg = 14.1
+
+        actor(x-user, 5.85, [Utilisateur])
+        participant(x-front, 5.85, [Frontend])
+        participant(x-bff, 5.85, [Backend BFF])
+        participant(x-pipe, 5.85, [AI Pipeline])
+        participant(x-pg, 5.85, [PostgreSQL])
+
+        lifeline(x-user, 5.15, 0.8)
+        lifeline(x-front, 5.45, 0.8)
+        lifeline(x-bff, 5.45, 0.8)
+        lifeline(x-pipe, 5.45, 0.8)
+        lifeline(x-pg, 5.45, 0.8)
+
+        msg(x-user, x-front, 4.9, [Bouton Review])
+        msg(x-front, x-bff, 4.25, [Re-entrer en revue])
+        msg(x-bff, x-pipe, 3.6, [POST /pipeline/review/thread_id])
+        msg(x-pipe, x-pg, 2.95, [aupdate_state → human_review])
+
+        ret(x-pipe, x-bff, 2.25, [status: awaiting_review])
+        ret(x-bff, x-front, 1.55, [Page de revue])
+        ret(x-front, x-user, 0.9, [Nouveau cycle possible])
+      })
+    ]
+  ],
+  caption: [Revue HITL — réentrée optionnelle dans le cycle de revue],
+)
+
+
+#let hitl-final-approval-sequence() = figure(
+  block(width: 100%)[
+    #align(center)[
+      #cetz.canvas(length: 1cm, {
+        import cetz.draw: *
+
+        let black = rgb("#111111")
+        let gray = rgb("#4B5563")
+        let bg = rgb("#ffffff")
+        let white = rgb("#FFFFFF")
+        let light = rgb("#F8FAFC")
+
+        let participant(x, y, label) = {
+          rect((x - 1.1, y - 0.35), (x + 1.1, y + 0.35), fill: light, stroke: black + 0.7pt, radius: 0.12)
+          content((x, y), anchor: "center", [
+            #text(font: "Arial", size: 6.3pt)[#label]
+          ])
+        }
+
+        let actor(x, y, label) = {
+          circle((x, y + 0.35), radius: 0.16, stroke: black + 0.7pt, fill: white)
+          line((x, y + 0.19), (x, y - 0.38), stroke: black + 0.7pt)
+          line((x - 0.32, y - 0.02), (x + 0.32, y - 0.02), stroke: black + 0.7pt)
+          line((x, y - 0.38), (x - 0.28, y - 0.75), stroke: black + 0.7pt)
+          line((x, y - 0.38), (x + 0.28, y - 0.75), stroke: black + 0.7pt)
+          content((x, y - 1.05), anchor: "center", [
+            #text(font: "Arial", size: 6pt, weight: "bold")[#label]
+          ])
+        }
+
+        let lifeline(x, y1, y2) = {
+          line((x, y1), (x, y2), stroke: (paint: gray, thickness: 0.42pt, dash: "dashed"))
+        }
+
+        let msg(x1, x2, y, label) = {
+          line((x1, y), (x2, y), stroke: black + 0.62pt, mark: (end: ">"))
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: 3.8cm)[
+              #align(center)[
+                #text(font: "Arial", size: 5.2pt)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let ret(x1, x2, y, label) = {
+          line((x1, y), (x2, y), stroke: (paint: black, thickness: 0.56pt, dash: "dashed"), mark: (end: ">"))
+          content(((x1 + x2) / 2, y + 0.16), anchor: "center", [
+            #box(width: 3.8cm)[
+              #align(center)[
+                #text(font: "Arial", size: 5pt, fill: gray)[#label]
+              ]
+            ]
+          ])
+        }
+
+        let self-msg(x, y, label) = {
+          line((x, y), (x + 0.9, y), (x + 0.9, y - 0.32), (x, y - 0.32), stroke: black + 0.58pt, mark: (end: ">"))
+          content((x + 1.05, y - 0.10), anchor: "west", [
+            #box(width: 3.4cm)[
+              #set par(leading: 0.48em, justify: false)
+              #text(font: "Arial", size: 5pt)[#label]
+            ]
+          ])
+        }
+
+        let activation(x, y-top, y-bottom) = {
+          rect((x - 0.08, y-bottom), (x + 0.08, y-top), fill: rgb("#E5E7EB"), stroke: black + 0.45pt)
+        }
+
+        rect((-0.6, 0.2), (15.6, 7.5), fill: bg, stroke: none)
+
+        content((7.5, 7.1), anchor: "center", [
+          #text(font: "Arial", size: 10.5pt, weight: "bold")[]
+        ])
+
+        let x-user = 0.8
+        let x-front = 4.0
+        let x-bff = 7.3
+        let x-pipe = 10.9
+
+        actor(x-user, 6.1, [Utilisateur])
+        participant(x-front, 6.1, [Frontend])
+        participant(x-bff, 6.1, [Backend BFF])
+        participant(x-pipe, 6.1, [AI Pipeline])
+
+        lifeline(x-user, 5.4, 0.8)
+        lifeline(x-front, 5.7, 0.8)
+        lifeline(x-bff, 5.7, 0.8)
+        lifeline(x-pipe, 5.7, 0.8)
+
+        msg(x-user, x-front, 5.1, [Tout approuver])
+        msg(x-front, x-bff, 4.4, [action: skip])
+        msg(x-bff, x-pipe, 3.75, [POST /pipeline/resume/thread_id])
+
+        activation(x-pipe, 3.55, 2.25)
+
+        self-msg(x-pipe, 3.15, [
+          output_excel \
+          TC_Generated_v2.xlsx
+        ])
+
+        ret(x-pipe, x-bff, 2.25, [download_url])
+        ret(x-bff, x-front, 1.55, [Lien de téléchargement])
+        ret(x-front, x-user, 0.9, [Télécharger Excel v2])
+      })
+    ]
+  ],
+  caption: [Revue HITL — approbation finale et génération du fichier Excel],
 )
