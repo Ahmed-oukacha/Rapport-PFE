@@ -140,7 +140,7 @@
 Capgemini et Altran ont annoncé, le 24 juin 2019, un accord portant sur l’acquisition de la société Altran par Capgemini. Le 1er avril 2020, l’OPA amicale de Capgemini sur Altran a été finalisée. Dominique Cerutti, directeur général d’Altran, a confirmé que cette acquisition allait créer un leader mondial de l’industrie intelligente au service de la transformation numérique des entreprises. En avril 2021, Altran est devenue *Capgemini Engineering*.
 #v(0cm)
  @fig:historique-capgemini présente l’évolution historique de Capgemini Engineering au Maroc:
-    
+ 
 #align(center)[
     
 #figure(
