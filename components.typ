@@ -6808,9 +6808,9 @@ line(
         // START -> Pipeline Video dashed branch
         dashed-arrow((
           (9.1, 9.28),
-          (9.1, 8.12),
-          (10, 8.10),
-          (12.4, 8.10),
+          (9.1, 7.5),
+          (10, 7.5),
+          (12.4, 7.5),
         ))
         flow-label(9.7, 7.90, [excel_video branche vidéo])
 
@@ -10596,4 +10596,208 @@ des versions])
     ]
   ],
   caption: [Revue HITL — approbation finale et génération du fichier Excel],
+)
+
+
+
+
+#import "@preview/timeliney:0.4.0" as timeliney
+
+// =====================================================
+// ADAS-R2T Gantt Chart - Timeliney Version
+// =====================================================
+
+#let adas-r2t-timeliney-gantt() = figure(
+  timeliney.timeline(
+    show-grid: true,
+    {
+      import timeliney: *
+
+      // =========================
+      // Colors
+      // =========================
+      let orange = rgb("#E87722")
+      let dark-orange = rgb("#C75A11")
+      let blue = rgb("#2563EB")
+      let gray = rgb("#6B7280")
+      let dark = rgb("#0a2e37")
+      let light-gray = rgb("#E5E7EB")
+
+      // =========================
+      // Header
+      // 0 = Feb, 1 = Mar, ..., 6 = Aug
+      // =========================
+
+      headerline(
+        group(([*2026*], 7)),
+      )
+
+      headerline(
+        group(
+          [*Feb*],
+          [*Mar*],
+          [*Apr*],
+          [*May*],
+          [*Jun*],
+          [*Jul*],
+          [*Aug*],
+        ),
+      )
+
+      // =========================
+      // Phase 1 - Cadrage
+      // =========================
+
+      taskgroup(
+        title: [*Cadrage*],
+        content: text(8pt, white)[*Planning*],
+        style: (stroke: 12pt + dark),
+        {
+          task(
+            "Analyse du besoin",
+            (
+              from: 0.00,
+              to: 0.75,
+              content: text(7.5pt, white)[Planning],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+
+          task(
+            "Architecture initiale",
+            (
+              from: 0.45,
+              to: 1.15,
+              content: text(7.5pt, white)[Design],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+        },
+      )
+
+      // =========================
+      // Phase 2 - MVP Backend / AI Pipeline
+      // =========================
+
+      taskgroup(
+        title: [*Backend & Pipeline IA*],
+        content: text(8pt, white)[*LangGraph*],
+        style: (stroke: 12pt + dark),
+        {
+          task(
+            "MVP 1 — Requirements to Tests",
+            (
+              from: 0.80,
+              to: 2.20,
+              content: text(7.2pt, white)[Excel → Test cases],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+
+          task(
+            "MVP 2 — Video Input Layer",
+            (
+              from: 1.80,
+              to: 3.30,
+              content: text(7.2pt, white)[Video → Scenarios],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+
+          task(
+            "MVP 3 — Human-in-the-Loop",
+            (
+              from: 3.10,
+              to: 4.55,
+              content: text(7.2pt, white)[Output Review],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+
+          task(
+            "MVP 4 — Chatbot",
+            (
+              from: 4.25,
+              to: 5.45,
+              content: text(7.2pt, white)[Assistant],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+
+          task(
+            "MVP 5 — Mémoire long terme",
+            (
+              from: 5.15,
+              to: 6.35,
+              content: text(7.2pt, white)[Memory],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+        },
+      )
+
+      // =========================
+      // Phase 3 - Interface & validation
+      // =========================
+
+      taskgroup(
+        title: [*Interface & Validation*],
+        content: text(8pt, white)[*UI + QA*],
+        style: (stroke: 12pt + dark),
+        {
+          task(
+            "Développement de l’interface utilisateur",
+            (
+              from: 2.40,
+              to: 6.65,
+              content: text(7.2pt, white)[Frontend + Review pages],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+
+          task(
+            "Tests, corrections et stabilisation",
+            (
+              from: 5.80,
+              to: 6.85,
+              content: text(7.2pt, white)[QA + Docs],
+            ),
+            style: (stroke: 11pt + orange),
+          )
+        },
+      )
+
+      // =========================
+      // Milestones
+      // =========================
+
+      milestone(
+        at: 0.15,
+        style: (stroke: (paint: blue, thickness: 0.8pt, dash: "dashed")),
+        align(center, [
+          #text(size: 7pt, weight: "bold", fill: blue)[Kick-off]\
+          #text(size: 6pt, fill: gray)[Feb 2026]
+        ]),
+      )
+
+      milestone(
+        at: 3.25,
+        style: (stroke: (paint: blue, thickness: 0.8pt, dash: "dashed")),
+        align(center, [
+          #text(size: 7pt, weight: "bold", fill: blue)[Demo intermédiaire]\
+          #text(size: 6pt, fill: gray)[May 2026]
+        ]),
+      )
+
+      milestone(
+        at: 6.75,
+        style: (stroke: (paint: dark-orange, thickness: 0.8pt, dash: "dashed")),
+        align(center, [
+          #text(size: 7pt, weight: "bold", fill: dark-orange)[Livraison finale]\
+          #text(size: 6pt, fill: gray)[Aug 2026]
+        ]),
+      )
+    },
+  ),
+  caption: [Diagramme de Gantt du projet ADAS-R2T],
 )

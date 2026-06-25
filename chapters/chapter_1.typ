@@ -309,9 +309,8 @@ Pour inscrire ce travail dans une perspective scientifique, nous avons identifi�
 #intro-subsection[Planification du projet] 
 Afin de garantir le respect du calendrier de formation et une gestion efficace du temps, le projet a fait l'objet d'une planification par phases rigoureuse. Nous avons décomposé la feuille de route en tâches et sous-tâches plus petits planifiées a l'aide de *Notion app*, directement liés à chaque version des livrables initiaux *MVP*. Le diagramme suivant résume la séquence chronologique et les interrelations structurelles de ces tâches tout au long du projet :
 #v(0.6cm)
+#adas-r2t-timeliney-gantt()<fig:planning-projet>
 
-
-#adas-r2t-simple-gantt()<fig:planning-projet>
 
 
 // #eniad-warning[
