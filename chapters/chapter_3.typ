@@ -971,7 +971,7 @@ Le système **"ADAS-R2T"** s'articule autour d'un noyau central _le "pipeline" d
 
 Le schéma ci-dessus fait apparaître huit composants principaux, organisés autour du "pipeline" d'orchestration. Nous les décrivons ci-dessous en suivant le flux d'une requête typique.
 
-#intro-subsection["Pipeline" d'orchestration `"LangGraph"`]
+#intro-subsection[Pipeline d'orchestration `"LangGraph"`]
 
 Le cœur du système est un graphe d'exécution construit avec "LangGraph", le framework d'orchestration d'agents de "LangChain". Ce graphe définit l'enchaînement des dix-neuf nœuds de traitement, gère le parallélisme et assure la persistance de l'état entre les étapes. C'est lui qui décide quel nœud s'exécute, dans quel ordre, et comment les résultats circulent d'un agent à l'autre.
 
@@ -1063,7 +1063,7 @@ Le module d'évaluation constitue le gardien de la qualité du système.
         #text(weight: "bold", fill: ENIADBlue)[Orchestration]
       ],
       [
-        `LangGraph`
+        LangGraph
       ],
       [
         Graphe d’agents avec parallélisme, interruptions et persistance native
@@ -1085,7 +1085,7 @@ Le module d'évaluation constitue le gardien de la qualité du système.
         #text(weight: "bold", fill: ENIADBlue)[Base de données]
       ],
       [
-        `PostgreSQL`  `pgvector`
+        PostgreSQL  pgvector
       ],
       [
         Robustesse, support vectoriel pour la recherche sémantique
@@ -1107,10 +1107,10 @@ Le module d'évaluation constitue le gardien de la qualité du système.
         #text(weight: "bold", fill: ENIADBlue)[LLM tracing]
       ],
       [
-        `Langfuse`
+        Langfuse
       ],
       [
-        Spécialisé `LLMOps`, open source, intégré à `LangChain`
+        Spécialisé LLMOps, open source, intégré à LangChain
       ],
 
       // Row 6 - Zebra
@@ -1118,7 +1118,7 @@ Le module d'évaluation constitue le gardien de la qualité du système.
         #text(weight: "bold", fill: ENIADBlue)[Logging]
       ],
       table.cell(fill: rgb("#F3F8FC"))[
-        `structlog`
+        structlog
       ],
       table.cell(fill: rgb("#F3F8FC"))[
         Logs structurés `JSON`, décorateurs de nœud
@@ -1129,7 +1129,7 @@ Le module d'évaluation constitue le gardien de la qualité du système.
         #text(weight: "bold", fill: ENIADBlue)[Conteneurisation]
       ],
       [
-        `Docker Compose`
+        Docker Compose
       ],
       [
         Déploiement reproductible, isolation des services
@@ -1140,7 +1140,7 @@ Le module d'évaluation constitue le gardien de la qualité du système.
         #text(weight: "bold", fill: ENIADBlue)[Sécurité]
       ],
       table.cell(fill: rgb("#F3F8FC"))[
-        `JWT` + `API Key` + `AES`
+        JWT + API Key + AES
       ],
       table.cell(fill: rgb("#F3F8FC"))[
         Authentification double, chiffrement au repos
@@ -1174,19 +1174,19 @@ Le graphe opère à l'intérieur de trois niveaux d'encapsulation, visibles sur 
 
 La première étape gère l'ingestion des fichiers fournis par l'utilisateur. Selon le mode d'entrée, le graphe active l'une ou plusieurs des branches suivantes :
 
-- *ingest excel* — Ce nœud prend en charge la lecture du fichier Excel. Il identifie la structure du document (en-têtes, colonnes des données, `"flow table"`), extrait un aperçu des premières lignes, et prépare les données brutes pour l'étape suivante. Ce nœud ne fait pas appel au `"LLM"` : son traitement est entièrement déterministe, basé sur la bibliothèque `"openpyxl"`.
+- *ingest excel* : Ce nœud prend en charge la lecture du fichier Excel. Il identifie la structure du document (en-têtes, colonnes des données, `"flow table"`), extrait un aperçu des premières lignes, et prépare les données brutes pour l'étape suivante. Ce nœud ne fait pas appel au LLM : son traitement est entièrement déterministe, basé sur la bibliothèque openpyxl.
 
-- *extract and structure* — À partir des données brutes, ce nœud fait appel au `"LLM"` pour transformer le contenu des cellules en exigences structurées. Chaque exigence se voit attribuer un identifiant unique, un texte normalisé, et des métadonnées (variables, conditions, seuils). C'est ici que le passage du langage naturel à une représentation exploitable s'opère.
+- *extract and structure* : À partir des données brutes, ce nœud fait appel au LLM pour transformer le contenu des cellules en exigences structurées. Chaque exigence se voit attribuer un identifiant unique, un texte normalisé, et des métadonnées (variables, conditions, seuils). C'est ici que le passage du langage naturel à une représentation exploitable s'opère.
 #excel-branch-ingestion-graph()
 #intro-subsection[Agent vidéo : analyse et mutations]
 
 Lorsque l'utilisateur fournit une vidéo de conduite, une branche parallèle s'active. Elle se compose de quatre nœuds :
 
-- *analyze video* : Ce nœud extrait les `"frames"` clés de la vidéo à intervalles réguliers, puis applique un algorithme de détection de changement de scène (basé sur la différence de pixels entre `"frames"` consécutives) pour ne retenir que les moments significatifs. Le résultat est un ensemble de `"frames"` clés accompagnées de leurs `"timestamps"`.
+- *analyze video* : Ce nœud extrait les frames clés de la vidéo à intervalles réguliers, puis applique un algorithme de détection de changement de scène (basé sur la différence de pixels entre frames consécutives) pour ne retenir que les moments significatifs. Le résultat est un ensemble de frames clés accompagnées de leurs timestamps.
 
-- *video frame analyzer* : Chaque `"frame"` clé est analysée individuellement par un `"LLM"` multimodal . L'analyse produit pour chaque `"frame"` : une description de la scène, la vitesse estimée du véhicule ego, les objets détectés (véhicules, piétons, panneaux), les conditions environnementales, et l'action en cours du véhicule. Les `"frames"` sont analysées en parallèle grâce à un `"semaphore"` qui contrôle la concurrence.
+- *video frame analyzer* : Chaque frame clé est analysée individuellement par un LLM multimodal . L'analyse produit pour chaque frame : une description de la scène, la vitesse estimée du véhicule ego, les objets détectés (véhicules, piétons, panneaux), les conditions environnementales, et l'action en cours du véhicule. Les frames sont analysées en parallèle grâce à un semaphore qui contrôle la concurrence.
 
-- *video scenario builder* : À partir des analyses de `"frames"`, ce nœud reconstruit des scénarios complets en établissant des chaînes causales. Chaque scénario se structure en trois temps : la cause (ce qui déclenche la situation), l'effet (la réaction immédiate), et la conséquence (l'impact sur la sécurité). Cette approche, inspirée de la méthode `"Txt2Sce"`, donne aux scénarios une profondeur que ne permettrait pas une simple description factuelle.
+- *video scenario builder* : À partir des analyses de frames, ce nœud reconstruit des scénarios complets en établissant des chaînes causales. Chaque scénario se structure en trois temps : la cause (ce qui déclenche la situation), l'effet (la réaction immédiate), et la conséquence (l'impact sur la sécurité). Cette approche, inspirée de la méthode `"Txt2Sce"`, donne aux scénarios une profondeur que ne permettrait pas une simple description factuelle.
 
 - *video scenario mutator* : Le dernier nœud de la branche vidéo génère des variations réalistes à partir de chaque scénario de base. Cinq stratégies de mutation sont appliquées : variation de la cause, variation de l'effet, augmentation de la complexité, changement d'environnement, et inversion des rôles. Ce processus produit entre quinze et vingt-cinq scénarios dérivés pour chaque scénario source, couvrant ainsi un large spectre de situations de conduite.
 #video-branch-analysis-graph()
@@ -1196,7 +1196,7 @@ Une fois les exigences structurées, chaque exigence est soumise à un ensemble 
 
 Cinq analyseurs fonctionnent en parallèle :
 
-- *state analyzer* : Identifie les transitions d'états décrites dans l'exigence (par exemple : `"ACC"` passe de `"Off"` à `"Active"` lorsque le bouton est pressé). Il extrait les états initiaux, les événements déclencheurs, et les états finaux.
+- *state analyzer* : Identifie les transitions d'états décrites dans l'exigence (par exemple : "ACC" passe de "Off" à "Active" lorsque le bouton est pressé). Il extrait les états initiaux, les événements déclencheurs, et les états finaux.
 
 - *timing analyzer* : Détecte les contraintes temporelles (délais, durées, `"timeouts"`) et les traduit en conditions de test vérifiables (par exemple : « l'activation doit se produire en moins de 500 ms »).
 
@@ -1215,15 +1215,15 @@ La génération se décompose en quatre nœuds qui opèrent selon un schéma pla
 
 - *coverage planner* : Ce nœud déterministe (sans appel `"LLM"`) élabore la stratégie de couverture pour chaque exigence. Il détermine combien de cas de test sont nécessaires et de quel type : nominaux (fonctionnement normal), aux limites (valeurs seuils), négatifs (conditions de défaillance), et rares (combinaisons inhabituelles). Ce planificateur s'appuie sur la richesse de l'analyse sémantique pour ne rien laisser de côté.
 
-- *plan single req* : Pour chaque exigence, ce nœud génère les `"blueprints"` (plans détaillés) des cas de test via le `"LLM"`. Il reçoit en entrée l'exigence structurée, les résultats d'analyse, et le cas échéant les observations vidéo. Plusieurs instances s'exécutent en parallèle grâce au mécanisme `"Send()"` de `"LangGraph"`, contrôlées par un `"semaphore"` (`"PLAN_CONCURRENCY"`).
+- *plan single req* : Pour chaque exigence, ce nœud génère les blueprints (plans détaillés) des cas de test via le LLM. Il reçoit en entrée l'exigence structurée, les résultats d'analyse, et le cas échéant les observations vidéo. Plusieurs instances s'exécutent en parallèle grâce au mécanisme `"Send()"` de LangGraph, contrôlées par un `"semaphore"` `"PLAN_CONCURRENCY"`.
 
-C'est à ce niveau que la mémoire à long terme est injectée : les préférences de l'utilisateur et les règles apprises enrichissent le `"prompt"`.
+C'est à ce niveau que la mémoire à long terme est injectée : les préférences de l'utilisateur et les règles apprises enrichissent le prompt.
 
 - *dispatch tc workers* : Ce nœud de synchronisation collecte les `"blueprints"` produits par les instances parallèles de `"plan_single_req"`, puis les redistribue vers les `"workers"` de génération.
 
-- *generate tc* : Chaque `"blueprint"` est transformé en cas de test complet par le `"LLM"` : préconditions détaillées, actions pas à pas, et résultats attendus avec des valeurs précises. Comme pour la planification, plusieurs `"workers"` opèrent en parallèle (`"GENERATE_CONCURRENCY"`).
+- *generate tc* : Chaque blueprint est transformé en cas de test complet par le LLM : préconditions détaillées, actions pas à pas, et résultats attendus avec des valeurs précises. Comme pour la planification, plusieurs workers opèrent en parallèle `"GENERATE_CONCURRENCY"`.
 
-- *synthesizer* : Reçoit l'ensemble des cas de test générés et effectue un traitement en trois passes : `"deduplication"` exacte (texte identique), `"deduplication"` floue (similarité sémantique au-delà d'un seuil de 75 %), et `"deduplication"` par recouvrement des résultats attendus. Ce filtrage assure que le livrable final ne contient pas de tests redondants.
+- *synthesizer* : Reçoit l'ensemble des cas de test générés et effectue un traitement en trois passes : `"deduplication"` exacte (texte identique), deduplication floue (similarité sémantique au-delà d'un seuil de 75 %), et deduplication par recouvrement des résultats attendus. Ce filtrage assure que le livrable final ne contient pas de tests redondants.
 #test-case-generation-graph()
 #intro-subsection[Agent 4 : Évaluation et sortie]
 
@@ -1231,9 +1231,9 @@ C'est à ce niveau que la mémoire à long terme est injectée : les préférenc
 
  - La phase A applique des règles déterministes : détection de contradictions entre résultats attendus, vérification que chaque test reste dans le périmètre de l'exigence source, et contrôle de la précision des valeurs limites.
 
- - La phase B soumet les cas ayant passé la phase A à une évaluation par `"LLM"`, qui vérifie la cohérence globale, la pertinence, et la complétude. L'ensemble du processus garantit que cent pour cent des cas sont évalués.
+ - La phase B soumet les cas ayant passé la phase A à une évaluation par LLM, qui vérifie la cohérence globale, la pertinence, et la complétude. L'ensemble du processus garantit que cent pour cent des cas sont évalués.
 
-- *Human review* : Ce nœud marque le point d'intervention humaine. Le `"pipeline"` se met en pause grâce à la fonction `"interrupt()"` de `"LangGraph"` et présente les résultats à l'utilisateur. L'exécution ne reprend que lorsque l'utilisateur a transmis ses décisions. Ce mécanisme est détaillé dans la section 3.5.
+- *Human review* : Ce nœud marque le point d'intervention humaine. Le pipeline se met en pause grâce à la fonction `"interrupt()"` de LangGraph et présente les résultats à l'utilisateur. L'exécution ne reprend que lorsque l'utilisateur a transmis ses décisions. Ce mécanisme est détaillé dans la section 3.5.
 
 - *Process review* : Ce nœud interprète les décisions de l'utilisateur et oriente la suite du flux : vers la sortie si tout est approuvé, ou vers un nouveau cycle de génération si des cas ont été rejetés.
 
@@ -1241,27 +1241,27 @@ C'est à ce niveau que la mémoire à long terme est injectée : les préférenc
 #evaluation-hitl-output-graph() 
 #intro-subsection[Parallélisme et contrôle de concurrence]
 
-Le `"pipeline"` exploite deux niveaux de parallélisme :
+Le pipeline exploite deux niveaux de parallélisme :
 
-Le premier niveau utilise le mécanisme *`"Send()"`* de `"LangGraph"` pour distribuer le travail. Lorsque le planificateur identifie dix exigences à traiter, il crée dix instances parallèles de `"plan_single_req"`. Chaque instance opère de manière indépendante, avec son propre contexte et ses propres appels `"LLM"`.
+Le premier niveau utilise le mécanisme *`"Send()"`* de LangGraph pour distribuer le travail. Lorsque le planificateur identifie dix exigences à traiter, il crée dix instances parallèles de `"plan_single_req"`. Chaque instance opère de manière indépendante, avec son propre contexte et ses propres appels LLM.
 
-Le second niveau intervient au sein des nœuds eux-mêmes. L'analyse des `"frames"` vidéo, par exemple, lance les appels `"LLM"` en parallèle via *`"asyncio.gather()"`*.
+Le second niveau intervient au sein des nœuds eux-mêmes. L'analyse des frames vidéo, par exemple, lance les appels LLM en parallèle via *`"asyncio.gather()"`*.
 
 #intro-subsection[Déroulement temporel d'une exécution]
 
-Pour mieux apprécier l'enchaînement des échanges entre les différentes couches du système, le diagramme de séquence ci-dessous retrace le parcours complet d'une requête, depuis le chargement du fichier par l'utilisateur jusqu'à la mise en pause du `"pipeline"` pour revue humaine.
+Pour mieux apprécier l'enchaînement des échanges entre les différentes couches du système, le diagramme de séquence ci-dessous retrace le parcours complet d'une requête, depuis le chargement du fichier par l'utilisateur jusqu'à la mise en pause du pipeline pour revue humaine.
 #adas-r2t-sequence-excel-generation()
 
 #intro-section[Architecture `"HITL"` et `"Time Travel"`]
 
-L'une des contributions majeures de ce travail est l'intégration d'une boucle de contrôle humain directement dans le graphe d'exécution. Contrairement à une approche où l'utilisateur découvre les résultats une fois le traitement terminé, ici le `"pipeline"` s'interrompt volontairement pour solliciter l'avis de l'expert avant de poursuivre.
+L'une des contributions majeures de ce travail est l'intégration d'une boucle de contrôle humain directement dans le graphe d'exécution. Contrairement à une approche où l'utilisateur découvre les résultats une fois le traitement terminé, ici le pipeline s'interrompt volontairement pour solliciter l'avis de l'expert avant de poursuivre.
 #hitl-review-round1-sequence()
 
 #intro-subsection[Le principe d'interruption]
 
-Le mécanisme repose sur la fonction `"interrupt()"` de `"LangGraph"`. Lorsque le `"pipeline"` atteint le nœud `"human_review"`, il sauvegarde son état complet dans `"PostgreSQL"` et se met en pause. L'exécution ne reprend que lorsque l'utilisateur a transmis ses décisions via l'API. Ce comportement est rendu possible par le `"checkpointer"`, qui préserve l'intégralité du contexte entre la pause et la reprise.
+Le mécanisme repose sur la fonction `"interrupt()"` de LangGraph. Lorsque le pipeline atteint le nœud `"human_review"`, il sauvegarde son état complet dans PostgreSQL et se met en pause. L'exécution ne reprend que lorsque l'utilisateur a transmis ses décisions via l'API. Ce comportement est rendu possible par le checkpointer, qui préserve l'intégralité du contexte entre la pause et la reprise.
 
-Du point de vue de l'utilisateur, l'expérience est fluide : il reçoit les cas de test générés, les examine à son rythme, et soumet ses décisions. Du point de vue du `"pipeline"`, rien n'est perdu : lorsqu'il reprend, il dispose exactement du même état qu'au moment de la pause.
+Du point de vue de l'utilisateur, l'expérience est fluide : il reçoit les cas de test générés, les examine à son rythme, et soumet ses décisions. Du point de vue du pipeline, rien n'est perdu : lorsqu'il reprend, il dispose exactement du même état qu'au moment de la pause.
 
 #intro-subsection[Les décisions de l'utilisateur]
 
@@ -1269,7 +1269,7 @@ Pour chaque cas de test présenté, l'utilisateur dispose de trois actions possi
 
 - *Approve :* le cas de test est validé et sera conservé tel quel dans le livrable final. Un commentaire optionnel peut être ajouté.
 
-- *Reject :* le cas de test est insatisfaisant. L'utilisateur fournit obligatoirement un `"feedback"` expliquant ce qui doit être amélioré. Ce cas sera régénéré par le `"pipeline"` en tenant compte du `"feedback"`.
+- *Reject :* le cas de test est insatisfaisant. L'utilisateur fournit obligatoirement un `"feedback"` expliquant ce qui doit être amélioré. Ce cas sera régénéré par le pipeline en tenant compte du `"feedback"`.
 
 - *Delete :* le cas de test est hors sujet ou redondant. Il sera supprimé définitivement du livrable.
 
@@ -1278,19 +1278,19 @@ Les cas de test pour lesquels l'utilisateur ne se prononce pas sont automatiquem
 
 #intro-subsection[Régénération sélective par *`"Time Travel"`*]
 
-Lorsque l'utilisateur rejette certains cas de test, le `"pipeline"` ne repart pas de zéro. Grâce au mécanisme de `"Time Travel"` de `"LangGraph"`, il revient au nœud `"coverage_planner"` en conservant l'intégralité du contexte accumulé : exigences structurées, résultats d'analyse, `"flow table"`, et observations vidéo.
+Lorsque l'utilisateur rejette certains cas de test, le pipeline ne repart pas de zéro. Grâce au mécanisme de `"Time Travel"` de LangGraph, il revient au nœud `"coverage_planner"` en conservant l'intégralité du contexte accumulé : exigences structurées, résultats d'analyse, `"flow table"`, et observations vidéo.
 
-Seuls les cas rejetés sont régénérés. Les cas approuvés restent rigoureusement inchangés : aucun appel `"LLM"` supplémentaire ne leur est consacré. Le planificateur reçoit les `"feedbacks"` de l'utilisateur et les intègre dans le `"prompt"` de génération, produisant ainsi des cas de test améliorés qui répondent spécifiquement aux remarques formulées.
+Seuls les cas rejetés sont régénérés. Les cas approuvés restent rigoureusement inchangés : aucun appel LLM supplémentaire ne leur est consacré. Le planificateur reçoit les `"feedbacks"` de l'utilisateur et les intègre dans le prompt de génération, produisant ainsi des cas de test améliorés qui répondent spécifiquement aux remarques formulées.
 
 Ce mécanisme présente un avantage considérable en termes de coût et de temps : régénérer deux cas de test sur vingt ne consomme qu'un dixième des ressources d'une régénération complète.
 
 #intro-subsection[Régénération globale]
 
-L'utilisateur peut également demander une régénération de l'ensemble des cas de test, accompagnée d'un `"feedback"` global par exemple : « je veux des cas plus détaillés avec des valeurs limites plus précises ». Dans ce cas, le `"pipeline"` revient également au `"coverage_planner"`, mais planifie la génération pour toutes les exigences en intégrant le `"feedback"` global dans chaque `"prompt"`.
+L'utilisateur peut également demander une régénération de l'ensemble des cas de test, accompagnée d'un feedback global par exemple : « je veux des cas plus détaillés avec des valeurs limites plus précises ». Dans ce cas, le pipeline revient également au `"coverage_planner"`, mais planifie la génération pour toutes les exigences en intégrant le feedback global dans chaque prompt.
 
-#intro-subsection[Retour à `"HITL"`]
+#intro-subsection[Retour à HITL]
 
-Après le téléchargement du fichier Excel, l'utilisateur peut revenir à la page de revue pour lancer un nouveau cycle d'amélioration. Cette fonctionnalité utilise le mécanisme `"aupdate_state()"` de `"LangGraph"` pour repositionner le graphe au nœud `"human_review"`, permettant une nouvelle itération sans relancer le `"pipeline"` depuis le début.
+Après le téléchargement du fichier Excel, l'utilisateur peut revenir à la page de revue pour lancer un nouveau cycle d'amélioration. Cette fonctionnalité utilise le mécanisme `"aupdate_state()"` de LangGraph pour repositionner le graphe au nœud `"human_review"`, permettant une nouvelle itération sans relancer le pipeline depuis le début.
 
 Chaque cycle de revue produit une nouvelle version du fichier (`"v1"`, `"v2"`, `"v3"`), assurant une traçabilité complète de l'évolution des résultats.
 #hitl-reentry-sequence()
@@ -1301,52 +1301,52 @@ Un système agentique qui ne retient rien de ses interactions passées reproduit
 #intro-subsection[Les trois niveaux de mémoire]
 #memory-architecture-diagram()
 #v(1cm)
-- *Mémoire de session (courte durée)* : La mémoire de session couvre une exécution unique du `"pipeline"`. À chaque nœud traversé, le `"checkpointer"` de `"LangGraph"` sauvegarde l'état complet du graphe dans `"PostgreSQL"` sous forme de `"checkpoint"` chiffré. Cet état inclut les exigences structurées, les résultats d'analyse, les cas de test générés, et les décisions de revue. Cette mémoire rend possibles trois mécanismes essentiels. L'interruption permet au `"pipeline"` de se mettre en pause au nœud de revue humaine et de reprendre exactement là où il s'était arrêté. Le `"Time Travel"` permet de revenir à un nœud antérieur pour régénérer des résultats sans perdre le contexte accumulé. La reprise après panne garantit que si le serveur redémarre en cours de traitement, le `"pipeline"` reprend au dernier `"checkpoint"` sauvegardé plutôt que de repartir de zéro. Les `"checkpoints"` sont chiffrés au repos par l'algorithme `"AES"`, protégeant ainsi les données sensibles des exigences clients stockées dans la base. La durée de rétention est configurable via la variable `"CHECKPOINT_CLEANUP_DAYS"`.
+- *Mémoire de session (courte durée)* : La mémoire de session couvre une exécution unique du pipeline. À chaque nœud traversé, le checkpointer de LangGraph sauvegarde l'état complet du graphe dans PostgreSQL sous forme de checkpoint chiffré. Cet état inclut les exigences structurées, les résultats d'analyse, les cas de test générés, et les décisions de revue. Cette mémoire rend possibles trois mécanismes essentiels. L'interruption permet au pipeline de se mettre en pause au nœud de revue humaine et de reprendre exactement là où il s'était arrêté. Le `"Time Travel"` permet de revenir à un nœud antérieur pour régénérer des résultats sans perdre le contexte accumulé. La reprise après panne garantit que si le serveur redémarre en cours de traitement, le pipeline reprend au dernier checkpoint sauvegardé plutôt que de repartir de zéro. Les checkpoints sont chiffrés au repos par l'algorithme `"AES"`, protégeant ainsi les données sensibles des exigences clients stockées dans la base. La durée de rétention est configurable via la variable `"CHECKPOINT_CLEANUP_DAYS"`.
 
 - *Mémoire utilisateur (longue durée)* : La mémoire utilisateur persiste au-delà des sessions individuelles. Elle capture les connaissances propres à chaque utilisateur et les réutilise lors des exécutions futures. Cette mémoire se décline en deux types :
 
-  - *La mémoire sémantique* : stocke les préférences et habitudes extraites des `"feedbacks"` de l'utilisateur. Par exemple, si un utilisateur rejette régulièrement des cas de test pour cause de préconditions insuffisantes, le système enregistre cette préférence et l'intègre automatiquement dans les prompts de génération lors des sessions suivantes. Chaque préférence est assortie d'un indice de confiance (`"low"`, `"medium"`, `"high"`) qui croît avec la répétition.
+  - *La mémoire sémantique* : stocke les préférences et habitudes extraites des feedbacks de l'utilisateur. Par exemple, si un utilisateur rejette régulièrement des cas de test pour cause de préconditions insuffisantes, le système enregistre cette préférence et l'intègre automatiquement dans les prompts de génération lors des sessions suivantes. Chaque préférence est assortie d'un indice de confiance (`"low"`, `"medium"`, `"high"`) qui croît avec la répétition.
 
   - *La mémoire épisodique* : conserve l'historique factuel des revues effectuées par l'utilisateur : combien de cas ont été approuvés, rejetés, ou supprimés, et pour quelles raisons. Ce journal permet au système d'anticiper les attentes de l'utilisateur et d'adapter sa génération en conséquence.
 
-- *Mémoire applicative (longue durée partagée)* : La mémoire applicative constitue le niveau le plus large. Elle stocke les règles de qualité qui transcendent les préférences individuelles et s'appliquent à l'ensemble des utilisateurs du système. Lorsqu'un `"feedback"` est reçu, un modèle de langage le classifie automatiquement. Les remarques portant sur des standards du domaine (par exemple : « les vitesses doivent être exprimées en km/h ») sont orientées vers la mémoire applicative. Les préférences personnelles restent dans la mémoire utilisateur.
+- *Mémoire applicative (longue durée partagée)* : La mémoire applicative constitue le niveau le plus large. Elle stocke les règles de qualité qui transcendent les préférences individuelles et s'appliquent à l'ensemble des utilisateurs du système. Lorsqu'un feedback est reçu, un modèle de langage le classifie automatiquement. Les remarques portant sur des standards du domaine (par exemple : « les vitesses doivent être exprimées en km/h ») sont orientées vers la mémoire applicative. Les préférences personnelles restent dans la mémoire utilisateur.
 
 Une règle fondamentale gouverne la cohabitation entre ces deux niveaux : une connaissance présente dans la mémoire applicative n'est jamais dupliquée dans la mémoire utilisateur. Cette règle évite la redondance et garantit qu'une règle partagée est modifiée en un seul endroit.
 
-- *Recherche sémantique* et gestion du contexte : La récupération des connaissances ne se fait pas de manière exhaustive. Lorsque le `"pipeline"` traite une exigence portant sur l'"ACC", il est inutile de lui rappeler des règles propres à l'AEB. La recherche s'appuie sur des `"embeddings"` vectoriels via `"pgvector"` pour identifier par similarité sémantique les connaissances pertinentes pour l'exigence en cours. Le volume de connaissances injectées dans le `"prompt"` est contrôlé dynamiquement. Le système calcule le budget disponible en fonction de la fenêtre de contexte du modèle utilisé et d'un ratio configurable `"MEMORY_CONTEXT_RATIO"`. Si les connaissances récupérées dépassent ce budget, elles sont automatiquement résumées par un appel `"LLM"` avant injection, préservant l'essentiel sans saturer le contexte.
+- *Recherche sémantique* et gestion du contexte : La récupération des connaissances ne se fait pas de manière exhaustive. Lorsque le pipeline traite une exigence portant sur l'"ACC", il est inutile de lui rappeler des règles propres à l'AEB. La recherche s'appuie sur des embeddings vectoriels via pgvector pour identifier par similarité sémantique les connaissances pertinentes pour l'exigence en cours. Le volume de connaissances injectées dans le prompt est contrôlé dynamiquement. Le système calcule le budget disponible en fonction de la fenêtre de contexte du modèle utilisé et d'un ratio configurable `"MEMORY_CONTEXT_RATIO"`. Si les connaissances récupérées dépassent ce budget, elles sont automatiquement résumées par un appel LLM avant injection, préservant l'essentiel sans saturer le contexte.
 
 #intro-subsection[Flux d'écriture et de lecture]
 
 Le cycle de vie des connaissances suit deux chemins distincts :
 
-*Écriture* : Après chaque revue humaine, le nœud `"process_review"` extrait les `"feedbacks"` des cas rejetés. Chaque `"feedback"` est classifié (applicatif ou utilisateur), vérifié contre les doublons existants, puis stocké dans le niveau approprié. Un événement épisodique est simultanément enregistré.
+*Écriture* : Après chaque revue humaine, le nœud `"process_review"` extrait les `"feedbacks"` des cas rejetés. Chaque feedback est classifié (applicatif ou utilisateur), vérifié contre les doublons existants, puis stocké dans le niveau approprié. Un événement épisodique est simultanément enregistré.
 
-*Lecture* : Avant chaque génération, le nœud `"plan_single_req"` interroge les trois niveaux de mémoire. Les connaissances pertinentes sont formatées en une section dédiée du `"prompt"`, précédée d'une instruction explicite : « applique toutes les règles et préférences ci-dessous ».
+*Lecture* : Avant chaque génération, le nœud `"plan_single_req"` interroge les trois niveaux de mémoire. Les connaissances pertinentes sont formatées en une section dédiée du prompt, précédée d'une instruction explicite : « applique toutes les règles et préférences ci-dessous ».
 
 #intro-section[Architecture d'observabilité]
 
-Un système qui fait appel à des modèles de langage externes introduit une part d'imprévisibilité que les applications traditionnelles ne connaissent pas. Un `"prompt"` qui fonctionnait hier peut produire des résultats différents aujourd'hui. Un appel `"API"` peut échouer sans raison apparente. Pour maîtriser cette complexité, **`"ADAS-R2T"`** met en place trois piliers d'observabilité complémentaires.
+Un système qui fait appel à des modèles de langage externes introduit une part d'imprévisibilité que les applications traditionnelles ne connaissent pas. Un prompt qui fonctionnait hier peut produire des résultats différents aujourd'hui. Un appel API peut échouer sans raison apparente. Pour maîtriser cette complexité, **`"ADAS-R2T"`** met en place trois piliers d'observabilité complémentaires.
 
-#intro-subsection[Traçage `"LLM"` *`"Langfuse"`*]
+#intro-subsection[Traçage LLM *`"Langfuse"`*]
 
-`"Langfuse"` est une plateforme open source spécialisée dans le suivi des applications basées sur des modèles de langage. Chaque appel `"LLM"` effectué par le `"pipeline"` est automatiquement tracé : le `"prompt"` envoyé, la réponse reçue, le nombre de `"tokens"` consommés, la durée de l'appel, et le modèle utilisé.
+Langfuse est une plateforme open source spécialisée dans le suivi des applications basées sur des modèles de langage. Chaque appel LLM effectué par le pipeline est automatiquement tracé : le prompt envoyé, la réponse reçue, le nombre de tokens consommés, la durée de l'appel, et le modèle utilisé.
 
-Ce niveau de détail permet d'identifier les prompts qui produisent des résultats insatisfaisants, de mesurer les coûts par exécution, et de comparer les performances entre différents modèles. Lorsqu'un cas de test généré est rejeté par l'utilisateur, l'équipe peut remonter dans `"Langfuse"` jusqu'au `"prompt"` exact qui l'a produit et comprendre pourquoi.
+Ce niveau de détail permet d'identifier les prompts qui produisent des résultats insatisfaisants, de mesurer les coûts par exécution, et de comparer les performances entre différents modèles. Lorsqu'un cas de test généré est rejeté par l'utilisateur, l'équipe peut remonter dans Langfuse jusqu'au prompt exact qui l'a produit et comprendre pourquoi.
 
 L'intégration est transparente : un `"callback"` `"LangChain"` enregistre automatiquement chaque interaction sans modifier le code des nœuds. La fonctionnalité s'active ou se désactive par simple configuration `"LANGFUSE_ENABLED"`.
 
 #intro-subsection[Métriques opérationnelles *`"Prometheus"` et `"Grafana"`*]
 
-`"Prometheus"` collecte les métriques quantitatives du système à intervalles réguliers. Un `"middleware"` instrumente chaque requête `"HTTP"`, et des compteurs dédiés suivent les indicateurs spécifiques au `"pipeline"` :
+Prometheus collecte les métriques quantitatives du système à intervalles réguliers. Un middleware instrumente chaque requête HTTP, et des compteurs dédiés suivent les indicateurs spécifiques au pipeline :
 
 - Nombre de `"pipelines"` exécutés, par mode et par statut (terminé, échoué, en pause).
 - Durée d'exécution de chaque nœud du graphe.
-- Nombre et durée des appels `"LLM"`, par fournisseur et par modèle.
-- Décisions `"HITL"` : nombre d'approbations, de rejets, et de suppressions.
+- Nombre et durée des appels LLM, par fournisseur et par modèle.
+- Décisions HITL : nombre d'approbations, de rejets, et de suppressions.
 - Opérations mémoire : écritures, lectures, et doublons évités.
 - Taux d'erreur par nœud et par type d'exception.
 
-`"Grafana"` consomme ces métriques et les restitue sous forme de tableaux de bord. Le `"dashboard"` « `"ADAS-R2T Pipeline Monitor"` » offre une vue en temps réel organisée en sections : vue d'ensemble, performance par nœud, utilisation `"LLM"`, activité `"HITL"`, opérations mémoire, et santé de l'infrastructure.
+`"Grafana"` consomme ces métriques et les restitue sous forme de tableaux de bord. Le dashboard « `"ADAS-R2T Pipeline Monitor"` » offre une vue en temps réel organisée en sections : vue d'ensemble, performance par nœud, utilisation LLM, activité HITL, opérations mémoire, et santé de l'infrastructure.
 
 L'ensemble est déployé via `"Docker Compose"`. `"Node Exporter"` collecte les métriques système (`"CPU"`, mémoire, disque), tandis que `"PostgreSQL Exporter"` remonte les indicateurs de la base de données (connexions actives, temps de réponse des requêtes).
 
@@ -1356,7 +1356,7 @@ Le troisième pilier est le logging structuré. Contrairement aux logs textuels 
 
 Un décorateur *`"log_node"`* enveloppe chaque nœud du graphe. Il enregistre automatiquement le début et la fin de l'exécution, la durée, et en cas d'erreur, le type d'exception et sa trace. Ce mécanisme ne nécessite aucune modification du code métier des nœuds : il suffit d'appliquer le décorateur.
 
-Les logs structurés alimentent également les métriques `"Prometheus"` : le décorateur incrémente les compteurs de durée et d'erreurs à chaque exécution de nœud, assurant la cohérence entre les deux sources d'information.
+Les logs structurés alimentent également les métriques Prometheus : le décorateur incrémente les compteurs de durée et d'erreurs à chaque exécution de nœud, assurant la cohérence entre les deux sources d'information.
 
 #intro-section[Sécurité et résilience]
 
@@ -1365,34 +1365,34 @@ Un système destiné à traiter des exigences fonctionnelles de sécurité autom
 
 Le cycle de vie des connaissances suit deux chemins distincts :
 
-*Écriture* : Après chaque revue humaine, le nœud `"process_review"` extrait les `"feedbacks"` des cas rejetés. Chaque `"feedback"` est classifié (applicatif ou utilisateur), vérifié contre les doublons existants, puis stocké dans le niveau approprié. Un événement épisodique est simultanément enregistré.
+*Écriture* : Après chaque revue humaine, le nœud `"process_review"` extrait les feedbacks des cas rejetés. Chaque feedback est classifié (applicatif ou utilisateur), vérifié contre les doublons existants, puis stocké dans le niveau approprié. Un événement épisodique est simultanément enregistré.
 
-*Lecture* : Avant chaque génération, le nœud `"plan_single_req"` interroge les trois niveaux de mémoire. Les connaissances pertinentes sont formatées en une section dédiée du `"prompt"`, précédée d'une instruction explicite : « applique toutes les règles et préférences ci-dessous ».
+*Lecture* : Avant chaque génération, le nœud `"plan_single_req"` interroge les trois niveaux de mémoire. Les connaissances pertinentes sont formatées en une section dédiée du prompt, précédée d'une instruction explicite : « applique toutes les règles et préférences ci-dessous ».
 
 #intro-section[Architecture d'observabilité]
 
-Un système qui fait appel à des modèles de langage externes introduit une part d'imprévisibilité que les applications traditionnelles ne connaissent pas. Un `"prompt"` qui fonctionnait hier peut produire des résultats différents aujourd'hui. Un appel `"API"` peut échouer sans raison apparente. Pour maîtriser cette complexité, **`"ADAS-R2T"`** met en place trois piliers d'observabilité complémentaires.
+Un système qui fait appel à des modèles de langage externes introduit une part d'imprévisibilité que les applications traditionnelles ne connaissent pas. Un prompt qui fonctionnait hier peut produire des résultats différents aujourd'hui. Un appel API peut échouer sans raison apparente. Pour maîtriser cette complexité, **`"ADAS-R2T"`** met en place trois piliers d'observabilité complémentaires.
 
-#intro-subsection[Traçage `"LLM"` *`"Langfuse"`*]
+#intro-subsection[Traçage LLM *`"Langfuse"`*]
 
-`"Langfuse"` est une plateforme open source spécialisée dans le suivi des applications basées sur des modèles de langage. Chaque appel `"LLM"` effectué par le `"pipeline"` est automatiquement tracé : le `"prompt"` envoyé, la réponse reçue, le nombre de `"tokens"` consommés, la durée de l'appel, et le modèle utilisé.
+Langfuse est une plateforme open source spécialisée dans le suivi des applications basées sur des modèles de langage. Chaque appel LLM effectué par le pipeline est automatiquement tracé : le prompt envoyé, la réponse reçue, le nombre de tokens consommés, la durée de l'appel, et le modèle utilisé.
 
-Ce niveau de détail permet d'identifier les prompts qui produisent des résultats insatisfaisants, de mesurer les coûts par exécution, et de comparer les performances entre différents modèles. Lorsqu'un cas de test généré est rejeté par l'utilisateur, l'équipe peut remonter dans `"Langfuse"` jusqu'au `"prompt"` exact qui l'a produit et comprendre pourquoi.
+Ce niveau de détail permet d'identifier les prompts qui produisent des résultats insatisfaisants, de mesurer les coûts par exécution, et de comparer les performances entre différents modèles. Lorsqu'un cas de test généré est rejeté par l'utilisateur, l'équipe peut remonter dans Langfuse jusqu'au prompt exact qui l'a produit et comprendre pourquoi.
 
-L'intégration est transparente : un `"callback"` `"LangChain"` enregistre automatiquement chaque interaction sans modifier le code des nœuds. La fonctionnalité s'active ou se désactive par simple configuration `"LANGFUSE_ENABLED"`.
+L'intégration est transparente : un callback LangChain enregistre automatiquement chaque interaction sans modifier le code des nœuds. La fonctionnalité s'active ou se désactive par simple configuration `"LANGFUSE_ENABLED"`.
 
 #intro-subsection[Métriques opérationnelles *`"Prometheus"` et `"Grafana"`*]
 
-`"Prometheus"` collecte les métriques quantitatives du système à intervalles réguliers. Un `"middleware"` instrumente chaque requête `"HTTP"`, et des compteurs dédiés suivent les indicateurs spécifiques au `"pipeline"` :
+Prometheus collecte les métriques quantitatives du système à intervalles réguliers. Un middleware instrumente chaque requête HTTP, et des compteurs dédiés suivent les indicateurs spécifiques au pipeline :
 
-- Nombre de `"pipelines"` exécutés, par mode et par statut (terminé, échoué, en pause).
+- Nombre de pipelines exécutés, par mode et par statut (terminé, échoué, en pause).
 - Durée d'exécution de chaque nœud du graphe.
-- Nombre et durée des appels `"LLM"`, par fournisseur et par modèle.
-- Décisions `"HITL"` : nombre d'approbations, de rejets, et de suppressions.
+- Nombre et durée des appels LLM, par fournisseur et par modèle.
+- Décisions HITL : nombre d'approbations, de rejets, et de suppressions.
 - Opérations mémoire : écritures, lectures, et doublons évités.
 - Taux d'erreur par nœud et par type d'exception.
 
-`"Grafana"` consomme ces métriques et les restitue sous forme de tableaux de bord. Le `"dashboard"` « `"ADAS-R2T Pipeline Monitor"` » offre une vue en temps réel organisée en sections : vue d'ensemble, performance par nœud, utilisation `"LLM"`, activité `"HITL"`, opérations mémoire, et santé de l'infrastructure.
+Grafana consomme ces métriques et les restitue sous forme de tableaux de bord. Le dashboard « `"ADAS-R2T Pipeline Monitor"` » offre une vue en temps réel organisée en sections : vue d'ensemble, performance par nœud, utilisation LLM, activité `"HITL"`, opérations mémoire, et santé de l'infrastructure.
 
 L'ensemble est déployé via `"Docker Compose"`. `"Node Exporter"` collecte les métriques système (`"CPU"`, mémoire, disque), tandis que `"PostgreSQL Exporter"` remonte les indicateurs de la base de données (connexions actives, temps de réponse des requêtes).
 
@@ -1402,7 +1402,7 @@ Le troisième pilier est le logging structuré. Contrairement aux logs textuels 
 
 Un décorateur *`"log_node"`* enveloppe chaque nœud du graphe. Il enregistre automatiquement le début et la fin de l'exécution, la durée, et en cas d'erreur, le type d'exception et sa trace. Ce mécanisme ne nécessite aucune modification du code métier des nœuds : il suffit d'appliquer le décorateur.
 
-Les logs structurés alimentent également les métriques `"Prometheus"` : le décorateur incrémente les compteurs de durée et d'erreurs à chaque exécution de nœud, assurant la cohérence entre les deux sources d'information.
+Les logs structurés alimentent également les métriques Prometheus : le décorateur incrémente les compteurs de durée et d'erreurs à chaque exécution de nœud, assurant la cohérence entre les deux sources d'information.
 
 #intro-section[Sécurité et résilience]
 
@@ -1476,7 +1476,6 @@ Ces limites sont appliquées par utilisateur et non globalement. Ainsi, un utili
 
 
 #adas-r2t-sequence-excel-generation()
-
 // #intro-section[Vue d'ensemble]
 // #intro-subsection[ Flux global]
 // #intro-section[Vue d'ensemble]

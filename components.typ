@@ -6602,7 +6602,7 @@ line(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: light-gray,
-            stroke: black + 0.8pt,
+            stroke:rgb("#3385a5"),
             radius: h / 2,
           )
 
@@ -6623,7 +6623,7 @@ line(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.9pt,
+            stroke: rgb("#f1b26a"),
             radius: 0.18,
           )
 
@@ -7070,12 +7070,12 @@ line(
           )
         }
 
-        let pill-node(x, y, w, h, label) = {
+        let pill-node(x, y, w, h, label,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: light,
-            stroke: black + 0.9pt,
+            stroke: fill-color,
             radius: h / 2,
           )
 
@@ -7091,12 +7091,12 @@ line(
           ])
         }
 
-        let graph-node(x, y, w, h, title, body) = {
+        let graph-node(x, y, w, h, title, body,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: light,
-            stroke: black + 0.9pt,
+            stroke: fill-color ,
             radius: 0.20,
           )
 
@@ -7172,6 +7172,7 @@ line(
           1.85,
           0.55,
           [START],
+          fill-color: rgb("#3385a5")
         )
 
         graph-node(
@@ -7183,6 +7184,7 @@ line(
           [
             Lecture Excel, détection structure,
           ],
+           fill-color: rgb("#f1b26a")
         )
 
         graph-node(
@@ -7194,6 +7196,7 @@ line(
           [
             texte brut → exigences structurées
           ],
+          fill-color: rgb("#f1b26a")
         )
 
         graph-node(
@@ -7206,6 +7209,7 @@ line(
           [
             Vers Étape 2 (Analyse sémantique)
           ],
+          fill-color: rgb("#f1b26a")
         )
 
        
@@ -7216,6 +7220,7 @@ line(
           1.70,
           0.50,
           [END],
+          fill-color: rgb("#3385a5")
         )
 
         // =========================
@@ -7316,12 +7321,12 @@ line(
           )
         }
 
-        let pill-node(x, y, w, h, label) = {
+        let pill-node(x, y, w, h, label,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: light,
-            stroke: black + 0.9pt,
+            stroke: fill-color,
             radius: h / 2,
           )
 
@@ -7337,12 +7342,12 @@ line(
           ])
         }
 
-        let graph-node(x, y, w, h, title, body) = {
+        let graph-node(x, y, w, h, title, body,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: light,
-            stroke: black + 0.9pt,
+            stroke:fill-color,
             radius: 0.20,
           )
 
@@ -7414,6 +7419,7 @@ line(
           1.85,
           0.55,
           [START],
+          fill-color: rgb("#3385a5"),
         )
 
         graph-node(
@@ -7425,6 +7431,7 @@ line(
           [
             Extraction frames
           ],
+          fill-color: rgb("#f1b26a")
         )
 
         graph-node(
@@ -7436,6 +7443,7 @@ line(
           [
             Vision LLM par frame 
           ],
+          fill-color: rgb("#f1b26a")
         )
 
         graph-node(
@@ -7447,6 +7455,7 @@ line(
           [
              cause → effet → conséquence
           ],
+          fill-color: rgb("#f1b26a")
         )
 
         graph-node(
@@ -7458,6 +7467,7 @@ line(
           [
              mutations / seed
           ],
+          fill-color: rgb("#f1b26a")
         )
 
         pill-node(
@@ -7466,6 +7476,7 @@ line(
           1.70,
           0.50,
           [END],
+          fill-color: rgb("#3385a5")
         )
 
         // =========================
@@ -7555,12 +7566,12 @@ line(
           )
         }
 
-        let pill-node(x, y, w, h, label) = {
+        let pill-node(x, y, w, h, label,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.85pt,
+            stroke: fill-color,
             radius: h / 2,
           )
 
@@ -7576,12 +7587,12 @@ line(
           ])
         }
 
-        let graph-node(x, y, w, h, title, body) = {
+        let graph-node(x, y, w, h, title, body,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.90pt,
+            stroke: fill-color,
             radius: 0.20,
           )
 
@@ -7617,12 +7628,12 @@ line(
           ])
         }
 
-        let analyzer-node(x, y, w, h, title, body) = {
+        let analyzer-node(x, y, w, h, title, body,fill-color:  rgb("#f1b26a")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.85pt,
+            stroke: fill-color,
             radius: 0.18,
           )
 
@@ -7718,6 +7729,7 @@ line(
           1.70,
           0.48,
           [START],
+          fill-color: rgb("#3385a5")
         )
 
         
@@ -7732,6 +7744,7 @@ line(
             Orientation des exigences 
            
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
         // =========================
@@ -7748,6 +7761,7 @@ line(
             Transitions d’états 
            
           ],
+          fill-color:  rgb("#60b2c0")
         )
 
         analyzer-node(
@@ -7759,6 +7773,7 @@ line(
           [
             Contraintes temporelles 
           ],
+          fill-color:  rgb("#60b2c0")
         )
 
         analyzer-node(
@@ -7770,6 +7785,7 @@ line(
           [
             Interactions homme-machine 
           ],
+          fill-color:  rgb("#60b2c0")
         )
 
         analyzer-node(
@@ -7782,6 +7798,7 @@ line(
             Logique de calcul \
             formules, seuils
           ],
+          fill-color:  rgb("#60b2c0")
         )
 
         analyzer-node(
@@ -7793,6 +7810,7 @@ line(
           [
             Analyse générique 
           ],
+          fill-color:  rgb("#60b2c0")
         )
 
         // =========================
@@ -7808,6 +7826,7 @@ line(
           [
             Consolide les 5 analyses 
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
       
@@ -7818,6 +7837,7 @@ line(
           1.65,
           0.48,
           [END],
+          fill-color: rgb("#3385a5")
         )
 
       
@@ -7961,12 +7981,12 @@ line(
           )
         }
 
-        let pill-node(x, y, w, h, label) = {
+        let pill-node(x, y, w, h, label,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.85pt,
+            stroke: fill-color,
             radius: h / 2,
           )
 
@@ -7982,12 +8002,12 @@ line(
           ])
         }
 
-        let graph-node(x, y, w, h, title, body) = {
+        let graph-node(x, y, w, h, title, body,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.90pt,
+            stroke: fill-color,
             radius: 0.20,
           )
 
@@ -8023,12 +8043,12 @@ line(
           ])
         }
 
-        let small-node(x, y, w, h, title, body) = {
+        let small-node(x, y, w, h, title, body,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.85pt,
+            stroke:fill-color,
             radius: 0.18,
           )
 
@@ -8064,13 +8084,13 @@ line(
           ])
         }
 
-        let dashed-node(x, y, w, h, label) = {
+        let dashed-node(x, y, w, h, label,fill-color: rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
             stroke: (
-              paint: black,
+              paint: fill-color,
               thickness: 0.70pt,
               dash: "dashed",
             ),
@@ -8148,6 +8168,7 @@ line(
           1.65,
           0.46,
           [START],
+          fill-color: rgb("#3385a5")
         )
 
     
@@ -8161,6 +8182,7 @@ line(
           [
             Détermine les tests 
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
         dashed-node(
@@ -8182,6 +8204,7 @@ line(
           1.00,
           [plan_single_req],
           [REQ_001],
+          fill-color:  rgb("#60b2c0")
         )
 
         small-node(
@@ -8191,6 +8214,7 @@ line(
           1.00,
           [plan_single_req],
           [REQ_002],
+          fill-color:  rgb("#60b2c0")
         )
 
         dashed-node(
@@ -8199,6 +8223,7 @@ line(
           2.70,
           1.00,
           [...],
+          fill-color:  rgb("#34cf15")
         )
 
         small-node(
@@ -8208,6 +8233,7 @@ line(
           1.00,
           [plan_single_req],
           [REQ_00N],
+          fill-color:  rgb("#60b2c0")
         )
 
         graph-node(
@@ -8219,6 +8245,7 @@ line(
           [
             Collecte les blueprints 
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
       
@@ -8233,6 +8260,7 @@ line(
           1.00,
           [generate_tc],
           [TC_001],
+          fill-color:  rgb("#60b2c0")
         )
 
         small-node(
@@ -8242,6 +8270,7 @@ line(
           1.00,
           [generate_tc],
           [TC_002],
+          fill-color:  rgb("#60b2c0")
         )
 
         dashed-node(
@@ -8250,6 +8279,7 @@ line(
           2.70,
           1.00,
           [...],
+          fill-color:  rgb("#34cf15")
         )
 
         small-node(
@@ -8259,6 +8289,7 @@ line(
           1.00,
           [generate_tc],
           [TC_00M],
+          fill-color:  rgb("#60b2c0")
         )
 
       
@@ -8272,6 +8303,7 @@ line(
           [
             Dedup 3 passes 
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
       
@@ -8282,6 +8314,7 @@ line(
           1.65,
           0.46,
           [END],
+          fill-color: rgb("#3385a5")
         )
 
       
@@ -8472,12 +8505,12 @@ line(
           )
         }
 
-        let graph-node(x, y, w, h, title, body) = {
+        let graph-node(x, y, w, h, title, body,fill-color:  rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.90pt,
+            stroke: fill-color,
             radius: 0.20,
           )
 
@@ -8513,12 +8546,12 @@ line(
           ])
         }
 
-        let small-node(x, y, w, h, title, body) = {
+        let small-node(x, y, w, h, title, body,fill-color:  rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.85pt,
+            stroke: fill-color,
             radius: 0.18,
           )
 
@@ -8554,13 +8587,13 @@ line(
           ])
         }
 
-        let dashed-node(x, y, w, h, title, body) = {
+        let dashed-node(x, y, w, h, title, body,fill-color:  rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
             stroke: (
-              paint: black,
+              paint: fill-color,
               thickness: 0.70pt,
               dash: "dashed",
             ),
@@ -8599,12 +8632,12 @@ line(
           ])
         }
 
-        let pill-node(x, y, w, h, label) = {
+        let pill-node(x, y, w, h, label,fill-color:  rgb("#000000")) = {
           rect(
             (x - w / 2, y - h / 2),
             (x + w / 2, y + h / 2),
             fill: white,
-            stroke: black + 0.85pt,
+            stroke: fill-color,
             radius: h / 2,
           )
 
@@ -8681,6 +8714,7 @@ pill-node(
           1.70,
           0.48,
           [START],
+          fill-color: rgb("#3385a5")
         )
 
         dashed-box(
@@ -8705,6 +8739,7 @@ pill-node(
             
             Evaluation 
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
         graph-node(
@@ -8716,6 +8751,7 @@ pill-node(
           [
             interrupt
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
         graph-node(
@@ -8728,6 +8764,7 @@ pill-node(
            
             oriente le flux
           ],
+          fill-color:  rgb("#f1b26a")
         )
 
         small-node(
@@ -8741,6 +8778,7 @@ pill-node(
             Reject  
             Delete  Skip
           ],
+          fill-color: rgb("#39b99e")
         )
 
         small-node(
@@ -8752,6 +8790,7 @@ pill-node(
           [
             regeneration
           ],
+          fill-color: rgb("#39b99e")
         )
 
         dashed-node(
@@ -8764,6 +8803,7 @@ pill-node(
             Excel vers coverage_planner \
             Vidéo vers scenario_mutator
           ],
+          fill-color: rgb("#a4be0e")
         )
 
         small-node(
@@ -8773,6 +8813,7 @@ pill-node(
           0.72,
           [Download],
           [Skip HITL],
+          fill-color: rgb("#39b99e")
         )
 
         graph-node(
@@ -8782,6 +8823,7 @@ pill-node(
           0.95,
           [Excel_Output],
           [TC_Generated_vn.xlsx],
+          fill-color:  rgb("#f1b26a")
         )
 
         pill-node(
@@ -8790,6 +8832,7 @@ pill-node(
           1.70,
           0.48,
           [END],
+          fill-color: rgb("#3385a5")
         )
 
         small-node(
@@ -8799,6 +8842,7 @@ pill-node(
           0.72,
           [Download],
           [Skip HITL],
+          fill-color: rgb("#39b99e")
         )
 
         graph-node(
@@ -8808,6 +8852,7 @@ pill-node(
           0.95,
           [Video_output],
           [Video_Scenarios_vn.xlsx],
+          fill-color:  rgb("#f1b26a")
         )
 
         pill-node(
@@ -8816,6 +8861,7 @@ pill-node(
           1.70,
           0.48,
           [END],
+          fill-color: rgb("#3385a5")
         )
 
         dashed-node(
@@ -8828,6 +8874,7 @@ pill-node(
             
             retour au human_review
           ],
+          fill-color: rgb("#a4be0e")
         )
 
      
@@ -9109,9 +9156,9 @@ pill-node(
           let top = cy + h / 2
           let bot = cy - h / 2
           rect((cx - rx, bot), (cx + rx, top), fill: wh, stroke: none)
-          line((cx - rx, top), (cx - rx, bot), stroke: bk + 0.85pt)
-          line((cx + rx, top), (cx + rx, bot), stroke: bk + 0.85pt)
-          line((cx - rx, bot), (cx + rx, bot), stroke: bk + 0.85pt)
+          line((cx - rx, top), (cx - rx, bot), stroke: rgb("#000000"))
+          line((cx + rx, top), (cx + rx, bot), stroke: rgb("#000000"))
+          line((cx - rx, bot), (cx + rx, bot), stroke: rgb("#000000"))
           line(
             (cx - rx, top),
             (cx - rx * 0.72, top + ry * 0.55),
@@ -9126,7 +9173,7 @@ pill-node(
             (cx - rx * 0.28, top - ry * 0.82),
             (cx - rx * 0.72, top - ry * 0.55),
             (cx - rx, top),
-            stroke: bk + 0.85pt,
+            stroke:  rgb("#000000"),
           )
         }
 
@@ -9209,7 +9256,7 @@ pill-node(
             #set par(leading: 0.52em)
             #text(size: 5.9pt)[
               • Etat complet du graphe a chaque noeud\
-              • Checkpoints chiffres (AES)\
+              • Checkpoints chiffres \
               • Interrupt / resume et Time Travel\
               • Retention configurable
             ]
@@ -10681,7 +10728,7 @@ des versions])
 
       taskgroup(
         title: [*Backend & Pipeline IA*],
-        content: text(8pt, white)[*LangGraph*],
+        content: text(8pt, white)[*Pipeline Agents*],
         style: (stroke: 12pt + dark),
         {
           task(
@@ -10727,8 +10774,8 @@ des versions])
           task(
             "MVP 5 — Mémoire long terme",
             (
-              from: 5.15,
-              to: 6.35,
+              from: 4.25,
+              to: 5.45,
               content: text(7.2pt, white)[Memory],
             ),
             style: (stroke: 11pt + orange),
@@ -10801,3 +10848,4 @@ des versions])
   ),
   caption: [Diagramme de Gantt du projet ADAS-R2T],
 )
+
