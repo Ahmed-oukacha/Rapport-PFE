@@ -400,10 +400,10 @@
 
 #include "chapters/chapter_3.typ"
 #include "chapters/chapter_4.typ"
-// #include "chapters/conclusion.typ"
+#include "chapters/conclusion.typ"
 
 // #bibliography("bib.yml", title: [Bibliographie])
 #include "chapters/bibliographie.typ"
 
-#include "chapters/Annexes.typ"
+// #include "chapters/Annexes.typ"
 

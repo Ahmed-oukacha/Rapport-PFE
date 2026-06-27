@@ -855,7 +855,7 @@ Le système *ADAS-R2T* repose sur un principe simple : transformer des *entrées
 
 #v(1cm)
 Ce flux, en apparence linéaire, cache en réalité une mécanique bien plus riche. Le "pipeline" ne se contente pas de « traduire » des exigences en tests : il analyse chaque exigence sous plusieurs angles, planifie la couverture de test, génère les cas en parallèle, les évalue automatiquement, puis les soumet à l'utilisateur pour validation avant de produire le livrable final.
-#intro-subsection[Les quatre étapes du "pipeline"]
+#intro-subsection[Les quatre étapes du pipeline]
 
 Le traitement interne se décompose en quatre grandes étapes, chacune correspondant à un ensemble de nœuds dans le graphe agentique :
 
@@ -963,7 +963,7 @@ Cette distinction entre modes se matérialise au niveau du graphe par un routage
 
 #intro-section[Architecture technique globale]
 
-Le système **"ADAS-R2T"** s'articule autour d'un noyau central _le "pipeline" d'orchestration_ qui coordonne l'ensemble des composants techniques. Chaque composant remplit un rôle précis et communique avec le "pipeline" via des interfaces bien définies.
+Le système **"ADAS-R2T"** s'articule autour d'un noyau central _le pipeline d'orchestration_ qui coordonne l'ensemble des composants techniques. Chaque composant remplit un rôle précis et communique avec le "pipeline" via des interfaces bien définies.
 
 #intro-subsection[Vue des composants]
 
@@ -971,7 +971,7 @@ Le système **"ADAS-R2T"** s'articule autour d'un noyau central _le "pipeline" d
 
 Le schéma ci-dessus fait apparaître huit composants principaux, organisés autour du "pipeline" d'orchestration. Nous les décrivons ci-dessous en suivant le flux d'une requête typique.
 
-#intro-subsection[Pipeline d'orchestration `"LangGraph"`]
+#intro-subsection[Pipeline d'orchestration LangGraph]
 
 Le cœur du système est un graphe d'exécution construit avec "LangGraph", le framework d'orchestration d'agents de "LangChain". Ce graphe définit l'enchaînement des dix-neuf nœuds de traitement, gère le parallélisme et assure la persistance de l'état entre les étapes. C'est lui qui décide quel nœud s'exécute, dans quel ordre, et comment les résultats circulent d'un agent à l'autre.
 
@@ -991,27 +991,27 @@ Cette dualité n'est pas figée : chaque nœud du `"pipeline"` peut être config
 
 #intro-subsection[Ingénierie des prompts]
 
-Les instructions envoyées aux modèles de langage ne sont pas codées en dur dans le code source. Chaque nœud charge son `"prompt"` depuis un fichier `"Markdown"` dédié, stocké dans un répertoire centralisé. Cette séparation entre logique de traitement et contenu des prompts facilite l'itération rapide : un ingénieur peut modifier un `"prompt"` sans toucher au code `"Python"`, et chaque modification est traçable dans l'historique `"Git"`.
+Les instructions envoyées aux modèles de langage ne sont pas codées en dur dans le code source. Chaque nœud charge son prompt depuis un fichier `"Markdown"` dédié, stocké dans un répertoire centralisé. Cette séparation entre logique de traitement et contenu des prompts facilite l'itération rapide : un ingénieur peut modifier un prompt sans toucher au code Python, et chaque modification est traçable dans l'historique `"Git"`.
 
 Les prompts s'appuient sur les principes du framework `"MISBAH"`, qui structure les instructions en sections claires : contexte métier, format de sortie attendu, exemples et contraintes à respecter.
 
-#intro-subsection[Mémoire et persistance (`"PostgreSQL"`)]
+#intro-subsection[Mémoire et persistance ]
 
 Le système exploite `"PostgreSQL"` pour deux fonctions distinctes de mémoire :
 
-La *mémoire de session* (courte durée) est assurée par le `"checkpointer"` de `"LangGraph"`. À chaque étape du `"pipeline"`, l'état complet est sauvegardé dans `"PostgreSQL"` sous forme de `"checkpoint"` chiffré `"AES"`. Ce mécanisme rend possible l'interruption pour revue humaine, le retour arrière (`"Time Travel"`), et la reprise après panne sans perte de travail.
+La *mémoire de session* (courte durée) est assurée par le checkpointer de LangGraph. À chaque étape du pipeline, l'état complet est sauvegardé dans PostgreSQL sous forme de checkpoint chiffré `"AES"`. Ce mécanisme rend possible l'interruption pour revue humaine, le retour arrière (`"Time Travel"`), et la reprise après panne sans perte de travail.
 
 La *mémoire à long terme* `"cross-session"` stocke les connaissances acquises au fil des utilisations. Elle se décline en trois portées : sémantique applicative règles partagées par tous les utilisateurs, sémantique utilisateur préférences individuelles, et épisodique historique des revues. La recherche dans cette mémoire s'appuie sur des `"embeddings"` vectoriels `"pgvector"` pour retrouver les connaissances pertinentes par similarité sémantique.
 
-#intro-subsection[Observabilité (`"Langfuse"`, `"Prometheus"`, `"Grafana"`)]
+#intro-subsection[Observabilité Langfuse, Prometheus, Grafana)]
 
 L'observabilité du système repose sur trois piliers complémentaires :
 
-- *`"Langfuse"`* capture chaque appel `"LLM"` avec ses paramètres, sa durée, ses tokens consommés et sa réponse. Ce traçage fin permet d'identifier les prompts sous-performants, de mesurer les coûts, et de déboguer les cas de génération insatisfaisants.
+- *Langfuse* capture chaque appel LLM avec ses paramètres, sa durée, ses tokens consommés et sa réponse. Ce traçage fin permet d'identifier les prompts sous-performants, de mesurer les coûts, et de déboguer les cas de génération insatisfaisants.
 
-- *`"Prometheus"`* collecte les métriques opérationnelles du système : nombre de `"pipelines"` exécutés, durée par nœud, taux d'erreur, décisions `"HITL"`, et opérations mémoire. Ces métriques sont exposées via un `"endpoint"` `"/metrics"` au format standard.
+- *Prometheus* collecte les métriques opérationnelles du système : nombre de pipelines exécutés, durée par nœud, taux d'erreur, décisions `"HITL"`, et opérations mémoire. Ces métriques sont exposées via un `"endpoint"` `"/metrics"` au format standard.
 
-- *`"Grafana"`* consomme les métriques de `"Prometheus"` et les présente sous forme de tableaux de bord visuels. Un `"dashboard"` dédié `"ADAS-R2T Pipeline Monitor"` offre une vue en temps réel sur la santé et les performances du système.
+- *Grafana* consomme les métriques de `"Prometheus"` et les présente sous forme de tableaux de bord visuels. Un `"dashboard"` dédié `"ADAS-R2T Pipeline Monitor"` offre une vue en temps réel sur la santé et les performances du système.
 
 Le logging structuré, assuré par `"structlog"`, complète ce dispositif en produisant des logs au format `"JSON"` exploitables par des outils d'analyse.
 
@@ -1252,7 +1252,7 @@ Le second niveau intervient au sein des nœuds eux-mêmes. L'analyse des frames 
 Pour mieux apprécier l'enchaînement des échanges entre les différentes couches du système, le diagramme de séquence ci-dessous retrace le parcours complet d'une requête, depuis le chargement du fichier par l'utilisateur jusqu'à la mise en pause du pipeline pour revue humaine.
 #adas-r2t-sequence-excel-generation()
 
-#intro-section[Architecture `"HITL"` et `"Time Travel"`]
+#intro-section[Architecture HITL et Time Travel]
 
 L'une des contributions majeures de ce travail est l'intégration d'une boucle de contrôle humain directement dans le graphe d'exécution. Contrairement à une approche où l'utilisateur découvre les résultats une fois le traitement terminé, ici le pipeline s'interrompt volontairement pour solliciter l'avis de l'expert avant de poursuivre.
 #hitl-review-round1-sequence()
@@ -1269,14 +1269,14 @@ Pour chaque cas de test présenté, l'utilisateur dispose de trois actions possi
 
 - *Approve :* le cas de test est validé et sera conservé tel quel dans le livrable final. Un commentaire optionnel peut être ajouté.
 
-- *Reject :* le cas de test est insatisfaisant. L'utilisateur fournit obligatoirement un `"feedback"` expliquant ce qui doit être amélioré. Ce cas sera régénéré par le pipeline en tenant compte du `"feedback"`.
+- *Reject :* le cas de test est insatisfaisant. L'utilisateur fournit obligatoirement un feedback expliquant ce qui doit être amélioré. Ce cas sera régénéré par le pipeline en tenant compte du feedback.
 
 - *Delete :* le cas de test est hors sujet ou redondant. Il sera supprimé définitivement du livrable.
 
 Les cas de test pour lesquels l'utilisateur ne se prononce pas sont automatiquement considérés comme approuvés. Cette convention évite de contraindre l'utilisateur à examiner chaque élément lorsque la majorité des résultats est satisfaisante.
 #hitl-final-approval-sequence()
 
-#intro-subsection[Régénération sélective par *`"Time Travel"`*]
+#intro-subsection[Régénération sélective ]
 
 Lorsque l'utilisateur rejette certains cas de test, le pipeline ne repart pas de zéro. Grâce au mécanisme de `"Time Travel"` de LangGraph, il revient au nœud `"coverage_planner"` en conservant l'intégralité du contexte accumulé : exigences structurées, résultats d'analyse, `"flow table"`, et observations vidéo.
 
@@ -1305,7 +1305,7 @@ Un système agentique qui ne retient rien de ses interactions passées reproduit
 
 - *Mémoire utilisateur (longue durée)* : La mémoire utilisateur persiste au-delà des sessions individuelles. Elle capture les connaissances propres à chaque utilisateur et les réutilise lors des exécutions futures. Cette mémoire se décline en deux types :
 
-  - *La mémoire sémantique* : stocke les préférences et habitudes extraites des feedbacks de l'utilisateur. Par exemple, si un utilisateur rejette régulièrement des cas de test pour cause de préconditions insuffisantes, le système enregistre cette préférence et l'intègre automatiquement dans les prompts de génération lors des sessions suivantes. Chaque préférence est assortie d'un indice de confiance (`"low"`, `"medium"`, `"high"`) qui croît avec la répétition.
+  - *La mémoire sémantique* : stocke les préférences et habitudes extraites des feedbacks de l'utilisateur. Par exemple, si un utilisateur rejette régulièrement des cas de test pour cause de préconditions insuffisantes, le système enregistre cette préférence et l'intègre automatiquement dans les prompts de génération lors des sessions suivantes. Chaque préférence est assortie d'un indice de confiance (low, medium, high) qui croît avec la répétition.
 
   - *La mémoire épisodique* : conserve l'historique factuel des revues effectuées par l'utilisateur : combien de cas ont été approuvés, rejetés, ou supprimés, et pour quelles raisons. Ce journal permet au système d'anticiper les attentes de l'utilisateur et d'adapter sa génération en conséquence.
 
@@ -1333,9 +1333,9 @@ Langfuse est une plateforme open source spécialisée dans le suivi des applicat
 
 Ce niveau de détail permet d'identifier les prompts qui produisent des résultats insatisfaisants, de mesurer les coûts par exécution, et de comparer les performances entre différents modèles. Lorsqu'un cas de test généré est rejeté par l'utilisateur, l'équipe peut remonter dans Langfuse jusqu'au prompt exact qui l'a produit et comprendre pourquoi.
 
-L'intégration est transparente : un `"callback"` `"LangChain"` enregistre automatiquement chaque interaction sans modifier le code des nœuds. La fonctionnalité s'active ou se désactive par simple configuration `"LANGFUSE_ENABLED"`.
+L'intégration est transparente : un `"callback"` LangChain enregistre automatiquement chaque interaction sans modifier le code des nœuds. La fonctionnalité s'active ou se désactive par simple configuration `"LANGFUSE_ENABLED"`.
 
-#intro-subsection[Métriques opérationnelles *`"Prometheus"` et `"Grafana"`*]
+#intro-subsection[Métriques opérationnelles *Prometheus et Grafana*]
 
 Prometheus collecte les métriques quantitatives du système à intervalles réguliers. Un middleware instrumente chaque requête HTTP, et des compteurs dédiés suivent les indicateurs spécifiques au pipeline :
 
@@ -1346,13 +1346,13 @@ Prometheus collecte les métriques quantitatives du système à intervalles rég
 - Opérations mémoire : écritures, lectures, et doublons évités.
 - Taux d'erreur par nœud et par type d'exception.
 
-`"Grafana"` consomme ces métriques et les restitue sous forme de tableaux de bord. Le dashboard « `"ADAS-R2T Pipeline Monitor"` » offre une vue en temps réel organisée en sections : vue d'ensemble, performance par nœud, utilisation LLM, activité HITL, opérations mémoire, et santé de l'infrastructure.
+Grafana consomme ces métriques et les restitue sous forme de tableaux de bord. Le dashboard « `"ADAS-R2T Pipeline Monitor"` » offre une vue en temps réel organisée en sections : vue d'ensemble, performance par nœud, utilisation LLM, activité HITL, opérations mémoire, et santé de l'infrastructure.
 
 L'ensemble est déployé via `"Docker Compose"`. `"Node Exporter"` collecte les métriques système (`"CPU"`, mémoire, disque), tandis que `"PostgreSQL Exporter"` remonte les indicateurs de la base de données (connexions actives, temps de réponse des requêtes).
 
 #intro-subsection[Logging structuré *`"structlog"`*]
 
-Le troisième pilier est le logging structuré. Contrairement aux logs textuels classiques, `"structlog"` produit des logs au format `"JSON"` où chaque information est un champ exploitable : nom du nœud, durée d'exécution, identifiant de session, nombre de résultats.
+Le troisième pilier est le logging structuré. Contrairement aux logs textuels classiques, `"structlog"` produit des logs au format JSON où chaque information est un champ exploitable : nom du nœud, durée d'exécution, identifiant de session, nombre de résultats.
 
 Un décorateur *`"log_node"`* enveloppe chaque nœud du graphe. Il enregistre automatiquement le début et la fin de l'exécution, la durée, et en cas d'erreur, le type d'exception et sa trace. Ce mécanisme ne nécessite aucune modification du code métier des nœuds : il suffit d'appliquer le décorateur.
 
@@ -1381,7 +1381,7 @@ Ce niveau de détail permet d'identifier les prompts qui produisent des résulta
 
 L'intégration est transparente : un callback LangChain enregistre automatiquement chaque interaction sans modifier le code des nœuds. La fonctionnalité s'active ou se désactive par simple configuration `"LANGFUSE_ENABLED"`.
 
-#intro-subsection[Métriques opérationnelles *`"Prometheus"` et `"Grafana"`*]
+#intro-subsection[Métriques opérationnelles ]
 
 Prometheus collecte les métriques quantitatives du système à intervalles réguliers. Un middleware instrumente chaque requête HTTP, et des compteurs dédiés suivent les indicateurs spécifiques au pipeline :
 

@@ -5230,15 +5230,15 @@
   #pagebreak()
 ]
 
-// =====================================================
-// Liste d'abréviations style simple
+// ================================================// =====================================================
+// Liste d'abréviations et mots-clés techniques
 // =====================================================
 
 #let abbreviations-simple-list(items) = [
   #v(0.8cm)
 
   #table(
-    columns: (3.2cm, 1fr),
+    columns: (3.8cm, 1fr),
     inset: (x: 0pt, y: 6pt),
     stroke: none,
     align: (left, left),
@@ -5250,7 +5250,7 @@
 #let liste-abreviations-page() = [
   #pagebreak(weak: true)
 
-  #navigation-page-title([Liste d’abréviations])
+  #navigation-page-title([Liste d’abréviations et mots-clés techniques])
 
   #abbreviations-simple-list((
     [#text(weight: "bold")[ACC]],
@@ -5259,46 +5259,162 @@
     [#text(weight: "bold")[ADAS]],
     [Advanced Driver Assistance Systems — Systèmes avancés d'aide à la conduite],
 
+
+
     [#text(weight: "bold")[AEB]],
     [Automatic Emergency Braking — Freinage d'urgence automatique],
+
+    [#text(weight: "bold")[AES]],
+    [Advanced Encryption Standard — Algorithme de chiffrement utilisé pour protéger les checkpoints au repos],
 
     [#text(weight: "bold")[API]],
     [Application Programming Interface — Interface de programmation applicative],
 
+    [#text(weight: "bold")[API Contract]],
+    [Document de spécification décrivant les endpoints, formats de requêtes, réponses et erreurs],
+
+    [#text(weight: "bold")[API Key]],
+    [Clé d'authentification utilisée pour sécuriser les échanges entre services],
+
+
+
+    [#text(weight: "bold")[backoff]],
+    [Stratégie d'attente progressive entre plusieurs tentatives après une erreur transitoire],
+
+    [#text(weight: "bold")[backend]],
+    [Couche serveur intermédiaire responsable de la logique applicative et de la communication avec le pipeline],
+
+    [#text(weight: "bold")[backend BFF]],
+    [Backend For Frontend — Backend intermédiaire adapté aux besoins spécifiques du frontend],
+
     [#text(weight: "bold")[BSW]],
     [Blind Spot Warning — Avertissement d'angle mort],
+
+    [#text(weight: "bold")[callback]],
+    [Fonction appelée automatiquement lors d'un événement, par exemple pour tracer un appel LLM],
 
     [#text(weight: "bold")[CDC]],
     [Cahier des charges — Document de spécification du projet],
 
+    [#text(weight: "bold")[checkpointer]],
+    [Composant LangGraph chargé de sauvegarder l'état du graphe pendant l'exécution],
+
     [#text(weight: "bold")[CI/CD]],
     [Continuous Integration / Continuous Deployment — Intégration et déploiement continus],
+
+    [#text(weight: "bold")[CPU]],
+    [Central Processing Unit — Processeur utilisé comme indicateur système dans le monitoring],
+
+    [#text(weight: "bold")[cross-session]],
+    [Mémoire ou information persistante réutilisable entre plusieurs sessions d'exécution],
+
+
+    [#text(weight: "bold")[Design Science Research]],
+    [Méthodologie de recherche consistant à concevoir, évaluer et améliorer un artefact],
+
+  
+
+    [#text(weight: "bold")[embeddings]],
+    [Représentations vectorielles de textes utilisées pour la recherche sémantique],
+
+    [#text(weight: "bold")[endpoint]],
+    [Point d'accès exposé par une API pour réaliser une action spécifique],
+
+ 
 
     [#text(weight: "bold")[ESC]],
     [Electronic Stability Control — Contrôle électronique de stabilité],
 
+   
+
     [#text(weight: "bold")[FCW]],
     [Forward Collision Warning — Avertissement de collision frontale],
+
+    [#text(weight: "bold")[flow table]],
+    [Table décrivant les flux, transitions ou conditions utiles à l'analyse des exigences],
+
+    [#text(weight: "bold")[framework]],
+    [Cadre logiciel fournissant des composants et abstractions pour développer une application],
+
+    [#text(weight: "bold")[frame]],
+    [Image individuelle extraite d'une vidéo],
+
+
+    [#text(weight: "bold")[frontend]],
+    [Interface utilisateur permettant l'interaction avec le système],
 
     [#text(weight: "bold")[GenAI]],
     [Generative Artificial Intelligence — Intelligence artificielle générative],
 
+   
+
+    [#text(weight: "bold")[HITL]],
+    [Human-in-the-Loop — Mécanisme intégrant une revue humaine dans le pipeline],
+
     [#text(weight: "bold")[HMI]],
     [Human-Machine Interface — Interface homme-machine],
+    
+    [#text(weight: "bold")[JSON]],
+    [JavaScript Object Notation — Format léger d'échange de données structurées],
 
     [#text(weight: "bold")[JWT]],
     [JSON Web Token — Jeton d'authentification web],
+
+
+    [#text(weight: "bold")[LangGraph]],
+    [Framework d'orchestration permettant de construire des graphes agentiques avec état persistant],
 
     [#text(weight: "bold")[LKA]],
     [Lane Keeping Assist — Aide au maintien de voie],
 
     [#text(weight: "bold")[LLM]],
     [Large Language Model — Grand modèle de langage],
+
+    [#text(weight: "bold")[LLMOps]],
+    [Pratiques d'observabilité, monitoring et gestion des applications basées sur des LLM],
+
+  
+    [#text(weight: "bold")[middleware]],
+    [Composant intermédiaire interceptant les requêtes pour ajouter des traitements transverses],
+
+   
+
+    [#text(weight: "bold")[pipeline]],
+    [Chaîne de traitement qui orchestre l'analyse, la génération, l'évaluation et la sortie],
+
+
+
+    [#text(weight: "bold")[prompt]],
+    [Instruction structurée envoyée à un modèle de langage],
+
+ 
+
+    [#text(weight: "bold")[reverse proxy]],
+    [Serveur intermédiaire redirigeant les requêtes vers les services internes appropriés],
+
+    [#text(weight: "bold")[semaphore]],
+    [Mécanisme de contrôle de concurrence limitant le nombre de tâches parallèles],
+
+
+
+    [#text(weight: "bold")[Time Travel]],
+    [Mécanisme LangGraph permettant de revenir à un état ou nœud antérieur du graphe],
+
+ 
+
+    [#text(weight: "bold")[tokens]],
+    [Unités de texte consommées ou générées par un modèle de langage],
+
+    [#text(weight: "bold")[Txt2Sce]],
+    [Méthode inspirant la construction de scénarios à partir de descriptions textuelles],
+
+  
+
+    
   ))
 
   #pagebreak()
 ]
-``
 
 
 // =====================================================

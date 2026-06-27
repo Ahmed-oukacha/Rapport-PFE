@@ -418,15 +418,15 @@ L'ingénierie des prompts traditionnelle consiste à formuler des instructions c
 #v(0.6em)
 Pour ce projet, nous avons adopté le framework * (MISBAH)* , un cadre méthodologique en cinq étapes pour la construction de contextes LLM de haute qualité :
 #v(0.6em)
-+ * Le Principe* — alignement de l'intention : définir l'objectif stratégique unique que le modèle doit poursuivre, élevant la qualité de « statistiquement probable » à « stratégiquement ciblé ».
++ * Le Principe* : alignement de l'intention : définir l'objectif stratégique unique que le modèle doit poursuivre, élevant la qualité de « statistiquement probable » à « stratégiquement ciblé ».
 
-+ *La Formulation* — amorçage comportemental (_behavioral priming_) : activer les réseaux neuronaux du modèle associés à un profil d'expert spécifique, reproduisant non seulement ses connaissances mais son mode de raisonnement.
++ *La Formulation* : amorçage comportemental (_behavioral priming_) : activer les réseaux neuronaux du modèle associés à un profil d'expert spécifique, reproduisant non seulement ses connaissances mais son mode de raisonnement.
 
-+ *Le Protocole* — raisonnement structuré (_chain-of-thought_) : imposer des étapes analytiques strictes et séquentielles pour réduire les erreurs logiques et améliorer la cohérence.
++ *Le Protocole* : raisonnement structuré (_chain-of-thought_) : imposer des étapes analytiques strictes et séquentielles pour réduire les erreurs logiques et améliorer la cohérence.
 
-+ *Les Standards* — guidage négatif : spécifier explicitement les comportements interdits, éliminant des catégories entières de sorties faibles.
++ *Les Standards* : guidage négatif : spécifier explicitement les comportements interdits, éliminant des catégories entières de sorties faibles.
 
-+ *Le Résultat* — format de sortie : définir la structure exacte attendue pour garantir des résultats cohérents et exploitables par le code.
++ *Le Résultat* : format de sortie : définir la structure exacte attendue pour garantir des résultats cohérents et exploitables par le code.
 
 L'application de ce framework aux prompts du projet a démontré des améliorations significatives, notamment la réduction des descriptions vides de 52\% à 0\% et l'élimination complète des erreurs de formatage.
 

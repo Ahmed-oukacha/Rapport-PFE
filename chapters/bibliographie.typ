@@ -138,28 +138,40 @@
 
 #import "../components.typ": *
 
-#set page(header: [])
+#set page(
+  header: [],
+)
 
-#place(
-  top + left,
-  dx: -2.2cm,
-  dy: -2cm,
-)[
-  #rect(
-    width: 1cm,
-    height: 120%,
-    fill: rgb("#70b2ca15"),
-  )
-]
-
-#frontmatter-banner("Bibliographie")
-
-#v(0.5cm)
+#v(1.2cm)
 
 #set par(first-line-indent: 0pt)
-#set text(size: 10.5pt)
+#set text(
+  font: "Times New Roman",
+  size: 10pt,
+)
+
+// Titre simple comme dans l'exemple
+#align(left)[
+  #text(
+    size: 20pt,
+    weight: "bold",
+    fill: rgb("#111827"),
+  )[Bibliographie]
+]
+
+#v(0.45cm)
+
+// Ligne orange
+#line(
+  length: 100%,
+  stroke: 2pt + rgb("#E87722"),
+)
+
+#v(0.75cm)
 
 // Bibliographie dynamique
+#set text(size: 8.8pt)
+
 #bibliography(
   "../references.bib",
   style: "ieee",
