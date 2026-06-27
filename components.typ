@@ -5579,6 +5579,13 @@ CHAIMAE EL MAJJATI
       table.cell(fill: ENIADLightBlue.lighten(80%))[
         Le système doit supporter plusieurs utilisateurs simultanément avec isolation des données.
       ],
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
+        #text(weight: "bold", fill: ENIADBlue)[BF11]
+      ],
+      table.cell(fill: ENIADLightBlue.lighten(80%))[
+        L'utilisateur peut consulter les résultats et obtenir une explication de ceux-ci ainsi que des modifications apportées au système via un chatbot.
+      ],
+      
     ),
     [Liste des besoins fonctionnels],
   )
