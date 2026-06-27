@@ -5654,7 +5654,7 @@ CHAIMAE EL MAJJATI
 #let eniad-chapter(number, title) = [
   #pagebreak(weak: true)
 
-  #place(bottom + left)[
+  #place(bottom + left, dy: 1.5cm)[
     #block(width: 100%)[#report-footer]
   ]
 
