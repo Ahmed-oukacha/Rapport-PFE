@@ -1358,51 +1358,6 @@ Un décorateur *`"log_node"`* enveloppe chaque nœud du graphe. Il enregistre au
 
 Les logs structurés alimentent également les métriques Prometheus : le décorateur incrémente les compteurs de durée et d'erreurs à chaque exécution de nœud, assurant la cohérence entre les deux sources d'information.
 
-#intro-section[Sécurité et résilience]
-
-Un système destiné à traiter des exigences fonctionnelles de sécurité automobile ne peut se permettre de négliger sa propre sécurité. Cette section présente les mécanismes mis en place pour protéger les données, garantir la disponibilité, et assurer l'isolation entre utilisateurs.
-#intro-subsection[Flux d'écriture et de lecture]
-
-Le cycle de vie des connaissances suit deux chemins distincts :
-
-*Écriture* : Après chaque revue humaine, le nœud `"process_review"` extrait les feedbacks des cas rejetés. Chaque feedback est classifié (applicatif ou utilisateur), vérifié contre les doublons existants, puis stocké dans le niveau approprié. Un événement épisodique est simultanément enregistré.
-
-*Lecture* : Avant chaque génération, le nœud `"plan_single_req"` interroge les trois niveaux de mémoire. Les connaissances pertinentes sont formatées en une section dédiée du prompt, précédée d'une instruction explicite : « applique toutes les règles et préférences ci-dessous ».
-
-#intro-section[Architecture d'observabilité]
-
-Un système qui fait appel à des modèles de langage externes introduit une part d'imprévisibilité que les applications traditionnelles ne connaissent pas. Un prompt qui fonctionnait hier peut produire des résultats différents aujourd'hui. Un appel API peut échouer sans raison apparente. Pour maîtriser cette complexité, **`"ADAS-R2T"`** met en place trois piliers d'observabilité complémentaires.
-
-#intro-subsection[Traçage LLM *`"Langfuse"`*]
-
-Langfuse est une plateforme open source spécialisée dans le suivi des applications basées sur des modèles de langage. Chaque appel LLM effectué par le pipeline est automatiquement tracé : le prompt envoyé, la réponse reçue, le nombre de tokens consommés, la durée de l'appel, et le modèle utilisé.
-
-Ce niveau de détail permet d'identifier les prompts qui produisent des résultats insatisfaisants, de mesurer les coûts par exécution, et de comparer les performances entre différents modèles. Lorsqu'un cas de test généré est rejeté par l'utilisateur, l'équipe peut remonter dans Langfuse jusqu'au prompt exact qui l'a produit et comprendre pourquoi.
-
-L'intégration est transparente : un callback LangChain enregistre automatiquement chaque interaction sans modifier le code des nœuds. La fonctionnalité s'active ou se désactive par simple configuration `"LANGFUSE_ENABLED"`.
-
-#intro-subsection[Métriques opérationnelles ]
-
-Prometheus collecte les métriques quantitatives du système à intervalles réguliers. Un middleware instrumente chaque requête HTTP, et des compteurs dédiés suivent les indicateurs spécifiques au pipeline :
-
-- Nombre de pipelines exécutés, par mode et par statut (terminé, échoué, en pause).
-- Durée d'exécution de chaque nœud du graphe.
-- Nombre et durée des appels LLM, par fournisseur et par modèle.
-- Décisions HITL : nombre d'approbations, de rejets, et de suppressions.
-- Opérations mémoire : écritures, lectures, et doublons évités.
-- Taux d'erreur par nœud et par type d'exception.
-
-Grafana consomme ces métriques et les restitue sous forme de tableaux de bord. Le dashboard « `"ADAS-R2T Pipeline Monitor"` » offre une vue en temps réel organisée en sections : vue d'ensemble, performance par nœud, utilisation LLM, activité `"HITL"`, opérations mémoire, et santé de l'infrastructure.
-
-L'ensemble est déployé via `"Docker Compose"`. `"Node Exporter"` collecte les métriques système (`"CPU"`, mémoire, disque), tandis que `"PostgreSQL Exporter"` remonte les indicateurs de la base de données (connexions actives, temps de réponse des requêtes).
-
-#intro-subsection[Logging structuré *`"structlog"`*]
-
-Le troisième pilier est le logging structuré. Contrairement aux logs textuels classiques, `"structlog"` produit des logs au format `"JSON"` où chaque information est un champ exploitable : nom du nœud, durée d'exécution, identifiant de session, nombre de résultats.
-
-Un décorateur *`"log_node"`* enveloppe chaque nœud du graphe. Il enregistre automatiquement le début et la fin de l'exécution, la durée, et en cas d'erreur, le type d'exception et sa trace. Ce mécanisme ne nécessite aucune modification du code métier des nœuds : il suffit d'appliquer le décorateur.
-
-Les logs structurés alimentent également les métriques Prometheus : le décorateur incrémente les compteurs de durée et d'erreurs à chaque exécution de nœud, assurant la cohérence entre les deux sources d'information.
 
 #intro-section[Sécurité et résilience]
 

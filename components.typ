@@ -3915,8 +3915,12 @@
 #let pfeCompanyName = "Capgemini Engineering"
 #let pfeInternshipPeriod = "Février 2026 – Aout 2026"
 #let pfeDefenseDate = "Juillet 2026"
-#let pfeAcademicSupervisor = "Nom de l’encadrant académique"
-#let pfeIndustrialSupervisor = "Nom de l’encadrant industriel"
+#let pfeAcademicSupervisor = "EL IDRISSI MOURAD"
+#v(3cm)
+#let pfeIndustrialSupervisor = "AYMANE BENSLIMANE
+AWATIF ESHAIMI 
+CHAIMAE EL MAJJATI
+"
 
 // Mets ici les chemins de tes logos.
 // Si tu n’as pas encore les logos, mets none.
@@ -4273,11 +4277,11 @@
           inset: (x: 4pt, y: 4pt),
           stroke: none,
 
-          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[Nom du Professeur 1]],
+          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[LAMOUDAN TARIK]],
           [#text(size: 8.5pt, fill: ENIADGray)[Président du Jury]],
           [#text(size: 8.5pt, fill: ENIADGray)[ENIAD]],
 
-          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[Nom du Professeur 2]],
+          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[LABLOUL BOUCHRA]],
           [#text(size: 8.5pt, fill: ENIADGray)[Examinateur]],
           [#text(size: 8.5pt, fill: ENIADGray)[ENIAD]],
 
@@ -4285,9 +4289,13 @@
           [#text(size: 8.5pt, fill: ENIADGray)[Encadrant Académique]],
           [#text(size: 8.5pt, fill: ENIADGray)[ENIAD]],
 
-          [#text(size: 8.5pt, weight: "bold", fill: ENIADDark)[#pfeIndustrialSupervisor]],
-          [#text(size: 8.5pt, fill: ENIADGray)[Relevant de l'organisme d'accueil]],
-          [#text(size: 8.5pt, fill: ENIADGray)[#pfeCompanyName]],
+
+          [#v(0.5cm)
+            #text(size: 8.5pt, weight: "bold", fill: ENIADDark)[#pfeIndustrialSupervisor]],
+          [#v(1cm)
+            #text(size: 8.5pt, fill: ENIADGray)[Relevant de l'organisme d'accueil]],
+          [#v(1cm)
+            #text(size: 8.5pt, fill: ENIADGray)[#pfeCompanyName]],
         )
       ]
     ]
@@ -4450,7 +4458,13 @@
 
   #set page(
     header: [],
-    footer: [],
+    footer: context [
+      #align(center)[
+        #text(size: 10pt)[
+          #counter(page).display("i")
+        ]
+      ]
+    ],
   )
 
 
@@ -5194,7 +5208,7 @@
 ]
 
 #let sommaire-page() = [
-  #pagebreak(weak: true)
+  #set page(footer: frontmatter-footer)
   #navigation-page-title([Sommaire])
 
   #outline(
@@ -5208,11 +5222,14 @@
 
 #let liste-figures-page() = [
   #pagebreak(weak: true)
+  #place(bottom + center)[
+    #context text(size: 9pt, fill: ENIADGray)[--- #counter(page).display("i") ---]
+  ]
   #navigation-page-title([Liste des figures])
 
   #outline(
     title: none,
-    target: figure,
+    target: figure.where(kind: image),
   )
 
   #pagebreak()
@@ -5220,14 +5237,15 @@
 
 #let liste-tableaux-page() = [
   #pagebreak(weak: true)
+  #place(bottom + center)[
+    #context text(size: 9pt, fill: ENIADGray)[--- #counter(page).display("i") ---]
+  ]
   #navigation-page-title([Liste des tableaux])
 
   #outline(
     title: none,
     target: figure.where(kind: table),
   )
-
-  #pagebreak()
 ]
 
 // ================================================// =====================================================
@@ -5248,9 +5266,9 @@
 ]
 
 #let liste-abreviations-page() = [
-  #pagebreak(weak: true)
+  #set page(footer: frontmatter-footer)
 
-  #navigation-page-title([Liste d’abréviations et mots-clés techniques])
+  #navigation-page-title([Liste d’abréviations ])
 
   #abbreviations-simple-list((
     [#text(weight: "bold")[ACC]],
@@ -5635,6 +5653,10 @@
 
 #let eniad-chapter(number, title) = [
   #pagebreak(weak: true)
+
+  #place(bottom + left)[
+    #block(width: 100%)[#report-footer]
+  ]
 
   // ✅ heading مخفي (فقط sommaire)
   #hide[

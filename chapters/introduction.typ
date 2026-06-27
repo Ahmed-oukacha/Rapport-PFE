@@ -537,7 +537,7 @@
 #import "../components.typ": *
 #set page(
   header: [],
-  footer: [],
+  footer: report-footer,
 )
 
 #set text(
@@ -740,8 +740,6 @@ C’est pourquoi les technologies d’intelligence artificielle, et plus particu
 Dans cette optique, notre projet de fin d’études, conçu au sein de Capgemini Engineering, vise à construire et développer une plateforme intelligente que nous avons nommée ADAS-R2T (Requirements to Tests). La plateforme vise à assister les ingénieurs ADAS en convertissant automatiquement les exigences fonctionnelles en plans de test et cas de test structurés, cohérents et traçables.
 
 Notre solution repose sur une approche d’IA multi-agents, où le travail est réparti entre un réseau d’agents numériques spécialisés. Chaque agent logiciel prend en charge une tâche spécifique, depuis l’analyse des exigences et l’extraction d’indicateurs jusqu’à la formulation des plans de test, l’évaluation de la couverture et l’amélioration des résultats. Cette approche dépasse la génération traditionnelle et s’inscrit dans une logique de planification, d’évaluation et d’auto-correction.
-
-Sur le plan structurel, ces modèles de langage sont intégrés au framework LangGraph pour gérer le dialogue et la coordination entre les agents. Nous avons également intégré le principe de Human-in-the-Loop afin que la décision finale revienne à l’expert humain. L’objectif n’est pas de remplacer l’ingénieur, mais de lui fournir un outil intelligent qui lui permette de gagner du temps tout en assurant un suivi précis entre l’exigence initiale et le test final généré.
 
 Techniquement, la plateforme repose sur une architecture logicielle flexible et évolutive, s’appuyant sur les services backend FastAPI et fonctionnant dans des conteneurs Docker pour faciliter son déploiement en milieu industriel. Elle est également optimisée par un système de surveillance et d’analyse continue des performances. La valeur ajoutée de ce travail réside dans la création d’un parcours intelligent intégré pour l’automatisation des tests ADAS, l’augmentation de la couverture fonctionnelle et la garantie d’un suivi complet des exigences, tout en préservant le rôle de la supervision humaine à l’ère de l’intelligence artificielle.
 

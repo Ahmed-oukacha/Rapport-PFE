@@ -380,6 +380,8 @@
 
 #pfe-title-page()
 
+#counter(page).update(1)
+
 #include "chapters/frontmatter/remerciements.typ"
 #include "chapters/frontmatter/resume.typ"
 #include "chapters/frontmatter/abstract.typ"
@@ -388,6 +390,8 @@
 #liste-figures-page()
 #liste-tableaux-page()
 #liste-abreviations-page()
+
+#counter(page).update(1)
 
 #include "chapters/introduction.typ"
 // #include "chapters/contex_projet.typ"
