@@ -1,32 +1,10 @@
 #import "../components.typ": *
 
-#set page(header: report-header, footer: report-footer)
-
-#v(1.2cm)
-
-#set text(
-  font: "Times New Roman",
-
+#eniad-chapter(
+  "5",
+  [Conclusion générale et perspectives]
 )
 
-// Titre simple comme dans l'exemple
-#align(left)[
-  #text(
-    size: 20pt,
-    weight: "bold",
-    fill: rgb("#111827"),
-  )[Conclusion générale et perspectives]
-]
-
-#v(0.45cm)
-
-// Ligne orange
-#line(
-  length: 100%,
-  stroke: 2pt + rgb("#E87722"),
-)
-
-#v(0.75cm)
 
 #set par(
   justify: true,
@@ -62,6 +40,7 @@ du système a été réalisé selon une approche Agile MVP en trois itérations 
 et observabilité).
 
 #pagebreak()
+#set page(header: report-header, footer: report-footer)
 #text(size: 15pt,
     weight: "bold",)[Bilan des résultats et limites de la solution]
 

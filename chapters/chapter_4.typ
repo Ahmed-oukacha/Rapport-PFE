@@ -1942,6 +1942,7 @@ tests/test_config.py::test_memory_config PASSED
 \
 #intro-section[Evaluation de la qualité des résultats]
 L'évolution des indicateurs de qualité à travers les trois versions livrées illustre la progression du système :
+
 #figure(
   block[
     #set text(
