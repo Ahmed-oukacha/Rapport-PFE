@@ -273,6 +273,10 @@ Dans le cadre de ce stage, les besoins suivants ont été identifiés en collabo
 #adas-r2t-usecase-diagram()
 
 #requirements-section-tables()
+\
+\
+\
+\
 #intro-section[ Méthodologie de Travail]
   
 
@@ -305,7 +309,10 @@ Pour inscrire ce travail dans une perspective scientifique, nous avons identifi�
  - le premier cycle, axé sur l'établissement du noyau de base du flux de travail, a consisté à définir les composants essentiels du système, à ajuster les mécanismes de réception des données d'entrée, à concevoir la logique de traitement et à définir la structure d'état qui régit le graphe. 
  - Le second cycle, consacré au raffinement et à l'amélioration, a porté sur le renforcement des mécanismes d'auto-vérification et d'autocontrôle au sein du graphe, ainsi que sur le renforcement de la logique de génération afin d'améliorer la qualité et la fiabilité des résultats finaux. Cette progression itérative illustre parfaitement la philosophie *DSR*, fondée sur la triade « Construire, Évaluer, Améliorer en continu ».\ 
  Enfin, la conception de cette solution n'était pas accidentelle, mais plutôt basée sur une double base de connaissances : un aspect technique lié à la physique de la construction de systèmes basés sur des graphes et des sorties régies par des états (Stateful Systems) dans l'environnement LangGraph, et un aspect industriel conforme aux exigences strictes et précises des tests de systèmes ADAS dans le secteur automobile.
-
+\
+\
+\
+\
 #intro-subsection[Planification du projet] 
 Afin de garantir le respect du calendrier de formation et une gestion efficace du temps, le projet a fait l'objet d'une planification par phases rigoureuse. Nous avons décomposé la feuille de route en tâches et sous-tâches plus petits planifiées a l'aide de *Notion app*, directement liés à chaque version des livrables initiaux *MVP*. Le diagramme suivant résume la séquence chronologique et les interrelations structurelles de ces tâches tout au long du projet :
 #v(0.6cm)

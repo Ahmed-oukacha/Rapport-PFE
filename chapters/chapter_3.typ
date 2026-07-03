@@ -976,7 +976,9 @@ Le schéma ci-dessus fait apparaître huit composants principaux, organisés aut
 Le cœur du système est un graphe d'exécution construit avec "LangGraph", le framework d'orchestration d'agents de "LangChain". Ce graphe définit l'enchaînement des dix-neuf nœuds de traitement, gère le parallélisme et assure la persistance de l'état entre les étapes. C'est lui qui décide quel nœud s'exécute, dans quel ordre, et comment les résultats circulent d'un agent à l'autre.
 
 Le choix de "LangGraph", plutôt qu'un enchaînement séquentiel de prompts, permet de bénéficier de mécanismes avancés : exécution parallèle via `"Send()"`, interruptions pour la revue humaine, retour arrière `"Time Travel"` sans perte de contexte, et reprise automatique après une panne.
-
+\
+\
+\
 #intro-subsection[Modèles de langage]
 
 Lors de la conception du système, une question pratique importante s'est posée : et si demain nous souhaitions utiliser un modèle de langage d'une autre entreprise que celle de départ ? Devrions-nous réécrire de larges pans du code ? C'était un véritable problème, car chaque fournisseur de services avait sa propre méthode de communication.
@@ -1178,6 +1180,9 @@ La première étape gère l'ingestion des fichiers fournis par l'utilisateur. Se
 
 - *extract and structure* : À partir des données brutes, ce nœud fait appel au LLM pour transformer le contenu des cellules en exigences structurées. Chaque exigence se voit attribuer un identifiant unique, un texte normalisé, et des métadonnées (variables, conditions, seuils). C'est ici que le passage du langage naturel à une représentation exploitable s'opère.
 #excel-branch-ingestion-graph()
+\
+\
+\
 #intro-subsection[Agent vidéo : analyse et mutations]
 
 Lorsque l'utilisateur fournit une vidéo de conduite, une branche parallèle s'active. Elle se compose de quatre nœuds :
@@ -1314,7 +1319,8 @@ Un système agentique qui ne retient rien de ses interactions passées reproduit
 Une règle fondamentale gouverne la cohabitation entre ces deux niveaux : une connaissance présente dans la mémoire applicative n'est jamais dupliquée dans la mémoire utilisateur. Cette règle évite la redondance et garantit qu'une règle partagée est modifiée en un seul endroit.
 
 - *Recherche sémantique* et gestion du contexte : La récupération des connaissances ne se fait pas de manière exhaustive. Lorsque le pipeline traite une exigence portant sur l'"ACC", il est inutile de lui rappeler des règles propres à l'AEB. La recherche s'appuie sur des embeddings vectoriels via pgvector pour identifier par similarité sémantique les connaissances pertinentes pour l'exigence en cours. Le volume de connaissances injectées dans le prompt est contrôlé dynamiquement. Le système calcule le budget disponible en fonction de la fenêtre de contexte du modèle utilisé et d'un ratio configurable `"MEMORY_CONTEXT_RATIO"`. Si les connaissances récupérées dépassent ce budget, elles sont automatiquement résumées par un appel LLM avant injection, préservant l'essentiel sans saturer le contexte.
-
+\
+\
 #intro-subsection[Flux d'écriture et de lecture]
 
 Le cycle de vie des connaissances suit deux chemins distincts :

@@ -135,17 +135,19 @@
 #intro-subsection[L'IA Générative]
 
 L’intelligence artificielle générative constitue une rupture importante par rapport aux approches classiques de l’IA. Les modèles traditionnels étaient principalement conçus pour accomplir des tâches d’analyse, de classification ou de prédiction, comme reconnaître un objet dans une image ou estimer une valeur à partir de données existantes.
-Les modèles génératifs introduisent une logique différente. Au lieu de se limiter à l’identification de catégories ou à la production de résultats prédictifs, ils apprennent les régularités profondes présentes dans les données d’entraînement. Cette capacité leur permet ensuite de générer de nouveaux contenus, qu’il s’agisse de texte, d’images, de code, d’audio ou d’autres formats numériques.
+Les modèles génératifs introduisent
+#set page(header: report-header, footer: report-footer)
+
+ une logique différente. Au lieu de se limiter à l’identification de catégories ou à la production de résultats prédictifs, ils apprennent les régularités profondes présentes dans les données d’entraînement. Cette capacité leur permet ensuite de générer de nouveaux contenus, qu’il s’agisse de texte, d’images, de code, d’audio ou d’autres formats numériques.
 Les grands modèles de langage, tels que *GPT-4, Claude ou Gemini*, représentent l’une des applications les plus visibles de cette évolution. Ils peuvent produire des documents structurés, résumer des textes volumineux, traduire entre plusieurs langues ou encore générer du code informatique.
 #v(0.6em)
 Toutefois, malgré leurs performances, ces modèles restent limités par une logique fondamentalement réactive : ils répondent à une consigne, produisent une sortie, puis interrompent leur action.
 Ils ne disposent donc pas, par défaut, d’une capacité d’initiative autonome. Ils ne surveillent pas continuellement les résultats obtenus, ne planifient pas spontanément une suite 
-#set page(header: report-header, footer: report-footer)
 d’actions et ne corrigent pas leurs erreurs sans nouvelle intervention humaine. Cette limite explique l’émergence progressive des agents intelligents, qui cherchent à dépasser le simple modèle conversationnel pour aller vers des systèmes capables d’observer, décider et agir de manière plus autonome.
 
 
 #intro-subsection[L'IA Agentique]
-L'IA Agentique représente l'étape suivante : le passage de la _création de contenu_ à l'_exécution d'objectifs_. Un agent IA ne reçoit pas une liste de tâches séquentielles — il reçoit un objectif de haut niveau et conduit autonomement le processus pour l'atteindre.
+L'IA Agentique représente l'étape suivante : le passage de la _création de contenu_ à l'_exécution d'objectifs_. Un agent IA ne reçoit pas une liste de tâches séquentielles il reçoit un objectif de haut niveau et conduit autonomement le processus pour l'atteindre.
 
 Cette transition repose sur quatre piliers fondamentaux :
 
@@ -429,8 +431,8 @@ Pour ce projet, nous avons adopté le framework * (MISBAH)* , un cadre méthodol
 + *Le Résultat* : format de sortie : définir la structure exacte attendue pour garantir des résultats cohérents et exploitables par le code.
 
 L'application de ce framework aux prompts du projet a démontré des améliorations significatives, notamment la réduction des descriptions vides de 52\% à 0\% et l'élimination complète des erreurs de formatage.
-
-
+\
+\
 #intro-section[Travaux connexes]
 
 La génération automatique de scénarios et de cas de test pour les systèmes ADAS/ADS constitue aujourd’hui un axe de recherche important, en raison de la complexité croissante des fonctions de conduite automatisée et de la difficulté de couvrir l’ensemble des situations de conduite possibles. Les travaux existants peuvent être regroupés en plusieurs familles : les approches fondées sur les scénarios et les critères de couverture, les méthodes exploitant les descriptions textuelles, les approches basées sur les grands modèles de langage, ainsi que les solutions industrielles alignées avec les standards ASAM.
@@ -613,6 +615,10 @@ Les travaux étudiés présentent des contributions complémentaires. Les approc
   ],
   caption: [Comparaison synthétique des travaux connexes liés à la génération de scénarios et de tests ADAS],
 ) <tab:travaux-connexes>
+\
+\
+\
+\
 #intro-subsection[Positionnement du projet ADAS-R2T]
 
 Au regard des travaux précédents, le projet *ADAS-R2T* se positionne à l’intersection de trois axes : l’ingénierie des exigences, la génération automatique de tests et l’orchestration agentique des workflows LLM.

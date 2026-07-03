@@ -5513,8 +5513,6 @@ CHAIMAE EL MAJJATI
     size: 10.5pt,
   )
 
-
-
   #requirements-table(
     [- Besoins fonctionnels],
     (1.6cm, 1fr),

@@ -1127,6 +1127,8 @@ Avec Docker, cette complexité disparaît derrière une seule *commande* :
 cd docker 
 docker compose up -d
 ```
+\
+\
 #intro-subsection[Le Dockerfile du pipeline]
 La construction de l'image Docker du pipeline suit une approche en couches, optimisée pour la vitesse de reconstruction :
 #codly(languages: codly-languages)
@@ -1688,6 +1690,9 @@ L'application web, construite avec `"Next.js 14"`, s'organise autour de quatre p
 - *Page de résultats (Bibliothèque).*: Elle regroupe l'ensemble des générations passées, organisées par projet et par date. Chaque entrée affiche le nombre de cas de test générés, le nombre de cycles de revue effectués, et permet de télécharger les différentes versions du fichier Excel . C'est depuis cette page que l'utilisateur peut réentrer en revue HITL via le bouton « Review ».
 
 - *Page de revue (`"HITL"`).*: C'est la page la plus riche en interactions. Les cas de test générés y sont présentés sous forme de tableau éditable. Pour chaque cas, l'utilisateur peut approuver, rejeter avec un commentaire, ou supprimer. Les modifications sont sauvegardées dans MongoDB, et lorsque l'utilisateur valide ses décisions, le `"frontend"` transmet les choix au `"pipeline"` IA pour régénération ou téléchargement.
+\
+\
+\
 #intro-subsection[Gestion des utilisateurs]
 L'accès à l'application est contrôlé par un système d'inscription avec approbation. Un nouvel utilisateur crée un compte, mais ne peut accéder au système qu'après validation par un administrateur. Ce mécanisme, géré entièrement par le `"backend BFF"`, garantit que seuls les membres autorisés de l'équipe utilisent l'outil.
 
@@ -2062,10 +2067,155 @@ Au-delà des chiffres, trois apports distinguent qualitativement *"ADAS-R2T"* du
 - Il reste le garant de la sécurité. Dans un domaine où les cas de test touchent à la sécurité des personnes, aucune génération automatique ne devrait être déployée sans revue humaine. Le `"HITL"` n'est pas une fonctionnalité optionnelle  c'est une responsabilité.
 
 Le système ne remplace donc pas l'ingénieur. Il le libère des tâches répétitives pour qu'il se concentre sur ce qui requiert véritablement son expertise : juger, prioriser, et décider.
+#intro-section[Limites et pistes d'amélioration]
+
+Un système honnête est un système qui connaît ses propres limites. Cette section ne cherche pas à masquer les faiblesses actuelles, mais à les présenter lucidement, en les inscrivant dans une trajectoire d'amélioration. Chaque limite identifiée ouvre une piste concrète pour les développements futurs.
+
+#intro-subsection[La dépendance aux "API LLM" externes]
+
+Le système repose actuellement sur des modèles de langage accessibles via des "API" externes ("OpenAI", "Google Gemini"). Cette dépendance introduit trois contraintes : un coût par exécution proportionnel au nombre d'appels, une latence variable soumise à la disponibilité des fournisseurs, et un risque d'indisponibilité en cas de panne de leur côté.
+
+
+Ce choix reste néanmoins assumé. S'appuyer sur des modèles éprouvés nous a permis d'atteindre rapidement un niveau de qualité élevé, sans investir dans une infrastructure d'inférence lourde. La piste d'amélioration est déjà amorcée : l'intégration de modèles locaux via "Ollama" permettra, à terme, une autonomie complète, au prix d'un compromis sur la qualité qu'il faudra évaluer.
+
+#intro-subsection[Les exigences matérielles]
+
+L'application est gourmande en ressources. L'orchestration de dix-neuf nœuds, la gestion de plusieurs bases de données, la pile de monitoring, et le traitement vidéo imposent une machine relativement puissante pour un fonctionnement fluide. Sur un poste modeste, le démarrage des sept conteneurs "Docker" et l'exécution simultanée de plusieurs "pipelines" peuvent saturer la mémoire et le processeur.
+
+Cette lourdeur est le revers d'une architecture complète et observable. Une piste d'optimisation consisterait à rendre certains services optionnels (par exemple, désactiver la pile de monitoring en environnement de développement), et à alléger l'empreinte mémoire des conteneurs. Un déploiement sur serveur dédié ou dans le cloud reste la solution la plus adaptée pour un usage en production.
+
+#intro-subsection[La taille du contexte transmis au "LLM"] 
+Pour générer des cas de test de qualité, le système enrichit chaque "prompt" de multiples couches de contexte : exigence structurée, résultats d'analyse, "flow table", observations vidéo, et mémoire à long terme. Cette richesse est la source de la qualité des résultats, mais elle a un coût : un contexte volumineux consomme davantage de "tokens", augmente la latence, et se rapproche des limites de la fenêtre de contexte des modèles.
+
+Le mécanisme de résumé dynamique atténue déjà ce problème en condensant la mémoire lorsqu'elle dépasse un certain seuil. Toutefois, une gestion plus fine du contexte ne transmettre que les informations strictement pertinentes pour chaque exigence, via une sélection plus agressive par recherche sémantique  permettrait de réduire la consommation de "tokens" sans sacrifier la qualité.
+
+#intro-subsection[La spécialisation sur la fonction "ACC"]
+Le système a été conçu, développé, et évalué principalement sur la fonction "ADAS" de régulateur de vitesse adaptatif "ACC". Les prompts, les analyseurs, la stratégie de couverture, et les règles de qualité ont été affinés pour ce cas d'usage, qui représente environ quatre-vingt-dix pour cent du travail de validation réalisé.
+
+Les autres fonctions "ADAS"  freinage d'urgence "AEB", maintien dans la voie "LKA", reconnaissance des panneaux "TSR"  n'ont pas encore fait l'objet de tests approfondis. Rien dans l'architecture ne s'oppose à leur prise en charge : le système est conçu pour être générique. Mais la qualité des cas de test générés pour ces fonctions n'a pas été validée par des experts, et il est probable que certains prompts et règles nécessitent des ajustements spécifiques.
+
+
+Cette spécialisation est un choix pragmatique de stage : plutôt que de couvrir superficiellement toutes les fonctions, nous avons préféré atteindre un niveau de maturité élevé sur une fonction représentative. L'extension aux autres fonctions constitue la suite naturelle du travail, et le principe d'un analyseur générique déjà présent dans le "pipeline" en facilite l'amorce.
+
+#intro-subsection[L'absence de tests de non-régression sur la qualité]
+
+Les tests automatisés couvrent la logique du système (authentification, revue, mémoire), mais pas la qualité intrinsèque des cas de test générés. Un changement de modèle "LLM", une modification de "prompt", ou une mise à jour de dépendance pourrait dégrader la qualité des résultats sans qu'aucune alerte ne se déclenche.
+
+La piste d'amélioration passe par des évaluations automatisées (via "DeepEval" ou un "framework" équivalent) qui mesureraient, à chaque modification, des critères de qualité sur un jeu de référence : pertinence, complétude, couverture des types de cas. Ce filet de sécurité garantirait qu'une amélioration apportée à un endroit ne cause pas de régression ailleurs.
+
+#intro-subsection[Synthèse] 
+
+Ces limites dessinent, en creux, la feuille de route des prochaines itérations. Elles ne remettent pas en cause la valeur du système dans son périmètre actuel  la génération de cas de test "ACC" de haute qualité  mais elles rappellent qu'un produit logiciel n'est jamais achevé. Il évolue, s'étend, et se raffine au contact de ses utilisateurs et de nouveaux cas d'usage.
+``
+
+#figure(
+  block[
+    #set text(
+      font: "Times New Roman",
+      size: 7.8pt,
+    )
+
+    #table(
+      columns: (4.7cm, 5.3cm, 6cm),
+      inset: (x: 5pt, y: 6pt),
+      stroke: none,
+      align: (left, left, left),
+
+      // Top rule
+      table.hline(stroke: 0.8pt + black),
+
+      // Header
+      table.header(
+        table.cell(fill: rgb("#DCE6F1"))[
+          #align(center)[
+            #text(weight: "bold", fill: ENIADBlue)[Limite]
+          ]
+        ],
+        table.cell(fill: rgb("#DCE6F1"))[
+          #align(center)[
+            #text(weight: "bold", fill: ENIADBlue)[Impact]
+          ]
+        ],
+        table.cell(fill: rgb("#DCE6F1"))[
+          #align(center)[
+            #text(weight: "bold", fill: ENIADBlue)[Piste d’amélioration]
+          ]
+        ],
+      ),
+
+      // Mid rule
+      table.hline(stroke: 0.45pt + black),
+
+      // Row 1
+      [
+        #text(weight: "bold", fill: ENIADBlue)[Dépendance aux API LLM]
+      ],
+      [
+        Coût par exécution, latence variable, indisponibilité possible.
+      ],
+      [
+        Modèles locaux via Ollama \(déjà amorcé\).
+      ],
+
+      // Row 2
+      table.cell(fill: rgb("#F3F8FC"))[
+        #text(weight: "bold", fill: ENIADBlue)[Exigences matérielles]
+      ],
+      table.cell(fill: rgb("#F3F8FC"))[
+        Application lourde : 7 conteneurs, vidéo et monitoring peuvent saturer un poste modeste.
+      ],
+      table.cell(fill: rgb("#F3F8FC"))[
+        Services optionnels, allègement mémoire et déploiement cloud.
+      ],
+
+      // Row 3
+      [
+        #text(weight: "bold", fill: ENIADBlue)[Taille du contexte LLM]
+      ],
+      [
+        Contexte volumineux : plus de tokens, latence accrue et limite de fenêtre.
+      ],
+      [
+        Sélection sémantique plus fine et résumé dynamique renforcé.
+      ],
+
+      // Row 4
+      table.cell(fill: rgb("#F3F8FC"))[
+        #text(weight: "bold", fill: ENIADBlue)[Spécialisation ACC \(>90%\)]
+      ],
+      table.cell(fill: rgb("#F3F8FC"))[
+        Les autres fonctions \(AEB, LKA, TSR\) ne sont pas encore testées ni validées par experts.
+      ],
+      table.cell(fill: rgb("#F3F8FC"))[
+        Extension via l’analyseur générique déjà présent.
+      ],
+
+      // Row 5
+      [
+        #text(weight: "bold", fill: ENIADBlue)[Pas de non-régression qualité]
+      ],
+      [
+        Un changement de modèle ou de prompt peut dégrader les résultats sans alerte.
+      ],
+      [
+        Évaluations automatisées \(DeepEval\) sur un jeu de référence.
+      ],
+
+      // Bottom rule
+      table.hline(stroke: 0.8pt + black),
+    )
+  ],
+  caption: [Limites identifiées et pistes d’amélioration du système ADAS-R2T],
+  kind: table,
+) <tab:limites-pistes-amelioration>
 
 
 #intro-section[Difficultes rencontrees et solutions]
 Aucun projet de développement ne se déroule comme prévu. Celui-ci ne fait pas exception. Les difficultés rencontrées n'ont pas été de simples bugs à corriger : elles ont parfois remis en question des choix d'architecture, révélé des incompatibilités entre outils, ou mis en lumière des subtilités du `"framework"` qui n'apparaissent dans aucune documentation. Cette section en retrace les plus significatives, non par exhaustivité, mais parce qu'elles illustrent la réalité du développement d'un système agentique.
+\
+\
+\
+\
 #intro-subsection[Synthèse des difficultés]
 #figure(
   block[
