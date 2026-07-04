@@ -158,6 +158,7 @@ Cette transition repose sur quatre piliers fondamentaux :
 - *La planification : * l’agent décompose un objectif complexe en étapes plus simples et plus concrètes. Il peut proposer plusieurs plans possibles, comparer leurs avantages et leurs limites, puis sélectionner la stratégie la plus adaptée selon les ressources disponibles, les risques, les coûts et les contraintes de départ.
 #v(0.6em)
 - *Le raisonnement : * l’agent ne se limite pas à exécuter des actions. Il analyse les informations, compare les options, interprète les résultats intermédiaires et choisit les décisions les plus pertinentes.
+ce paradigme associant raisonnement et action est formalisé dans l'approche ReAct @Yao2023ReAct.
 #v(0.6em)
 - *L'adaptabilité : * Lorsqu'un événement imprévu survient ou qu'une stratégie ne donne pas les résultats escomptés, l'agent peut adapter son plan. Il peut modifier sa tactique, proposer une alternative ou solliciter une intervention humaine. L'important est de rester fidèle à l'objectif principal, même face à l'évolution de la situation.
 #v(0.6em)
@@ -424,7 +425,7 @@ Pour ce projet, nous avons adopté le framework * (MISBAH)* , un cadre méthodol
 
 + *La Formulation* : amorçage comportemental (_behavioral priming_) : activer les réseaux neuronaux du modèle associés à un profil d'expert spécifique, reproduisant non seulement ses connaissances mais son mode de raisonnement.
 
-+ *Le Protocole* : raisonnement structuré (_chain-of-thought_) : imposer des étapes analytiques strictes et séquentielles pour réduire les erreurs logiques et améliorer la cohérence.
++ *Le Protocole* : raisonnement structuré (_chain-of-thought_) @Wei2022CoT : imposer des étapes analytiques strictes et séquentielles pour réduire les erreurs logiques et améliorer la cohérence.
 
 + *Les Standards* : guidage négatif : spécifier explicitement les comportements interdits, éliminant des catégories entières de sorties faibles.
 
@@ -441,7 +442,7 @@ La génération automatique de scénarios et de cas de test pour les systèmes A
 
 La validation des systèmes avancés d’aide à la conduite et des systèmes de conduite automatisée repose de plus en plus sur le *scenario-based testing*. Cette approche consiste à évaluer le comportement du système sous test dans des situations représentatives de l’environnement réel, incluant l’infrastructure routière, les acteurs dynamiques, les conditions météorologiques et les interactions entre véhicules.
 #v(0.6em)
-Dans ce contexte, la norme *SOTIF* (*Safety of the Intended Functionality*, ISO 21448) souligne l’importance de générer des suites de scénarios capables de couvrir l’espace opérationnel du système tout en identifiant les situations potentiellement dangereuses. Cependant, plusieurs travaux montrent que la norme ne définit pas précisément comment sélectionner les scénarios, comment mesurer leur couverture, ni comment évaluer leur capacité à révéler des défaillances. Cette limite rend son application pratique difficile dans des environnements industriels complexes.
+Dans ce contexte, la norme *SOTIF* (*Safety of the Intended Functionality*, ISO 21448) @ISO21448 souligne l’importance de générer des suites de scénarios capables de couvrir l’espace opérationnel du système tout en identifiant les situations potentiellement dangereuses. Cependant, plusieurs travaux montrent que la norme ne définit pas précisément comment sélectionner les scénarios, comment mesurer leur couverture, ni comment évaluer leur capacité à révéler des défaillances. Cette limite rend son application pratique difficile dans des environnements industriels complexes.
 #v(0.6em)
 Des travaux récents proposent donc d’utiliser des modèles de variabilité, des stratégies de sampling et des critères de couverture pour représenter l’espace des scénarios et générer des suites de tests plus efficaces. Par exemple, les approches combinatoires permettent de couvrir systématiquement différentes interactions entre entités de scénario, tandis que les stratégies de *selective sampling* tiennent compte de la complexité des scénarios. L’évaluation par *mutation testing* permet ensuite d’estimer la capacité d’une suite de scénarios à détecter des fautes potentielles dans le système sous test @birkemeyer_scenario_generation.
 #v(0.6em)

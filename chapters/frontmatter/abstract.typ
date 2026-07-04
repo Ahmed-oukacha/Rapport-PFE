@@ -23,22 +23,22 @@ The architecture leverages the power of large language models LLMs and uses the 
 
   #v(0.6em)
 
-  The results show that integrating artificial intelligence with human supervision significantly improves productivity while ensuring reliable and standardized testing.
+The results show that integrating AI with context engineering and human supervision increases the acceptance rate of test cases from 52% to 86% between the first and last iterations, while reducing generation time from several minutes to a few seconds.
 
     #keywords-box(
       [Keywords],
       [
-        [Agentic AI],
-  [ADAS],
-  [Large Language Models],
-  [LangGraph],
-  [Human-in-the-Loop],
-  [Agent Memory],
-  [Test Plan Generation],
-  [Test Case Generation],
-  [FastAPI],
-  [Docker],
-  [Grafana],
+        Agentic AI,
+  ADAS,
+  Large Language Models,
+  LangGraph,
+  Human-in-the-Loop,
+  Agent Memory,
+  Test Plan Generation,
+  Test Case Generation,
+  FastAPI,
+  Docker,
+  Grafana,
       ],
     )
   ],

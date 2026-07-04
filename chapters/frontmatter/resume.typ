@@ -30,9 +30,7 @@
 
   #v(0.6em)
 
-  Les résultats montrent que l'intégration de l'intelligence artificielle avec la 
-  supervision humaine permet d'améliorer significativement la productivité tout en 
-  garantissant des tests fiables et standardisés.
+  Les résultats montrent que l'intégration de l'IA avec le contexte enginnering et  supervision humaine fait passer le taux d'acceptation des cas de test de 52 % à 86 % entre les premières et dernières itérations, tout en réduisant le temps de génération de plusieurs minutes à quelques secondes.
 
     #keywords-box(
       [Mots-clés],

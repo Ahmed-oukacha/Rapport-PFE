@@ -8075,7 +8075,7 @@ line(
       })
     ]
   ],
-  caption: [Agent 3 Analyse sémentique],
+  caption: [Agent 2 Analyse sémentique],
 )
 
 
@@ -9142,7 +9142,7 @@ pill-node(
       })
     ]
   ],
-  caption: [Agent 4 Workfolows],
+  caption: [Agent 4 Workflows],
 )
 
 #let hitl-time-travel-cycle-diagram() = figure(
@@ -9652,15 +9652,15 @@ des versions])
         usecase(27.05,16.85,7.8,2,[Approuver])
         usecase(37.45,16.85,8.2,2,[Rejeter])
         usecase(27.05,12.25,7.8,2,[Supprimer])
-        usecase(37.45,12.25,8.2,2,[Regenerer rejetes])
-        usecase(32.25,9.25,13.8,2,[Regenerer global])
+        usecase(37.45,12.25,8.2,2,[Regénérer rejetés])
+        usecase(32.25,9.25,13.8,2,[Regénérer global])
 
         // =========================
         // Admin
         // =========================
-        usecase(49.65,11.15,8.9,2,[Gerer utilisateurs])
+        usecase(49.65,11.15,8.9,2,[gérer utilisateurs])
         usecase(49.65,8.05,8.9,2,[Approuver inscriptions])
-        usecase(49.65,4.95,8.9,2,[Consulter metriques])
+        usecase(49.65,4.95,8.9,2,[Consulter métriques])
 
         // =========================
         // Actors

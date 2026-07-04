@@ -1003,7 +1003,7 @@ Le système exploite `"PostgreSQL"` pour deux fonctions distinctes de mémoire :
 
 La *mémoire de session* (courte durée) est assurée par le checkpointer de LangGraph. À chaque étape du pipeline, l'état complet est sauvegardé dans PostgreSQL sous forme de checkpoint chiffré `"AES"`. Ce mécanisme rend possible l'interruption pour revue humaine, le retour arrière (`"Time Travel"`), et la reprise après panne sans perte de travail.
 
-La *mémoire à long terme* `"cross-session"` stocke les connaissances acquises au fil des utilisations. Elle se décline en trois portées : sémantique applicative règles partagées par tous les utilisateurs, sémantique utilisateur préférences individuelles, et épisodique historique des revues. La recherche dans cette mémoire s'appuie sur des `"embeddings"` vectoriels `"pgvector"` pour retrouver les connaissances pertinentes par similarité sémantique.
+La *mémoire à long terme* `"cross-session"` stocke les connaissances acquises au fil des utilisations. Elle se décline en trois portées : sémantique applicative règles partagées par tous les utilisateurs, sémantique utilisateur préférences individuelles, et épisodique historique des revues. La recherche dans cette mémoire s'appuie sur des `"embeddings"` vectoriels `"pgvector"` pour retrouver les connaissances pertinentes par similarité sémantique par similarité sémantique, selon le principe de la génération augmentée par récupération (RAG) @Lewis2020RAG.
 
 #intro-subsection[Observabilité Langfuse, Prometheus, Grafana)]
 

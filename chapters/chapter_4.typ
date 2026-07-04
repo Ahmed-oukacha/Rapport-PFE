@@ -1167,7 +1167,7 @@ Le fichier `"docker-compose.yml"` déclare sept services qui forment l'écosyst�
     )
 
     #table(
-      columns: (2.6cm, 4cm, 2.5cm, 7.2cm),
+      columns: (2.6cm, 4cm, 2.5cm, 7cm),
       inset: (x: 4pt, y: 5pt),
       stroke: none,
       align: (left, left, center, left),
@@ -1403,7 +1403,7 @@ Les variables se répartissent en plusieurs familles :
   kind: table,
 ) <tab:env-variable-families>
 #v(2cm)
-#intro-section[Integration avec le frontend]
+#intro-section[Intégration avec le frontend]
 Le pipeline IA ne fonctionne pas en isolation. Il s'inscrit dans un écosystème plus large où un frontend permet aux utilisateurs d'interagir avec le système, et un backend intermédiaire fait le lien entre les deux. Cette intégration, réalisée en coordination avec un collègue chargé du `"frontend"` et du `"backend BFF"`, a nécessité un travail de spécification rigoureux pour que les deux parties puissent avancer en parallèle sans se bloquer mutuellement.
 #intro-subsection[Le contrat API comme point de coordination]
 Dès le début du projet, un principe a été posé : les deux équipes ne partagent ni code ni base de données. Le seul lien entre elles est un document de spécification  l'API Contract qui décrit avec précision chaque point d'accès exposé par le pipeline : l'`"URL"`, la méthode `"HTTP"`, le format des requêtes, le format des réponses, les codes d'erreur possibles, et des exemples concrets. Ce document a été rédigé, partagé, puis mis à jour à chaque évolution significative du pipeline. Il a servi de référence unique pour éviter les malentendus : quand le collègue avait une question sur le format d'une réponse, la réponse se trouvait dans le contrat, pas dans une conversation oubliée.
@@ -1715,7 +1715,7 @@ la documentation.
     width: 100%,
     
   ),
-  caption: [Page d'acceil],
+  caption: [Page d'accueil],
 ) <fig:Page_Acceil>
 #intro-subsection[Page d’authentification.]
 L’accès à la plateforme est protégé par un formulaire d’authentification. L’utilisateur saisit son
@@ -1830,8 +1830,8 @@ Excel .
       ],
     )
   ],
-  caption: [pages de géneration],
-) <fig:pages_de_géneration>
+  caption: [pages de génération],
+) <fig:pages_de_génération>
 
 #intro-section[Test et résultats]
 Ce chapitre confronte le système à la réalité. Après avoir décrit ce qui a été conçu et construit, il est temps de mesurer ce qui fonctionne, ce qui ne fonctionne pas encore, et ce que les utilisateurs en pensent. Les résultats présentés ici couvrent les tests automatisés, les validations fonctionnelles bout en bout, les retours des experts métier, et les métriques de performance.
@@ -1918,8 +1918,10 @@ Tester un système agentique pose un défi particulier : les sorties ne sont pas
 ) <tab:test-levels>
 
 Les tests unitaires et d'intégration s'exécutent automatiquement dans le `"pipeline CI"` via `"GitHub Actions"`, à chaque commit. Les tests fonctionnels sont réalisés manuellement car ils nécessitent des appels réels aux `"API LLM"` et ne peuvent pas s'exécuter dans un environnement isolé. Un principe important guide l'ensemble : les tests ne doivent jamais dépendre de services externes. Les appels LLM sont simulés par des `"mocks"`, la base PostgreSQL est remplacée par des variables vides,
-#intro-subsection[Résultats]
-L'execution de la suite de tests produit le resultat suivant :
+#intro-subsection[Résultats des tests automatisés]
+La suite de tests automatisés s'exécute à chaque commit via GitHub Actions. Elle valide la logique applicative du système — authentification, configuration, logique de revue et gestion de la mémoire — de manière totalement isolée : les appels aux modèles de langage sont simulés par des mocks et la base de données est remplacée par un environnement de test.
+\
+\
 #codly(languages: codly-languages)
 ```shell-unix-generic
 $ uv run pytest tests/ -v
@@ -1942,11 +1944,16 @@ tests/test_config.py::test_context_windows_defined PASSED
 
 tests/test_config.py::test_memory_config PASSED
 
-==================== 8 passed, 35 skipped, 71 warnings =================
+==================== 20 passed, 5 skipped, 71 warnings =================
 ```
-\
-#intro-section[Evaluation de la qualité des résultats]
-L'évolution des indicateurs de qualité à travers les trois versions livrées illustre la progression du système :
+Les tests marqués skipped ne sont pas des tests en échec : ils correspondent aux scénarios qui nécessitent un appel réel à une API LLM et ne peuvent donc s'exécuter dans un environnement isolé. Ces scénarios sont couverts manuellement lors des tests fonctionnels de bout en bout et de l'évaluation de qualité présentée ci-dessous.
+
+#intro-subsection[Évaluation de la qualité des cas de test générés]
+Les tests automatisés garantissent que le système fonctionne, mais non que les cas de test qu'il produit sont pertinents. Cette distinction est essentielle : un pipeline peut s'exécuter sans erreur tout en générant des cas de test inutiles. Nous avons donc mis en place un protocole d'évaluation dédié à la qualité des sorties.
+
+- *Jeu de référence*. Nous avons constitué un jeu d'évaluation (golden set) de *dix* exigences ACC représentatives, pour lesquelles l'équipe de validation avait préalablement établi les cas de test attendus. Ce corpus sert de référence stable pour comparer les versions successives du système.
+- *Protocole.* Chaque exigence du jeu de référence est soumise au pipeline. Les cas de test générés sont ensuite présentés à l'équipe de validation, qui classe chacun d'eux en trois catégories : accepté sans modification, accepté après retouche mineure, ou rejeté. L'indicateur principal retenu est le taux d'acceptation sans modification, car il reflète directement l'utilité opérationnelle des cas produits.
+- *Résultats.* L'évolution de cet indicateur à travers les itérations traduit la maturation du système :
 
 #figure(
   block[
@@ -1956,7 +1963,7 @@ L'évolution des indicateurs de qualité à travers les trois versions livrées 
     )
 
     #table(
-      columns: (7cm, 4.2cm, 5.2cm),
+      columns: (4cm, 6cm, 6cm),
       inset: (x: 5pt, y: 6pt),
       stroke: none,
       align: (left, center, center),
@@ -1968,17 +1975,17 @@ L'évolution des indicateurs de qualité à travers les trois versions livrées 
       table.header(
         table.cell(fill: rgb("#DCE6F1"))[
           #align(left)[
-            #text(weight: "bold", fill: ENIADBlue)[Métrique]
+            #text(weight: "bold", fill: ENIADBlue)[Version]
           ]
         ],
         table.cell(fill: rgb("#DCE6F1"))[
           #align(center)[
-            #text(weight: "bold", fill: ENIADBlue)[Manuel]
+            #text(weight: "bold", fill: ENIADBlue)[Améliorations principales]
           ]
         ],
         table.cell(fill: rgb("#DCE6F1"))[
           #align(center)[
-            #text(weight: "bold", fill: ENIADBlue)[ADAS R2T]
+            #text(weight: "bold", fill: ENIADBlue)[Taux d'acceptation sans modification]
           ]
         ],
       ),
@@ -1988,66 +1995,48 @@ L'évolution des indicateurs de qualité à travers les trois versions livrées 
 
       // Row 1
       [
-        #text(weight: "bold", fill: ENIADBlue)[Temps moyen par cas de test]
+        #text(weight: "bold", fill: ENIADBlue)[MVP 1]
       ],
       [
-        10 à 20 min
+        Pipeline de base Requirements → Tests avec Contexte initial
       ],
       [
-        ≈ 10,00 secondes 
+       52 %
       ],
 
       // Row 2
       table.cell(fill: rgb("#F3F8FC"))[
-        #text(weight: "bold", fill: ENIADBlue)[Couverture minimale par exigence]
+        #text(weight: "bold", fill: ENIADBlue)[MVP 2]
       ],
       table.cell(fill: rgb("#F3F8FC"))[
-        Variable
+        Ajout de l'analyse video + Amélioration du contexte basée sur le feedback expert
       ],
       table.cell(fill: rgb("#F3F8FC"))[
-        3 TC garantis
+        71%
       ],
 
       // Row 3
       [
-        #text(weight: "bold", fill: ENIADBlue)[Types de scénarios couverts]
+        #text(weight: "bold", fill: ENIADBlue)[MVP 3-5]
       ],
       [
-        Nominaux principalement
+        HITL + mémoire + auto-vérification + Amélioration du contexte basée sur le feedback expert
       ],
       [
-        Nominal, limites, négatif, rare
+        86%
       ],
 
-      // Row 4
-      table.cell(fill: rgb("#F3F8FC"))[
-        #text(weight: "bold", fill: ENIADBlue)[Traçabilité exigence → TC]
-      ],
-      table.cell(fill: rgb("#F3F8FC"))[
-        Manuelle
-      ],
-      table.cell(fill: rgb("#F3F8FC"))[
-        Automatique
-      ],
-
-      // Row 5
-      [
-        #text(weight: "bold", fill: ENIADBlue)[Reproductibilité]
-      ],
-      [
-        Dépendante de l’ingénieur
-      ],
-      [
-        déterministe
-      ],
+      
 
       // Bottom rule
       table.hline(stroke: 0.8pt + black),
     )
   ],
-  caption: [Comparaison entre la génération manuelle et la génération automatisée avec ADAS-R2T],
+  caption: [Résultats des cas de test générés par le système ADAS-R2T à travers les différentes versions .],
   kind: table,
-) <tab:manual-vs-adas-r2t>
+) <tab:Résultats-adas-r2t>
+#eniad-warning("Les résultats présentés dans cette section portent sur la fonction ACC, sur laquelle le système a été développé et validé. L'architecture est conçue pour être générique, mais son extension aux autres fonctions ADAS reste à valider")
+Le gain de 34 points entre la première et la dernière version s'explique principalement par le renforcement des mécanismes d'auto-vérification et par l'intégration de la boucle de feedback (HITL), qui réduit progressivement les rejets. La qualité est en outre contrôlée par une double validation systématique : huit vérifications fondées sur des règles métier, complétées par un pipeline d'évaluation sémantique mesurant la conformité aux exigences de référence.
 #intro-subsection[Ce que le système apporte de fondamentalement différent]
 Au-delà des chiffres, trois apports distinguent qualitativement *"ADAS-R2T"* du processus manuel.
 
@@ -2103,7 +2092,7 @@ Les tests automatisés couvrent la logique du système (authentification, revue,
 
 La piste d'amélioration passe par des évaluations automatisées (via "DeepEval" ou un "framework" équivalent) qui mesureraient, à chaque modification, des critères de qualité sur un jeu de référence : pertinence, complétude, couverture des types de cas. Ce filet de sécurité garantirait qu'une amélioration apportée à un endroit ne cause pas de régression ailleurs.
 
-#intro-subsection[Synthèse] 
+#intro-subsection[Synthèse des limites et pistes d’amélioration] 
 
 Ces limites dessinent, en creux, la feuille de route des prochaines itérations. Elles ne remettent pas en cause la valeur du système dans son périmètre actuel  la génération de cas de test "ACC" de haute qualité  mais elles rappellent qu'un produit logiciel n'est jamais achevé. Il évolue, s'étend, et se raffine au contact de ses utilisateurs et de nouveaux cas d'usage.
 ``
@@ -2210,7 +2199,7 @@ Ces limites dessinent, en creux, la feuille de route des prochaines itérations.
 ) <tab:limites-pistes-amelioration>
 
 
-#intro-section[Difficultes rencontrees et solutions]
+#intro-section[Difficultés rencontrées et solutions]
 Aucun projet de développement ne se déroule comme prévu. Celui-ci ne fait pas exception. Les difficultés rencontrées n'ont pas été de simples bugs à corriger : elles ont parfois remis en question des choix d'architecture, révélé des incompatibilités entre outils, ou mis en lumière des subtilités du `"framework"` qui n'apparaissent dans aucune documentation. Cette section en retrace les plus significatives, non par exhaustivité, mais parce qu'elles illustrent la réalité du développement d'un système agentique.
 
 #intro-subsection[Synthèse des difficultés]

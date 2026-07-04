@@ -50,7 +50,7 @@ de rédaction manuelle (médiane de 15 minutes) par un ingénieur V&V. Chaque ex
 par défaut au moins trois cas de test : un scénario nominal, un cas limite et un cas négatif; des
 variantes rares et des scénarios de mutation SOTIF s’y ajoutent lorsque la nature de l’exigence
 le justifie. Le taux d’acceptation initial sans modification par l’équipe de validation est passé de
-52 % au stade MVP1 à 71 % au stade final MVP3.
+52 % au stade MVP1 à 86 % au stade final MVP 5.
 La qualité des sorties est contrôlée par une double validation : huit vérifications basées sur des
 règles métier complétées par un pipeline d’évaluation sémantique validant la conformité par
 rapport à des exigences de référence (golden cases).
@@ -102,7 +102,7 @@ La plateforme ADAS R2T constitue une base fonctionnelle que plusieurs axes d’�
 peuvent enrichir.
 Extension aux normes connexes. Le pipeline est aujourd’hui centré sur les exigences ADAS
 au format Excel. Son architecture modulaire permet d’envisager une extension aux formats
-DO-178C (avionique), ISO 21434 (cybersécurité automobile) et SOTIF (ISO 21448), en
+DO-178C (avionique), ISO 21434 (cybersécurité automobile) et SOTIF (ISO 21448) @ISO26262, en
 adaptant les gabarits de prompts et les schémas Pydantic de sortie. Une telle généralisation
 ouvrirait la plateforme à d’autres équipes de la direction AIS.
 Constitution d’un corpus d’évaluation. Les sessions de génération en production accumulent
