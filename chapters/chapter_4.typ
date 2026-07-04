@@ -2212,10 +2212,7 @@ Ces limites dessinent, en creux, la feuille de route des prochaines itérations.
 
 #intro-section[Difficultes rencontrees et solutions]
 Aucun projet de développement ne se déroule comme prévu. Celui-ci ne fait pas exception. Les difficultés rencontrées n'ont pas été de simples bugs à corriger : elles ont parfois remis en question des choix d'architecture, révélé des incompatibilités entre outils, ou mis en lumière des subtilités du `"framework"` qui n'apparaissent dans aucune documentation. Cette section en retrace les plus significatives, non par exhaustivité, mais parce qu'elles illustrent la réalité du développement d'un système agentique.
-\
-\
-\
-\
+
 #intro-subsection[Synthèse des difficultés]
 #figure(
   block[
